@@ -11,7 +11,7 @@ require 'vendor/autoload.php';
 $router = new Router($_GET['url']);
 
 
-$router->get('/', function() {echo 'Hello world from the homepage !';});
+$router->get('/', "Posts#index");
 
 $router->get('/posts', "Posts#index");
 
