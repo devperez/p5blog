@@ -9,15 +9,13 @@ require 'vendor/autoload.php';
 
 
 $router = new Router($_GET['url']);
-//var_dump($_GET['url']);
-//var_dump($_REQUEST);
-//var_dump($_SERVER);
+
 
 $router->get('/', function() {echo 'Hello world from the homepage !';});
 
-$router->get('/posts', function() {echo 'Tous les articles';});
+$router->get('/posts', "Posts#index");
 
-$router->get('/posts/:id', function($id) {echo 'Afficher l\'article '. $id;});
+$router->get('/posts/:id', "Posts#show");
 
 $router->post('/posts/:id', function($id) {echo 'Modifier l\'article '. $id;});
 
