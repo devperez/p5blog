@@ -11,11 +11,11 @@ require 'vendor/autoload.php';
 $router = new Router($_GET['url']);
 
 
-$router->get('/', "Posts#index");
+$router->get('/', "Nav#homepage");
 
-$router->get('/posts', "Posts#index");
+$router->get('/posts', "Nav#index");
 
-$router->get('/posts/:id', "Posts#show");
+$router->get('/posts/:id', "Nav#show");
 
 $router->post('/posts/:id', function($id) {echo 'Modifier l\'article '. $id;});
 

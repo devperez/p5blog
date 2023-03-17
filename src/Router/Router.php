@@ -4,16 +4,16 @@ namespace David\Blogpro\Router;
 
 class Router
 {
-    private $url;
+    private string $url;
 
     private $routes = [];
 
-    public function __construct($url)
+    public function __construct(string $url)
     {
         $this->url = $url;
     }
 
-    public function get($path, $callable)
+    public function get(string $path, callable $callable)
     {
         $route = new Route($path, $callable);
         $this->routes['GET'][] = $route;
