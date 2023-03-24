@@ -23,7 +23,6 @@ class NavController extends Controller
     {
         $post = new Post($this->getDB());
         $post = $post->findById($id);
-
         $this->twig->display('/posts/show.html.twig', compact('post'));
     }
 }

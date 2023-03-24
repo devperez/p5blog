@@ -4,29 +4,39 @@ namespace David\Blogpro\Models;
 
 use David\Blogpro\Database\DBConnection;
 use PDO;
+use ReflectionClass;
 
+/**
+ * @template T
+ */
 abstract class Model
 {
-    protected $db;
-    protected $table;
-
-    public function __construct(DBConnection $db)
+    public function __construct(private readonly DBConnection $db)
     {
-        $this->db = $db;
     }
 
+    /**
+     * @return T[]
+     *
+     */
     public function all(): array
     {
-        $req = $this->db->getPDO()->query("SELECT * FROM {$this->table} ORDER BY created_at DESC");
+        $req = $this->db->getPDO()->query("SELECT * FROM {$this->getTableName() } ORDER BY created_at DESC");
         $req->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
         return $req->fetchAll();
     }
 
     public function findById(int $id): Model
     {
-        $req = $this->db->getPDO()->prepare("SELECT * FROM {$this->table} WHERE id = ?");
+        $req = $this->db->getPDO()->prepare("SELECT * FROM {$this->getTableName() } WHERE id = ?");
         $req->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
         $req->execute([$id]);
         return $req->fetch();
+    }
+
+    private function getTableName(): string
+    {
+        $shortName = (new ReflectionClass($this))->getShortName();
+        return strtolower($shortName);
     }
 }
