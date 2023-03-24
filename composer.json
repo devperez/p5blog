@@ -1,0 +1,21 @@
+{
+    "name": "david/blogpro",
+    "autoload": {
+        "psr-4": {
+            "David\\Blogpro\\": "src/",
+            "Database\\": "database/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David",
+            "email": "david.perez@upmycard.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.5.1"
+    },
+    "require-dev": {
+        "symplify/easy-coding-standard": "^11.2"
+    }
+}

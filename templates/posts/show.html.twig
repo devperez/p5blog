@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ceci est la page de l'article {{ id }} {% endblock %}
+
+{% block body %}
+
+<!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <h2>{{ post.title }}</h2>
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {{ post.content }}
+                    </div>
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                    <br>
+                        Publié par
+                        <a href="http://spaceipsum.com/">{{post.author}}</a>
+                        &middot;
+                        le {{ post.last_updated }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+{% endblock %}
