@@ -6,20 +6,20 @@ class Router
 {
     private string $url;
 
-    private $routes = [];
+    private array $routes = [];
 
     public function __construct(string $url)
     {
         $this->url = $url;
     }
 
-    public function get(string $path, callable $callable)
+    public function get(string $path, string $callable)
     {
         $route = new Route($path, $callable);
         $this->routes['GET'][] = $route;
     }
 
-    public function post($path, $callable)
+    public function post(string $path, $callable)
     {
         $route = new Route($path, $callable);
         $this->routes['POST'][] = $route;

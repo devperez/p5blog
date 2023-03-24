@@ -19,4 +19,9 @@ abstract class Controller
 
         $this->db = $db;
     }
+
+    protected function getDB()
+    {
+        return $this->db;
+    }
 }

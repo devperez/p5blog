@@ -14,9 +14,7 @@
                     <h3 class="post-subtitle">{{ post.subtitle }}</h3>
                 </a>
                 <p class="post-meta">
-                    Posted by
-                    <a href="#!">{{ post.author }}</a>
-                    on {{ post.last_updated }}
+                    Publié par {{ post.author }} le {{ post.getCreatedAt() }}
                 </p>
             </div>
         </div>

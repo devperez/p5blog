@@ -2,33 +2,28 @@
 
 namespace David\Blogpro\Controller;
 
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use David\Blogpro\Models\Post;
 
-class NavController
+class NavController extends Controller
 {
-    private $loader;
-    protected $twig;
-    
-    public function __construct()
-    {
-        $this->loader = new FilesystemLoader('src/templates');
-
-        $this->twig = new Environment($this->loader);
-    }
-
     public function homepage()
     {
-        $this->twig->display('homepage.html.twig');
+        $this->twig->display('/homepage.html.twig');
     }
 
     public function index()
     {
-        $this->twig->display('posts/index.html.twig');
+        $post = new Post($this->getDB());
+        $posts = $post->all();
+                
+        $this->twig->display('/posts/index.html.twig', compact('posts'));
     }
 
     public function show($id)
     {
-        $this->twig->display('posts/show.html.twig', compact('id'));
+        $post = new Post($this->getDB());
+        $post = $post->findById($id);
+
+        $this->twig->display('/posts/show.html.twig', compact('post'));
     }
 }

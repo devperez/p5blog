@@ -9,15 +9,17 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <h2>{{ post.title }}</h2>
+                <br>
+                <br>
                 <div class="col-md-10 col-lg-8 col-xl-7">
+                <h4>{{ post.subtitle }}</h4>
+                <br>
+                <br>
                     {{ post.content }}
                     </div>
                     <div class="col-md-10 col-lg-8 col-xl-7">
                     <br>
-                        Publié par
-                        <a href="http://spaceipsum.com/">{{post.author}}</a>
-                        &middot;
-                        le {{ post.last_updated }}
+                    <p>Publié par {{post.author}} &middot; le {{ post.getCreatedAt() }}</p>
                     </div>
                 </div>
             </div>

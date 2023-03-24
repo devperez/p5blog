@@ -2,19 +2,21 @@
 
 namespace David\Blogpro\Router;
 
+use David\Blogpro\Database\DBConnection;
+
 class Route
 {
     private $path;
     private $callable;
     private $matches;
 
-    public function __construct($path, $callable)
+    public function __construct(string $path, $callable)
     {
         $this->path = trim($path, '/');
         $this->callable = $callable;
     }
 
-    public function match($url)
+    public function match(string $url)
     {
         $url = trim($url, '/');
         $path = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
@@ -31,9 +33,9 @@ class Route
     public function call()
     {
         if (is_string($this->callable)) {
-            $params = explode('#', $this->callable);
+            $params = explode('::', $this->callable);
             $controller = "David\\Blogpro\\Controller\\" . $params[0] . "Controller";
-            $controller = new $controller();
+            $controller = new $controller(new DBConnection('blogpro', '127.0.0.1:3306', 'phpmyadmin', 'jON9KUMbhz8m'));
             return call_user_func_array([$controller, $params[1]], $this->matches);
         } else {
             return call_user_func_array($this->callable, $this->matches);
