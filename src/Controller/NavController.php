@@ -25,4 +25,9 @@ class NavController extends Controller
         $post = $post->findById($id);
         $this->twig->display('/posts/show.html.twig', compact('post'));
     }
+
+    public function admin()
+    {
+        $this->twig->display('/admin/connection.html.twig');
+    }
 }

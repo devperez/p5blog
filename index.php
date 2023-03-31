@@ -19,6 +19,12 @@ $router->get('/posts', "Nav::index");
 
 $router->get('/posts/:id', "Nav::show");
 
+$router->get('/admin', "Nav::admin");
+
+$router->post('/signup', "Admin::signup");
+
+$router->post('/signin', "Admin::signin");
+
 $router->post('/posts/:id', function($id) {echo 'Modifier l\'article '. $id;});
 
 $router->run();
