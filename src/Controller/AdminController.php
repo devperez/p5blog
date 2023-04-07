@@ -11,7 +11,7 @@ class AdminController extends Controller
         if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])) {
             $username = htmlspecialchars($_POST['username']);
             $email = htmlspecialchars($_POST['email']);
-            $password = sha1($_POST['password']);
+            $password = sha1($_POST['password']); //utiliser un autre algo bcrypt?
             $passwordConfirm = sha1($_POST['passwordConfirm']);
 
             $usernameLength = strlen($username);

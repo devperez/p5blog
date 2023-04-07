@@ -17,7 +17,7 @@ class User extends Model
         return $user;
     }
 
-    public function connect($email, $password)
+    public function getOne($email, $password)
     {
         $user = $this->db->getPDO()->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
         $user->execute(array($email, $password));

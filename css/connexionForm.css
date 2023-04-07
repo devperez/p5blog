@@ -9,7 +9,7 @@
 
 section {
     position: relative;
-    min-height: 100vh;
+    min-height: 80vh;
     /* background: #ff006e; */
     display: flex;
     justify-content: center;
@@ -115,11 +115,6 @@ section .container .user .formBx form .signup a {
     font-weight: 600;
     text-decoration: none;
     color: #0090e0;
-}
-
-.linkWrapper {
-    margin-top: -125px;
-    
 }
 
 .homeLink {

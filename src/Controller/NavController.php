@@ -3,6 +3,7 @@
 namespace David\Blogpro\Controller;
 
 use David\Blogpro\Models\Post;
+use David\Blogpro\Models\Repository\PostRepository;
 
 class NavController extends Controller
 {
@@ -13,9 +14,8 @@ class NavController extends Controller
 
     public function index()
     {
-        $post = new Post($this->getDB());
-        $posts = $post->all();
-                
+        $posts = new PostRepository();
+        $posts = $posts->index();
         $this->twig->display('/posts/index.html.twig', compact('posts'));
     }
 

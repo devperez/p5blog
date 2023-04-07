@@ -3,13 +3,15 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 use David\Blogpro\Router\Router;
+use Symfony\Component\Dotenv\Dotenv;
 
 //constant aiming to the project root folder
 define('ROOT', dirname(__DIR__));
 
 require 'vendor/autoload.php';
-
-
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/.env');
+//var_dump(getenv('DB_NAME'), $_ENV);
 $router = new Router($_GET['url']);
 
 

@@ -8,14 +8,18 @@ use SensitiveParameter;
 class DBConnection
 {
     private $pdo;
+    private $dbname;
+    private $host;
+    private $username;
+    private $password;
 
     public function __construct(
-        #[SensitiveParameter]
-        private readonly string $dbname,
-        private readonly string $host,
-        private readonly string $username,
-        private readonly string $password
+        // #[SensitiveParameter] //thing to check
     ) {
+        $this->dbname = $_ENV['DB_NAME'];
+        $this->host = $_ENV['DB_HOST'];
+        $this->username = $_ENV['DB_USER'];
+        $this->password = $_ENV['DB_PASS'];
     }
 
     public function getPDO(): PDO
@@ -32,5 +36,20 @@ class DBConnection
             );
         }
         return $this->pdo;
+    }
+
+    public function sql($sql, $parameters = null)
+    {
+        if ($parameters) {
+            $result = $this->getPDO()->prepare($sql);
+
+            $result->execute($parameters);
+
+            return $result;
+        } else {
+            $result = $this->getPDO()->query($sql);
+
+            return $result;
+        }
     }
 }
