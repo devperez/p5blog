@@ -17,7 +17,7 @@ class Route
         $this->callable = $callable;
     }
 
-    public function match(string $url)
+    public function match(string $url): bool
     {
         $url = trim($url, '/');
         $path = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
@@ -36,7 +36,6 @@ class Route
         if (is_string($this->callable)) {
             $params = explode('::', $this->callable);
             $controller = "David\\Blogpro\\Controller\\" . $params[0] . "Controller";
-            //$controller = new $controller(new LoginManager(new DBConnection('blogpro', '127.0.0.1:3306', 'phpmyadmin', 'jON9KUMbhz8m')));
             $controller = new $controller();
             return call_user_func_array([$controller, $params[1]], $this->matches);
         } else {

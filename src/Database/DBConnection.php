@@ -22,7 +22,7 @@ class DBConnection
         $this->password = $_ENV['DB_PASS'];
     }
 
-    public function getPDO(): PDO
+    public function getPdo(): PDO
     {
         //first, check if a pdo instance already exists.
         //If not, create a new instance with error mode on.
@@ -36,20 +36,5 @@ class DBConnection
             );
         }
         return $this->pdo;
-    }
-
-    public function sql($sql, $parameters = null)
-    {
-        if ($parameters) {
-            $result = $this->getPDO()->prepare($sql);
-
-            $result->execute($parameters);
-
-            return $result;
-        } else {
-            $result = $this->getPDO()->query($sql);
-
-            return $result;
-        }
     }
 }

@@ -4,10 +4,11 @@
 
 	<body>
 		<section>
-			<div
-				class="container">
-				{% if error is defined %}
-				<p>{{ error }}</p>
+			<div class="container">
+				{% if errors is defined %}
+					{% for error in errors %}
+						<p>{{ error }}</p>
+					{% endfor %}
 				{% endif %}
 				<div class="user signinBx">
 					<div class="imgBx">
@@ -47,9 +48,7 @@
 				</div>
 			</div>
 		</section>
-		{# <div class="linkWrapper"> #}
 			<a class="homeLink" href="/?url=">Revenir sur le blog</a>
-		{# </div> #}
 	</body>
 </html>
 <script src="/js/connexionForm.js"></script>
