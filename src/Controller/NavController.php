@@ -15,10 +15,10 @@ class NavController extends Controller
     {
         $posts = new PostRepository();
         $posts = $posts->index();
+        
         foreach ($posts as $post) {
             $userId = $post->user_id;
             $user = $post->getAuthorName($userId);
-            //var_dump($user['username']);
             $user = $user['username'];
         }
         $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);

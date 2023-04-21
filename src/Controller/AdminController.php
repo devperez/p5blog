@@ -51,14 +51,15 @@ class AdminController extends Controller
         if ($user && $user['role'] === 'admin') {
             //préparer la session
             $session = new Session();
-            $session = $session->createSession($user);
-            $this->twig->display('/admin/index.html.twig', ['session' => $_SESSION]);
+            $session = $session->start($user['username'], $user['id']);
+            //var_dump($session);
+            $this->twig->display('/admin/index.html.twig', ['session' => $session]);
         } elseif ($user && $user['role'] === 'registered') {
             //préparer la session
             $session = new Session();
-            $session = $session->createSession($user);
-            //var_dump($session);
-            $this->twig->display('/homepage.html.twig', ['session' => $_SESSION]);
+            $session = $session->start($user['username'], $user['id']);
+            var_dump($session);
+            $this->twig->display('/homepage.html.twig', ['session' => $session]);
         } else {
             $this->twig->display('/admin/connection.html.twig');
         }
@@ -78,8 +79,10 @@ class AdminController extends Controller
     public function publish()
     {
         if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
+            var_dump($_POST);
             //title < 255 caractères
             //récupérer le user id
+            //enregistrer en base
         }
     }
 }

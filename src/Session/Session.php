@@ -4,10 +4,10 @@ namespace David\Blogpro\Session;
 
 class Session
 {
-    public function createSession($user)
+    public function start($key, $value)
     {
-        $_SESSION['id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        return $_SESSION;
+        session_start();
+        $_SESSION[$key] = $value;
+        //var_dump($_SESSION);
     }
 }
