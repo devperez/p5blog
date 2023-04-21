@@ -3,6 +3,7 @@
 namespace David\Blogpro\Controller;
 
 use David\Blogpro\Models\Repository\UserRepository;
+use David\Blogpro\Session\Session;
 
 class AdminController extends Controller
 {
@@ -49,12 +50,36 @@ class AdminController extends Controller
         //var_dump($user);
         if ($user && $user['role'] === 'admin') {
             //préparer la session
-            $this->twig->display('/admin/dashboard.html.twig');
+            $session = new Session();
+            $session = $session->createSession($user);
+            $this->twig->display('/admin/index.html.twig', ['session' => $_SESSION]);
         } elseif ($user && $user['role'] === 'registered') {
             //préparer la session
-            $this->twig->display('/homepage.html.twig');
+            $session = new Session();
+            $session = $session->createSession($user);
+            //var_dump($session);
+            $this->twig->display('/homepage.html.twig', ['session' => $_SESSION]);
         } else {
             $this->twig->display('/admin/connection.html.twig');
+        }
+    }
+
+    public function write()
+    {
+        $this->twig->display('/admin/write.html.twig');
+    }
+
+    public function index()
+    {
+        //TO DO vérifier que l'utilisateur est admin avec la session
+        $this->twig->display('/admin/index.html.twig');
+    }
+
+    public function publish()
+    {
+        if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
+            //title < 255 caractères
+            //récupérer le user id
         }
     }
 }

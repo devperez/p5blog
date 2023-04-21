@@ -15,14 +15,24 @@ class NavController extends Controller
     {
         $posts = new PostRepository();
         $posts = $posts->index();
-        $this->twig->display('/posts/index.html.twig', ['posts' => $posts]);
+        foreach ($posts as $post) {
+            $userId = $post->user_id;
+            $user = $post->getAuthorName($userId);
+            //var_dump($user['username']);
+            $user = $user['username'];
+        }
+        $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
     public function show($id)
     {
         $post = new PostRepository();
         $post = $post->show($id);
-        $this->twig->display('/posts/show.html.twig', ['post' => $post]);
+        $userId = $post->user_id;
+        $user = $post->getAuthorName($userId);
+        $user = $user['username'];
+
+        $this->twig->display('/posts/show.html.twig', ['post' => $post, 'user' => $user]);
     }
 
     public function admin()

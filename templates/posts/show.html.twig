@@ -1,7 +1,5 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Ceci est la page de l'article {{ id }} {% endblock %}
-
 {% block body %}
 
 <!-- Post Content-->
@@ -19,8 +17,9 @@
                     </div>
                     <div class="col-md-10 col-lg-8 col-xl-7">
                     <br>
-                    <p>Publié par {{post.author}} &middot; le {{ post.getCreatedAt() }}</p>
+                    <p>Publié par {{ user }} &middot; le {{ post.getCreatedAt() }}</p>
                     </div>
+                    {{ session.username }}
                 </div>
             </div>
         </div>

@@ -27,6 +27,12 @@ $router->post('/signup', "Admin::signup");
 
 $router->post('/signin', "Admin::signin");
 
+$router->get('/writePost', "Admin::write");
+
+$router->get('/indexAdmin', "Admin::index");
+
+$router->post('/publishPost', "Admin::publish");
+
 $router->post('/posts/:id', function($id) {echo 'Modifier l\'article '. $id;});
 
 $router->run();

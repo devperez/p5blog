@@ -39,4 +39,11 @@ abstract class Model
         $shortName = (new ReflectionClass($this))->getShortName();
         return strtolower($shortName);
     }
+
+    public function getAuthorName($id)
+    {
+        $user = $this->db->getPdo()->prepare("SELECT * FROM `post` INNER JOIN user ON post.user_id = ?");
+        $user->execute([$id]);
+        return $user->fetch();
+    }
 }

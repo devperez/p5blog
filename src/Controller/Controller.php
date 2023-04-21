@@ -9,7 +9,6 @@ abstract class Controller
 {
     private $loader;
     protected $twig;
-    //protected $db;
 
     public function __construct()
     {
