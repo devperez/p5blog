@@ -1,0 +1,19 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.extract {
+    white-space: nowrap; 
+    text-overflow:ellipsis;
+    overflow: hidden;
+    max-width: 300px;
+}
+
+.subExtract {
+    white-space: nowrap; 
+    text-overflow:ellipsis;
+    overflow: hidden;
+    max-width: 25%;
+}

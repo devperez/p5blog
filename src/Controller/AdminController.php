@@ -2,6 +2,7 @@
 
 namespace David\Blogpro\Controller;
 
+use David\Blogpro\Models\Repository\PostRepository;
 use David\Blogpro\Models\Repository\UserRepository;
 use David\Blogpro\Session\Session;
 
@@ -45,20 +46,23 @@ class AdminController extends Controller
 
     public function signin()
     {
-        $user = new UserRepository();
-        $user = $user->signin();
-        //var_dump($user);
+        if (!empty($_POST['email']) && !empty($_POST['password'])) {
+            $email = htmlspecialchars($_POST['email']);
+            $password = sha1($_POST['password']);
+            $user = new UserRepository();
+            $user = $user->signin($email, $password);
+        }
         if ($user && $user['role'] === 'admin') {
-            //préparer la session
             $session = new Session();
             $session = $session->start($user['username'], $user['id']);
             //var_dump($session);
-            $this->twig->display('/admin/index.html.twig', ['session' => $session]);
+            $this->twig->addGlobal('session', $session);
+            $this->twig->display('/admin/index.html.twig');
         } elseif ($user && $user['role'] === 'registered') {
             //préparer la session
             $session = new Session();
             $session = $session->start($user['username'], $user['id']);
-            var_dump($session);
+            //var_dump($session);
             $this->twig->display('/homepage.html.twig', ['session' => $session]);
         } else {
             $this->twig->display('/admin/connection.html.twig');
@@ -73,16 +77,36 @@ class AdminController extends Controller
     public function index()
     {
         //TO DO vérifier que l'utilisateur est admin avec la session
-        $this->twig->display('/admin/index.html.twig');
+        $posts = new PostRepository();
+        $posts = $posts->index();
+        foreach ($posts as $post) {
+            $userId = $post->user_id;
+            $user = $post->getAuthorName($userId);
+            $user = $user['username'];
+        }
+        $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
     public function publish()
     {
         if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
-            var_dump($_POST);
-            //title < 255 caractères
+            $title = $_POST['title'];
+            $subtitle = $_POST['subtitle'];
+            $article = $_POST['content'];
+            $userId = 1;
+            if (strlen($title) < 255) {
+                $post = new PostRepository();
+                $post = $post->create($title, $subtitle, $article, $userId);
+            }
             //récupérer le user id
             //enregistrer en base
         }
+    }
+
+    public function edit($id)
+    {
+        $post = new PostRepository();
+        $post = $post->show($id);
+        $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
     }
 }

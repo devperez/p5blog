@@ -9,5 +9,6 @@ class Session
         session_start();
         $_SESSION[$key] = $value;
         //var_dump($_SESSION);
+        return $_SESSION;
     }
 }

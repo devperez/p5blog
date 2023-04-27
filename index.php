@@ -33,6 +33,6 @@ $router->get('/indexAdmin', "Admin::index");
 
 $router->post('/publishPost', "Admin::publish");
 
-$router->post('/posts/:id', function($id) {echo 'Modifier l\'article '. $id;});
+$router->get('/editPost/:id', "Admin::edit");
 
 $router->run();

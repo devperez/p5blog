@@ -46,4 +46,14 @@ abstract class Model
         $user->execute([$id]);
         return $user->fetch();
     }
+
+    public function create($title, $subtitle, $article, $userId)
+    {
+        $sql = $this->db->getPdo()->prepare("INSERT INTO post ('title', 'subtitle','content', 'user_id') VALUES (:title, :subtitle, :article, :userId)");
+        $sql->bindParam(':title', $title);
+        $sql->bindParam(':subtitle', $subtitle);
+        $sql->bindParam(':content', $article);
+        $sql->bindParam(':user_id', $userId);
+        $sql->execute();
+    }
 }

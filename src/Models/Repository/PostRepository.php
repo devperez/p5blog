@@ -21,4 +21,10 @@ class PostRepository extends AbstractRepository
 
         return $post;
     }
+
+    public function create($title, $subtitle, $article, $userId)
+    {
+        $post = new Post($this->db);
+        $post = $post->create($title, $subtitle, $article, $userId);
+    }
 }

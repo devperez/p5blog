@@ -2,11 +2,34 @@
 {% block body %}
 
 	<div class="container-fluid px-4">
-		<h1 class="mt-4">Bienvenue {{ session.username }} !</h1>
-		<div class="card mb-4">
-			<div class="card-body">
-                <p>Vous êtes sur l'interface de gestion de Blogpro.</p>
-			</div>
+		<h1 class="mt-4">Bienvenue
+			{{ session.username }}
+			!</h1>
+		<div>
+			<h4>Liste des articles publiés sur le blog :</h4>
 		</div>
+		<table>
+			<tbody>
+				<tr>
+					<th>Titre</th>
+					<th>Chapô</th>
+					<th>Article</th>
+					<th>Auteur</th>
+					<th>Actions</th>
+				</tr>
+				{% for post in posts %}
+					<tr>
+						<td>{{ post.title }}</td>
+						<td class="subExtract">{{ post.subtitle }}</td>
+						<td class="extract">{{ post.content }}</td>
+						<td>{{ user }}</td>
+						<td>
+						<a href="/?url=editPost/{{ post.id }}"><i class="fa-regular fa-pen-to-square"></i></a>
+						<a href="/?url=deletePost/{{ post.id }}"><i class="fa-solid fa-trash"></i></a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 {% endblock %}
