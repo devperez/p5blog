@@ -35,4 +35,10 @@ $router->post('/publishPost', "Admin::publish");
 
 $router->get('/editPost/:id', "Admin::edit");
 
+$router->post('/editPost/:id', "Admin::editPost");
+
+$router->get('/deletePost/:id', "Admin::deletePost");
+
+$router->get('readPost/:id', "Admin::readPost");
+
 $router->run();

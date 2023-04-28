@@ -82,7 +82,6 @@ class AdminController extends Controller
         foreach ($posts as $post) {
             $userId = $post->user_id;
             $user = $post->getAuthorName($userId);
-            $user = $user['username'];
         }
         $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
@@ -93,13 +92,12 @@ class AdminController extends Controller
             $title = $_POST['title'];
             $subtitle = $_POST['subtitle'];
             $article = $_POST['content'];
-            $userId = 1;
+            $userId = 1; //à modifier, récupérer le user id via la session
             if (strlen($title) < 255) {
                 $post = new PostRepository();
                 $post = $post->create($title, $subtitle, $article, $userId);
             }
-            //récupérer le user id
-            //enregistrer en base
+            $this->index();
         }
     }
 
@@ -108,5 +106,40 @@ class AdminController extends Controller
         $post = new PostRepository();
         $post = $post->show($id);
         $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
+    }
+
+    public function editPost($id)
+    {
+        if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
+            $title = $_POST['title'];
+            $subtitle = $_POST['subtitle'];
+            $article = $_POST['content'];
+            if (strlen($title) < 255) {
+                $post = new PostRepository();
+                $post = $post->update($id, $title, $subtitle, $article);
+            }
+        }
+        $this->index();
+    }
+
+    public function deletePost($id)
+    {
+        if ($id) {
+            $post = new PostRepository();
+            $post = $post->deletePost($id);
+        }
+        $this->index();
+    }
+
+    public function readPost($id)
+    {
+        if ($id) {
+            $post = new PostRepository();
+            $post = $post->show($id);
+            $userId = $post->user_id;
+            $user = $post->getAuthorName($userId);
+            //$user = $user['username'];
+        }
+        return $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
     }
 }

@@ -3,7 +3,7 @@
 
 	<div class="container">
 		<h2 class="m-4 text-center">Éditer un article:</h2>
-		<form method="post" action="/?url=publishPost">
+		<form method="post" action="/?url=editPost/{{ post.id }}">
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" name="title" id="title" value="{{ post.title }}">
 				<label for="title" class="form-label">Titre</label>

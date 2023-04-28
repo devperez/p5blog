@@ -24,8 +24,9 @@
 						<td class="extract">{{ post.content }}</td>
 						<td>{{ user }}</td>
 						<td>
-						<a href="/?url=editPost/{{ post.id }}"><i class="fa-regular fa-pen-to-square"></i></a>
-						<a href="/?url=deletePost/{{ post.id }}"><i class="fa-solid fa-trash"></i></a>
+						<a href="/?url=editPost/{{ post.id }}"><i class="fa-solid fa-pen-to-square" style="color: #00ff11;"></i></a>
+						<a href="/?url=readPost/{{ post.id }}"><i class="fa-solid fa-eye"></i></a>
+						<a href="/?url=deletePost/{{ post.id }}"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
 						</td>
 					</tr>
 				{% endfor %}

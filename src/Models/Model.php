@@ -42,18 +42,39 @@ abstract class Model
 
     public function getAuthorName($id)
     {
-        $user = $this->db->getPdo()->prepare("SELECT * FROM `post` INNER JOIN user ON post.user_id = ?");
-        $user->execute([$id]);
-        return $user->fetch();
+        $sql = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
+        $sql->execute([$id]);
+        $user = $sql->fetch();
+        $username = $user['username'];
+        return $username;
     }
 
-    public function create($title, $subtitle, $article, $userId)
+    public function store($title, $subtitle, $article, $userId)
     {
-        $sql = $this->db->getPdo()->prepare("INSERT INTO post ('title', 'subtitle','content', 'user_id') VALUES (:title, :subtitle, :article, :userId)");
+        $sql = $this->db->getPdo()->prepare("INSERT INTO post (title, subtitle, content, user_id) VALUES (:title, :subtitle, :article, :userId)");
         $sql->bindParam(':title', $title);
         $sql->bindParam(':subtitle', $subtitle);
-        $sql->bindParam(':content', $article);
-        $sql->bindParam(':user_id', $userId);
+        $sql->bindParam(':article', $article);
+        $sql->bindParam(':userId', $userId);
         $sql->execute();
+    }
+
+    public function updatePost($id, $title, $subtitle, $content)
+    {
+        $sql = $this->db->getPdo()->prepare("UPDATE post SET title = :title, subtitle = :subtitle, content = :content WHERE id = :id");
+        $sql->execute([
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'content' => $content,
+            'id' => $id,
+        ]);
+    }
+
+    public function deletePost($id)
+    {
+        $sql = $this->db->getPdo()->prepare("DELETE FROM post WHERE id = :id");
+        $sql->execute([
+            'id' => $id,
+        ]);
     }
 }

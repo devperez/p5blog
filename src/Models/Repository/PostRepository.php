@@ -25,6 +25,18 @@ class PostRepository extends AbstractRepository
     public function create($title, $subtitle, $article, $userId)
     {
         $post = new Post($this->db);
-        $post = $post->create($title, $subtitle, $article, $userId);
+        $post = $post->store($title, $subtitle, $article, $userId);
+    }
+
+    public function update($id, $title, $subtitle, $content)
+    {
+        $post = new Post($this->db);
+        $post = $post->updatePost($id, $title, $subtitle, $content);
+    }
+
+    public function deletePost($id)
+    {
+        $post = new Post($this->db);
+        $post = $post->deletePost($id);
     }
 }

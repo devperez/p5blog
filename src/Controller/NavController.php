@@ -19,7 +19,6 @@ class NavController extends Controller
         foreach ($posts as $post) {
             $userId = $post->user_id;
             $user = $post->getAuthorName($userId);
-            $user = $user['username'];
         }
         $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
@@ -30,7 +29,6 @@ class NavController extends Controller
         $post = $post->show($id);
         $userId = $post->user_id;
         $user = $post->getAuthorName($userId);
-        $user = $user['username'];
 
         $this->twig->display('/posts/show.html.twig', ['post' => $post, 'user' => $user]);
     }
