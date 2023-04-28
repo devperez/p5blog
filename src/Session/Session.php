@@ -6,9 +6,12 @@ class Session
 {
     public function start($key, $value)
     {
-        session_start();
         $_SESSION[$key] = $value;
         //var_dump($_SESSION);
-        return $_SESSION;
+    }
+
+    public function get(string $key)
+    {
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
 }

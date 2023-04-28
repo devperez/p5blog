@@ -54,7 +54,7 @@ class AdminController extends Controller
         }
         if ($user && $user['role'] === 'admin') {
             $session = new Session();
-            $session = $session->start($user['username'], $user['id']);
+            $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
             $posts = new PostRepository();
             $posts = $posts->index();
             foreach ($posts as $post) {
@@ -63,9 +63,8 @@ class AdminController extends Controller
             }
             $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user, 'session' => $session]);
         } elseif ($user && $user['role'] === 'registered') {
-            //préparer la session
             $session = new Session();
-            $session = $session->start($user['username'], $user['id']);
+            $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
             //var_dump($session);
             $this->twig->display('/homepage.html.twig', ['session' => $session]);
         } else {
@@ -142,7 +141,6 @@ class AdminController extends Controller
             $post = $post->show($id);
             $userId = $post->user_id;
             $user = $post->getAuthorName($userId);
-            //$user = $user['username'];
         }
         return $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
     }

@@ -3,9 +3,7 @@
 
 	<div class="container-fluid px-4">
 		<h1 class="mt-4">Bienvenue
-			{% for key, user in session %}
-                            {{ key }}
-            {% endfor %}
+			{{ getUsername() }}
 			!</h1>
 		<div>
 			<h4>Liste des articles publiés sur le blog :</h4>

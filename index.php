@@ -9,6 +9,8 @@ use Symfony\Component\Dotenv\Dotenv;
 define('ROOT', dirname(__DIR__));
 
 require 'vendor/autoload.php';
+
+session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 //var_dump(getenv('DB_NAME'), $_ENV);
