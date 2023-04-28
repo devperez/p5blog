@@ -108,7 +108,9 @@ session_start();
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Connecté en tant que :</div>
-                        {{ session.username }}
+                        {% for key, user in session %}
+                            {{ key }}
+                        {% endfor %}
                     </div>
                 </nav>
             </div>

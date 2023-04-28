@@ -17,3 +17,7 @@ table, th, td {
     overflow: hidden;
     max-width: 25%;
 }
+
+.link {
+    padding-right: 5px;
+}

@@ -55,9 +55,13 @@ class AdminController extends Controller
         if ($user && $user['role'] === 'admin') {
             $session = new Session();
             $session = $session->start($user['username'], $user['id']);
-            //var_dump($session);
-            $this->twig->addGlobal('session', $session);
-            $this->twig->display('/admin/index.html.twig');
+            $posts = new PostRepository();
+            $posts = $posts->index();
+            foreach ($posts as $post) {
+                $userId = $post->user_id;
+                $user = $post->getAuthorName($userId);
+            }
+            $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user, 'session' => $session]);
         } elseif ($user && $user['role'] === 'registered') {
             //préparer la session
             $session = new Session();

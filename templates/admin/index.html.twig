@@ -3,7 +3,9 @@
 
 	<div class="container-fluid px-4">
 		<h1 class="mt-4">Bienvenue
-			{{ session.username }}
+			{% for key, user in session %}
+                            {{ key }}
+            {% endfor %}
 			!</h1>
 		<div>
 			<h4>Liste des articles publiés sur le blog :</h4>
@@ -24,9 +26,15 @@
 						<td class="extract">{{ post.content }}</td>
 						<td>{{ user }}</td>
 						<td>
-						<a href="/?url=editPost/{{ post.id }}"><i class="fa-solid fa-pen-to-square" style="color: #00ff11;"></i></a>
-						<a href="/?url=readPost/{{ post.id }}"><i class="fa-solid fa-eye"></i></a>
-						<a href="/?url=deletePost/{{ post.id }}"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
+							<a class="link" title="Éditer cet article" href="/?url=editPost/{{ post.id }}">
+								<i class="fa-solid fa-pen-to-square" style="color: #00ff11;"></i>
+							</a>
+							<a class="link" title="Consulter cet article" href="/?url=readPost/{{ post.id }}">
+								<i class="fa-solid fa-eye"></i>
+							</a>
+							<a class="link" title="Supprimer cet article" href="/?url=deletePost/{{ post.id }}">
+								<i class="fa-solid fa-trash" style="color: #fa0000;"></i>
+							</a>
 						</td>
 					</tr>
 				{% endfor %}
