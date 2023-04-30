@@ -10,7 +10,8 @@ class TwigSessionExtension extends AbstractExtension
 {
     public function getFunctions()
     {
-        return [new TwigFunction('getUsername', [$this, 'getUsername'])];
+        return [new TwigFunction('getUsername', [$this, 'getUsername']),
+                new TwigFunction('getUserId', [$this, 'getUserId'])];
     }
 
     public function getUsername()
@@ -18,5 +19,12 @@ class TwigSessionExtension extends AbstractExtension
         $session = new Session();
         $userSession = $session->get('user');
         return $userSession['username'];
+    }
+
+    public function getUserId()
+    {
+        $session = new Session();
+        $userSession = $session->get('user');
+        return $userSession['id'];
     }
 }

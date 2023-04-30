@@ -7,7 +7,6 @@ class Session
     public function start($key, $value)
     {
         $_SESSION[$key] = $value;
-        //var_dump($_SESSION);
     }
 
     public function get(string $key)

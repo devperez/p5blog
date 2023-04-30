@@ -51,24 +51,27 @@ class AdminController extends Controller
             $password = sha1($_POST['password']);
             $user = new UserRepository();
             $user = $user->signin($email, $password);
-        }
-        if ($user && $user['role'] === 'admin') {
-            $session = new Session();
-            $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
-            $posts = new PostRepository();
-            $posts = $posts->index();
-            foreach ($posts as $post) {
-                $userId = $post->user_id;
-                $user = $post->getAuthorName($userId);
+
+            switch ($user['role']) {
+                case 'admin':
+                    $session = new Session();
+                    $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
+                    $posts = new PostRepository();
+                    $posts = $posts->index();
+                    foreach ($posts as $post) {
+                        $userId = $post->user_id;
+                        $user = $post->getAuthorName($userId);
+                    }
+                    $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user, 'session' => $session]);
+                    break;
+                case 'registered':
+                    $session = new Session();
+                    $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
+                    $this->twig->display('/homepage.html.twig', ['session' => $session]);
+                    break;
+                default:
+                    $this->twig->display('/admin/connection.html.twig');
             }
-            $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user, 'session' => $session]);
-        } elseif ($user && $user['role'] === 'registered') {
-            $session = new Session();
-            $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
-            //var_dump($session);
-            $this->twig->display('/homepage.html.twig', ['session' => $session]);
-        } else {
-            $this->twig->display('/admin/connection.html.twig');
         }
     }
 
@@ -91,11 +94,11 @@ class AdminController extends Controller
 
     public function publish()
     {
-        if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
+        if ($_POST['title'] && $_POST['subtitle'] && $_POST['content'] && $_POST['userId']) {
             $title = $_POST['title'];
             $subtitle = $_POST['subtitle'];
             $article = $_POST['content'];
-            $userId = 1; //à modifier, récupérer le user id via la session
+            $userId = $_POST['userId'];
             if (strlen($title) < 255) {
                 $post = new PostRepository();
                 $post = $post->create($title, $subtitle, $article, $userId);

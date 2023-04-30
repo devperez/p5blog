@@ -13,7 +13,6 @@ require 'vendor/autoload.php';
 session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
-//var_dump(getenv('DB_NAME'), $_ENV);
 $router = new Router($_GET['url']);
 
 
