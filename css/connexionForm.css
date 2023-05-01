@@ -194,6 +194,8 @@ section .container.active .signinBx .imgBx {
 
 .error {
     color: red;
+    text-align: center;
+    display: block;
 }
 
 @media (max-width: 991px) {

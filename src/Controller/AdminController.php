@@ -12,7 +12,7 @@ class AdminController extends Controller
     {
         $username = htmlspecialchars($_POST['username']);
         $email = htmlspecialchars($_POST['email']);
-        $password = sha1($_POST['password']); //utiliser un autre algo bcrypt?
+        $password = sha1($_POST['password']);
         $passwordConfirm = sha1($_POST['passwordConfirm']);
         $usernameLength = strlen($username);
         if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])) {
@@ -25,21 +25,17 @@ class AdminController extends Controller
                 }
             }
         }
-        
-        $errors = [];
-
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            array_push($errors, "Votre adresse email n'est pas valide.");
+            $session = new Session();
+            $session = $session->start('errors', ['errors' => 'Votre adresse email n\'est pas valide']);
         }
         if ($usernameLength > 255) {
-            array_push($errors, "Votre adresse email n'est pas valide.");
+            $session = new Session();
+            $session = $session->start('errors', ['errors' => 'Votre nom d\'utilisateur n\'est pas valide']);
         }
         if ($password != $passwordConfirm) {
-            array_push($errors, "La confirmation du mot de passe a échoué.");
-        }
-        //var_dump(isset($errors));
-        if (isset($errors)) {
-            return $this->twig->display('/admin/connection.html.twig', ['errors' => $errors]);
+            $session = new Session();
+            $session = $session->start('errors', ['errors' => 'La confirmation du mot de passe a échoué']);
         }
         $this->twig->display('/admin/connection.html.twig');
     }

@@ -5,11 +5,6 @@
 	<body>
 		<section>
 			<div class="container">
-				{% if errors is defined %}
-					{% for error in errors %}
-						<p>{{ error }}</p>
-					{% endfor %}
-				{% endif %}
 				<div class="user signinBx">
 					<div class="imgBx">
 						<img src="/assets/47dz53.jpg" alt="pic1">
@@ -37,6 +32,7 @@
 							<input type="password" name="password" placeholder="Mot de passe">
 							<input type="password" name="passwordConfirm" placeholder="Confirmez le mot de passe">
 							<input type="submit" value="Envoyer" class="btn2">
+
 							<p class="signin">Vous avez déjà un compte ?
 								<a href="#" onclick="toggleForm()">Connectez-vous.</a>
 							</p>
@@ -48,7 +44,8 @@
 				</div>
 			</div>
 		</section>
-			<a class="homeLink" href="/?url=">Revenir sur le blog</a>
+		<p class="error">{{ getErrors() }}</p>
+		<a class="homeLink" href="/?url=">Revenir sur le blog</a>
 	</body>
 </html>
 <script src="/js/connexionForm.js"></script>
