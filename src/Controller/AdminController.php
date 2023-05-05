@@ -2,6 +2,8 @@
 
 namespace David\Blogpro\Controller;
 
+use David\Blogpro\Models\Comment;
+use David\Blogpro\Models\Repository\CommentRepository;
 use David\Blogpro\Models\Repository\PostRepository;
 use David\Blogpro\Models\Repository\UserRepository;
 use David\Blogpro\Session\Session;
@@ -142,5 +144,26 @@ class AdminController extends Controller
             $user = $post->getAuthorName($userId);
         }
         return $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
+    }
+
+    public function logout()
+    {
+        $session = new Session();
+        $session = session_destroy();
+        $this->twig->display('homepage.html.twig');
+    }
+
+    public function comment()
+    {
+        //var_dump($_POST);
+        $commentContent = htmlspecialchars($_POST['comment']);
+        $userId = htmlspecialchars($_POST['userId']);
+        $postId = htmlspecialchars($_POST['postId']);
+        //var_dump($comment, $userId, $postId);
+        if (!empty($commentContent) && strlen($commentContent) < 500) {
+            $comment = new CommentRepository();
+            $comment = $comment->create($commentContent, $userId, $postId);
+        }
+        return $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
     }
 }

@@ -1,28 +1,50 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+	<!-- Post Content-->
+	<div class="container">
+		<article class="mb-4">
+			<div class="container px-4 px-lg-5">
+				<div class="row gx-4 gx-lg-5 justify-content-center">
+					<h2>{{ post.title }}</h2>
+					<br>
+					<br>
+					<div class="col-md-10 col-lg-8 col-xl-7">
+						<h4>{{ post.subtitle }}</h4>
+						<br>
+						<br>
+						{{ post.content }}
+					</div>
+					<div class="col-md-10 col-lg-8 col-xl-7">
+						<br>
+						<p>Publié par
+							{{ user }}
+							&middot; le
+							{{ post.getCreatedAt() }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+</div>
 
-<!-- Post Content-->
-    <article class="mb-4">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <h2>{{ post.title }}</h2>
-                <br>
-                <br>
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                <h4>{{ post.subtitle }}</h4>
-                <br>
-                <br>
-                    {{ post.content }}
-                    </div>
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                    <br>
-                    <p>Publié par {{ user }} &middot; le {{ post.getCreatedAt() }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </article>
+<!-- Comment block -->
+<div class="container mb-2">
+	<h3>Vous pouvez laisser un commentaire :</h3>
+	<form action="/?url=comment" method="post">
+		<div class="form-floating mb-3">
+			<input type="text" class="form-control" name="Nom" id="name" value="{{ getUsername() }}" disabled>
+			<label for="name" class="form-label">Votre nom d'utilisateur</label>
+		</div>
+		<div class="mb-3">
+			<label for="formControlTextarea1" class="form-label">Votre commentaire</label>
+			<textarea class="form-control" name="comment" id="formControlTextarea1" rows="5"></textarea>
+		</div>
+		<input type="text" style="display:none" name="userId" value="{{ getUserId() }}">
+		<input type="text" style="display:none" name="postId" value="{{ post.id }}">
 
+		<input type='submit' class="btn btn-primary btn-lg" value="Envoyer">
+	</form>
+</div>
 
 {% endblock %}

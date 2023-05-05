@@ -42,4 +42,8 @@ $router->get('/deletePost/:id', "Admin::deletePost");
 
 $router->get('readPost/:id', "Admin::readPost");
 
+$router->get('logout', "Admin::logout");
+
+$router->post('/comment', "Admin::comment");
+
 $router->run();

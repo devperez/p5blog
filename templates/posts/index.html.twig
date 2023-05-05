@@ -1,6 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+{%if comment is defined %}
+<div class="text-center">
+    <p>{{ comment }}</p>
+    <button type="button" class="btn btn-info mb-4"><a href="/?url=posts">Retour vers la liste des articles</a></button>
+</div>
+{% endif %}
 
 <!-- Main Content-->
 {% for post in posts %}
