@@ -40,7 +40,7 @@ abstract class Model
         return strtolower($shortName);
     }
 
-    public function getAuthorName($id)
+    public function getAuthorName(int $id)
     {
         $sql = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
         $sql->execute([$id]);
@@ -49,7 +49,7 @@ abstract class Model
         return $username;
     }
 
-    public function store($title, $subtitle, $article, $userId)
+    public function storePost($title, $subtitle, $article, $userId)
     {
         $sql = $this->db->getPdo()->prepare("INSERT INTO post (title, subtitle, content, user_id) VALUES (:title, :subtitle, :article, :userId)");
         $sql->bindParam(':title', $title);

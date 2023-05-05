@@ -155,15 +155,37 @@ class AdminController extends Controller
 
     public function comment()
     {
-        //var_dump($_POST);
         $commentContent = htmlspecialchars($_POST['comment']);
         $userId = htmlspecialchars($_POST['userId']);
         $postId = htmlspecialchars($_POST['postId']);
-        //var_dump($comment, $userId, $postId);
         if (!empty($commentContent) && strlen($commentContent) < 500) {
             $comment = new CommentRepository();
             $comment = $comment->create($commentContent, $userId, $postId);
         }
         return $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
+    }
+
+    public function commentIndex()
+    {
+        $comments = new CommentRepository();
+        $comments = $comments->index();
+        //var_dump($comments);
+        // foreach($comments as $comment)
+        // {
+        //     // var_dump($comment);
+        //     $userId = $comment['user_id'];
+        //     var_dump($userId);
+        //     $user = $comment->getAuthor($userId);
+        //     var_dump($user);
+        // }
+        return $this->twig->display('/admin/comments.html.twig', ['comments' => $comments]);
+    }
+
+    public function readComment($id)
+    {
+        $comment = new CommentRepository();
+        $comment = $comment->show($id);
+        var_dump($comment);
+        return $this->twig->display('/admin/commentShow.html.twig');
     }
 }

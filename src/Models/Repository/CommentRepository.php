@@ -12,4 +12,19 @@ class CommentRepository extends AbstractRepository
         $comment = $comment->create($commentContent, $userId, $postId);
         return $comment;
     }
+
+    public function index(): array
+    {
+        $comment = new Comment($this->db);
+        $comments = $comment->getAll();
+        
+        return $comments;
+    }
+
+    public function show($id)
+    {
+        $comment = new Comment($this->db);
+        $comment = $comment->findById($id);
+        return $comment;
+    }
 }

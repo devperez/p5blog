@@ -13,6 +13,7 @@ class TwigSessionExtension extends AbstractExtension
         return [new TwigFunction('getUsername', [$this, 'getUsername']),
                 new TwigFunction('getUserId', [$this, 'getUserId']),
                 new TwigFunction('getErrors', [$this, 'getErrors']),
+                new TwigFunction('isUserLogged', [$this, 'isUserLogged'])
             ];
     }
 
@@ -20,7 +21,11 @@ class TwigSessionExtension extends AbstractExtension
     {
         $session = new Session();
         $userSession = $session->get('user');
-        return $userSession['username'];
+        if ($userSession) {
+            return $userSession['username'];
+        } else {
+            return null;
+        }
     }
 
     public function getUserId()
@@ -35,5 +40,15 @@ class TwigSessionExtension extends AbstractExtension
         $session = new Session();
         $userErrors = $session->get('errors');
         return isset($userErrors['errors']) ? $userErrors['errors'] : null;
+    }
+
+    public function isUserLogged(): bool
+    {
+        $user = $this->getUsername();
+        if (!$user) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

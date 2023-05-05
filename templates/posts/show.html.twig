@@ -28,23 +28,24 @@
 	</article>
 </div>
 
-<!-- Comment block -->
-<div class="container mb-2">
-	<h3>Vous pouvez laisser un commentaire :</h3>
-	<form action="/?url=comment" method="post">
-		<div class="form-floating mb-3">
-			<input type="text" class="form-control" name="Nom" id="name" value="{{ getUsername() }}" disabled>
-			<label for="name" class="form-label">Votre nom d'utilisateur</label>
-		</div>
-		<div class="mb-3">
-			<label for="formControlTextarea1" class="form-label">Votre commentaire</label>
-			<textarea class="form-control" name="comment" id="formControlTextarea1" rows="5"></textarea>
-		</div>
-		<input type="text" style="display:none" name="userId" value="{{ getUserId() }}">
-		<input type="text" style="display:none" name="postId" value="{{ post.id }}">
+{% if isUserLogged() is same as true %}
+	<!-- Comment block -->
+	<div class="container mb-2">
+		<h3>Vous pouvez laisser un commentaire :</h3>
+		<form action="/?url=comment" method="post">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="Nom" id="name" value="{{ getUsername() }}" disabled>
+				<label for="name" class="form-label">Votre nom d'utilisateur</label>
+			</div>
+			<div class="mb-3">
+				<label for="formControlTextarea1" class="form-label">Votre commentaire</label>
+				<textarea class="form-control" name="comment" id="formControlTextarea1" rows="5"></textarea>
+			</div>
+			<input type="text" style="display:none" name="userId" value="{{ getUserId() }}">
+			<input type="text" style="display:none" name="postId" value="{{ post.id }}">
 
-		<input type='submit' class="btn btn-primary btn-lg" value="Envoyer">
-	</form>
-</div>
-
+			<input type='submit' class="btn btn-primary btn-lg" value="Envoyer">
+		</form>
+	</div>
+{% endif %}
 {% endblock %}

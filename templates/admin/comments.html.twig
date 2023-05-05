@@ -1,0 +1,33 @@
+{% extends "dashboard.html.twig" %}
+{% block body %}
+
+<div class="container-fluid px-4">
+			<h4>Liste des commentaires :</h4>
+		</div>
+		<table>
+			<tbody>
+				<tr>
+					<th>Nom de l'utilisateur</th>
+					<th>Article</th>
+					<th>Commentaire</th>
+					<th>Date</th>
+					<th>Action</th>
+				</tr>
+				{% for comment in comments %}
+					<tr>
+						<td>{{ user }}</td>
+						<td>{{ post.subtitle }}</td>
+						<td>{{ comment.comment }}</td>
+						<td>{{ comment.created_at }}</td>
+						<td>
+							<a class="link" title="Consulter cet article" href="/?url=readComment/{{ comment.id }}">
+								<i class="fa-solid fa-eye"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

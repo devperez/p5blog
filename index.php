@@ -46,4 +46,8 @@ $router->get('logout', "Admin::logout");
 
 $router->post('/comment', "Admin::comment");
 
+$router->get('commentIndex', "Admin::commentIndex");
+
+$router->get('readComment/:id', "Admin::readComment");
+
 $router->run();
