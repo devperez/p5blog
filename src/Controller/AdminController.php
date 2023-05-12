@@ -169,23 +169,40 @@ class AdminController extends Controller
     {
         $comments = new CommentRepository();
         $comments = $comments->index();
-        //var_dump($comments);
-        // foreach($comments as $comment)
-        // {
-        //     // var_dump($comment);
-        //     $userId = $comment['user_id'];
-        //     var_dump($userId);
-        //     $user = $comment->getAuthor($userId);
-        //     var_dump($user);
-        // }
-        return $this->twig->display('/admin/comments.html.twig', ['comments' => $comments]);
+        $users = new UserRepository();
+        $posts = new PostRepository();
+        
+        foreach ($comments as $comment) {
+            $userId = $comment['user_id'];
+            $postId = $comment['post_id'];
+            $post = $posts->show($postId);
+            $user = $users->getOne($userId);
+        }
+        return $this->twig->display('/admin/comments.html.twig', ['comments' => $comments, 'post' => $post, 'user' => $user]);
     }
 
     public function readComment($id)
     {
         $comment = new CommentRepository();
         $comment = $comment->show($id);
-        var_dump($comment);
-        return $this->twig->display('/admin/commentShow.html.twig');
+        $user = new UserRepository();
+        $user = $user->getOne($comment['user_id']);
+        $post = new PostRepository();
+        $post = $post->show($comment['post_id']);
+        
+        return $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
+    }
+
+    public function publishComment($id)
+    {
+        $comment = new CommentRepository();
+        $comment = $comment->show($id);
+        //var_dump($comment);
+        $commentId = $comment['id'];
+        //        var_dump($commentId);
+        $comment = new CommentRepository();
+        $comment = $comment->publish($commentId);
+
+        header('Location: /?url=commentIndex');
     }
 }

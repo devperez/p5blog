@@ -21,10 +21,16 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $comment = new Comment($this->db);
-        $comment = $comment->findById($id);
+        $comment = $comment->getById($id);
         return $comment;
+    }
+
+    public function publish(int $commentId)
+    {
+        $comment = new Comment($this->db);
+        $comment = $comment->updateComment($commentId);
     }
 }

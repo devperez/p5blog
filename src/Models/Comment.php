@@ -24,4 +24,22 @@ class Comment extends Model
         $req = $this->db->getPdo()->query("SELECT * FROM comment ORDER BY created_at DESC");
         return $req->fetchAll();
     }
+
+    public function getById($id)
+    {
+        $req = $this->db->getPdo()->prepare("SELECT * FROM comment WHERE id = ?");
+        $req->execute([$id]);
+        $comment = $req->fetch();
+        return $comment;
+    }
+
+    public function updateComment(int $commentId)
+    {
+        $value = true;
+        $req = $this->db->getPdo()->prepare("UPDATE comment SET published = :value WHERE id = :id");
+        $req->execute([
+            ':value' => $value,
+            ':id' => $commentId
+        ]);
+    }
 }

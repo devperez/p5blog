@@ -50,4 +50,6 @@ $router->get('commentIndex', "Admin::commentIndex");
 
 $router->get('readComment/:id', "Admin::readComment");
 
+$router->get('publishComment/:id', "Admin::publishComment");
+
 $router->run();

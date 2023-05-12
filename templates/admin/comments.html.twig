@@ -1,23 +1,29 @@
 {% extends "dashboard.html.twig" %}
 {% block body %}
 
-<div class="container-fluid px-4">
-			<h4>Liste des commentaires :</h4>
-		</div>
-		<table>
-			<tbody>
+	<div class="container-fluid px-4">
+		<table class="table">
+			<thead>
 				<tr>
-					<th>Nom de l'utilisateur</th>
-					<th>Article</th>
-					<th>Commentaire</th>
-					<th>Date</th>
-					<th>Action</th>
+					<th scope="col">Nom de l'utilisateur</th>
+					<th scope="col">Titre de l'article</th>
+					<th scope="col">Commentaire</th>
+					<th scope="col">Publié</th>
+					<th scope="col">Date</th>
+					<th scope="col">Action</th>
 				</tr>
+			</thead>
+			<tbody>
 				{% for comment in comments %}
 					<tr>
-						<td>{{ user }}</td>
-						<td>{{ post.subtitle }}</td>
+						<td>{{ user.username }}</td>
+						<td>{{ post.title }}</td>
 						<td>{{ comment.comment }}</td>
+						{% if comment.published == 1 %}
+						<td>Oui</td>
+						{% else %}
+						<td>Non</td>
+						{% endif %}
 						<td>{{ comment.created_at }}</td>
 						<td>
 							<a class="link" title="Consulter cet article" href="/?url=readComment/{{ comment.id }}">
@@ -29,5 +35,4 @@
 			</tbody>
 		</table>
 	</div>
-
 {% endblock %}

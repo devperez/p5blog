@@ -19,4 +19,11 @@ class UserRepository extends AbstractRepository
         $user = $user->getOne($email, $password);
         return $user;
     }
+
+    public function getOne($id)
+    {
+        $user = new User($this->db);
+        $user = $user->getById($id);
+        return $user;
+    }
 }

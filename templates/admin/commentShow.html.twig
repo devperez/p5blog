@@ -1,4 +1,17 @@
 {% extends "dashboard.html.twig" %}
 {% block body %}
 
+<div class="container mt-4">
+	<div class="card">
+		<div class="card-header">
+			Ce commentaire concerne l'article intitulé "{{ post.title }}"
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">L'utilisateur {{ user.username }} a écrit</h5>
+			<p class="card-text">{{ comment.comment }}</p>
+			<a href="/?url=publishComment/{{ comment.id }}" class="btn btn-primary">Valider le commentaire</a>
+			<a href="#" class="btn btn-danger">Supprimer le commentaire</a>
+		</div>
+	</div>
+</div>
 {% endblock %}

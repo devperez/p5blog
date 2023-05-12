@@ -1,4 +1,4 @@
-table, th, td {
+.posts, .posts th, .posts td {
     border: 1px solid black;
     border-collapse: collapse;
     width: 100%;
@@ -20,4 +20,25 @@ table, th, td {
 
 .link {
     padding-right: 5px;
+}
+
+.comments, .comments th, .comments td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.userName {
+    width: 25%;
+}
+
+.articleTitle {
+    width: 25%;
+}
+
+.comment {
+    width: 30%;
+}
+
+.published {
+    width: 15%;
 }
