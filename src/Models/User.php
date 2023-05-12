@@ -39,4 +39,11 @@ class User extends Model
         $user = $user->fetch();
         return $user;
     }
+
+    public function getUsersByCommentId($usersId)
+    {
+        $req = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
+        $req->execute([$usersId]);
+        return $users = $req->fetchAll();
+    }
 }

@@ -48,4 +48,21 @@
 		</form>
 	</div>
 {% endif %}
+
+<div class="container mb-2">
+
+{% for comments in commentsWithAuthors %}
+<p class="authorName">Commentaire de {{ comments.author }}</p>
+	{% for comment in comments %}
+
+		<div class="container m-2">
+			<p>{{ comment.comment }}</p>
+			<p>{{ comment.created_at }}</p>
+			
+		</div>
+
+	{% endfor %}
+
+{% endfor %}
+</div>
 {% endblock %}

@@ -101,7 +101,7 @@ class AdminController extends Controller
                 $post = new PostRepository();
                 $post = $post->create($title, $subtitle, $article, $userId);
             }
-            $this->index();
+            header('Location: /?url=indexAdmin');
         }
     }
 
@@ -123,7 +123,7 @@ class AdminController extends Controller
                 $post = $post->update($id, $title, $subtitle, $article);
             }
         }
-        $this->index();
+        header('Location: /?url=indexAdmin');
     }
 
     public function deletePost($id)
@@ -132,7 +132,7 @@ class AdminController extends Controller
             $post = new PostRepository();
             $post = $post->deletePost($id);
         }
-        $this->index();
+        header('Location: /?url=indexAdmin');
     }
 
     public function readPost($id)

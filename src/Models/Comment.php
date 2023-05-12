@@ -42,4 +42,12 @@ class Comment extends Model
             ':id' => $commentId
         ]);
     }
+
+    public function findByPostId($postId)
+    {
+        $req = $this->db->getPdo()->prepare("SELECT * FROM comment WHERE post_id = ?");
+        $req->execute([$postId]);
+        $comment = $req->fetchAll();
+        return $comment;
+    }
 }

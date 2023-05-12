@@ -33,4 +33,13 @@ class CommentRepository extends AbstractRepository
         $comment = new Comment($this->db);
         $comment = $comment->updateComment($commentId);
     }
+
+    public function getCommentFromPost($postId)
+    {
+        $comment = new Comment($this->db);
+        $comments = $comment->findByPostId($postId);
+        //var_dump($comments);
+        
+        return $comments;
+    }
 }

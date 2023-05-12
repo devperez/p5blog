@@ -20,9 +20,9 @@
 						<td>{{ post.title }}</td>
 						<td>{{ comment.comment }}</td>
 						{% if comment.published == 1 %}
-						<td>Oui</td>
+						<td style="color:green">Oui</td>
 						{% else %}
-						<td>Non</td>
+						<td style="color:red">Non</td>
 						{% endif %}
 						<td>{{ comment.created_at }}</td>
 						<td>
