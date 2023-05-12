@@ -171,14 +171,15 @@ class AdminController extends Controller
         $comments = $comments->index();
         $users = new UserRepository();
         $posts = new PostRepository();
-        
+        $commentsArray = [];
         foreach ($comments as $comment) {
             $userId = $comment['user_id'];
             $postId = $comment['post_id'];
             $post = $posts->show($postId);
             $user = $users->getOne($userId);
+            array_push($commentsArray, ['post' => $post->title, 'user' => $user['username'], 'comment' => $comment]);
         }
-        return $this->twig->display('/admin/comments.html.twig', ['comments' => $comments, 'post' => $post, 'user' => $user]);
+        return $this->twig->display('/admin/comments.html.twig', ['commentsArray' => $commentsArray, 'comments' => $comments, 'post' => $post, 'user' => $user]);
     }
 
     public function readComment($id)
@@ -197,11 +198,20 @@ class AdminController extends Controller
     {
         $comment = new CommentRepository();
         $comment = $comment->show($id);
-        //var_dump($comment);
         $commentId = $comment['id'];
-        //        var_dump($commentId);
         $comment = new CommentRepository();
         $comment = $comment->publish($commentId);
+
+        header('Location: /?url=commentIndex');
+    }
+
+    public function deleteComment($id)
+    {
+        $comment = new CommentRepository();
+        $comment = $comment->show($id);
+        $commentId = $comment['id'];
+        $comment = new CommentRepository();
+        $comment = $comment->delete($commentId);
 
         header('Location: /?url=commentIndex');
     }

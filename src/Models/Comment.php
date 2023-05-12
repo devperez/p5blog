@@ -50,4 +50,12 @@ class Comment extends Model
         $comment = $req->fetchAll();
         return $comment;
     }
+
+    public function destroy($commentId)
+    {
+        $req = $this->db->getPdo()->prepare("DELETE FROM comment WHERE id = :commentId");
+        $req->execute([
+            'commentId' => $commentId
+        ]);
+    }
 }

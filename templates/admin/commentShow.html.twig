@@ -10,7 +10,7 @@
 			<h5 class="card-title">L'utilisateur {{ user.username }} a écrit</h5>
 			<p class="card-text">{{ comment.comment }}</p>
 			<a href="/?url=publishComment/{{ comment.id }}" class="btn btn-primary">Valider le commentaire</a>
-			<a href="#" class="btn btn-danger">Supprimer le commentaire</a>
+			<a href="/?url=deleteComment/{{ comment.id }}" class="btn btn-danger">Supprimer le commentaire</a>
 		</div>
 	</div>
 </div>

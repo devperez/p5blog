@@ -52,4 +52,7 @@ $router->get('readComment/:id', "Admin::readComment");
 
 $router->get('publishComment/:id', "Admin::publishComment");
 
+$router->get('deleteComment/:id', "Admin::deleteComment");
+
+
 $router->run();

@@ -38,8 +38,12 @@ class CommentRepository extends AbstractRepository
     {
         $comment = new Comment($this->db);
         $comments = $comment->findByPostId($postId);
-        //var_dump($comments);
-        
         return $comments;
+    }
+
+    public function delete(int $commentId)
+    {
+        $comment = new Comment($this->db);
+        $comment = $comment->destroy($commentId);
     }
 }
