@@ -24,6 +24,8 @@ $router->get('/posts/:id', "Nav::show");
 
 $router->get('/admin', "Nav::admin");
 
+$router->post('/sendMail', "Nav::mail");
+
 $router->post('/signup', "Admin::signup");
 
 $router->post('/signin', "Admin::signin");
@@ -53,6 +55,5 @@ $router->get('readComment/:id', "Admin::readComment");
 $router->get('publishComment/:id', "Admin::publishComment");
 
 $router->get('deleteComment/:id', "Admin::deleteComment");
-
 
 $router->run();
