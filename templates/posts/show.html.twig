@@ -52,7 +52,7 @@
 <div class="container mb-2">
 
 {% for comments in commentsWithAuthors %}
-<p class="authorName">Commentaire de {{ comments.author }}</p>
+<p class="authorName">Commentaire de l'utilisateur {{ comments.author }}</p>
 	{% for comment in comments %}
 
 		<div class="container m-2">

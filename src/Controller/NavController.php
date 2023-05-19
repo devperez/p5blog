@@ -59,16 +59,16 @@ class NavController extends Controller
         $name = $_POST['name'];
         $email = $_POST['email'];
         $message = $_POST['message'];
-
+        
         if ($name == '' || $email == '' || $message == '') {
-            //var_dump($name, $email, $message);
             $error = 'Merci de bien vouloir remplir tous les champs du formulaire.';
             $this->twig->display('homepage.html.twig', ['error' => $error]);
         } else {
             $mail = new PHPMailer(true);
+            $message = wordwrap($message, 70);
             $success = 'Mail envoyé avec succès !';
             try {
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();
                 $mail->Host = 'localhost';
                 $mail->Port = 1025;
@@ -81,7 +81,7 @@ class NavController extends Controller
                 $mail->Body = $message;
 
                 $mail->send();
-                $this->twig->display('homepage.html.twig', ['error' => $success]);
+                $this->twig->display('homepage.html.twig', ['success' => $success]);
             } catch (Exception $e) {
                 echo "Message non envoyé : {$mail->ErrorInfo}";
             }

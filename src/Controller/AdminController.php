@@ -2,7 +2,6 @@
 
 namespace David\Blogpro\Controller;
 
-use David\Blogpro\Models\Comment;
 use David\Blogpro\Models\Repository\CommentRepository;
 use David\Blogpro\Models\Repository\PostRepository;
 use David\Blogpro\Models\Repository\UserRepository;
@@ -17,6 +16,7 @@ class AdminController extends Controller
         $password = sha1($_POST['password']);
         $passwordConfirm = sha1($_POST['passwordConfirm']);
         $usernameLength = strlen($username);
+
         if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])) {
             if ($usernameLength <= 255) {
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -49,26 +49,29 @@ class AdminController extends Controller
             $password = sha1($_POST['password']);
             $user = new UserRepository();
             $user = $user->signin($email, $password);
-
-            switch ($user['role']) {
-                case 'admin':
-                    $session = new Session();
-                    $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
-                    $posts = new PostRepository();
-                    $posts = $posts->index();
-                    foreach ($posts as $post) {
-                        $userId = $post->user_id;
-                        $user = $post->getAuthorName($userId);
-                    }
-                    $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user, 'session' => $session]);
-                    break;
-                case 'registered':
-                    $session = new Session();
-                    $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id']]);
-                    $this->twig->display('/homepage.html.twig', ['session' => $session]);
-                    break;
-                default:
-                    $this->twig->display('/admin/connection.html.twig');
+            if ($user == false) {
+                $this->twig->display('/admin/connection.html.twig');
+            } else {
+                switch ($user['role']) {
+                    case 'admin':
+                        $session = new Session();
+                        $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id'], 'role' => $user['role']]);
+                        $posts = new PostRepository();
+                        $posts = $posts->index();
+                        foreach ($posts as $post) {
+                            $userId = $post->user_id;
+                            $user = $post->getAuthorName($userId);
+                        }
+                        $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user, 'session' => $session]);
+                        break;
+                    case 'registered':
+                        $session = new Session();
+                        $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id'], 'role' => $user['role']]);
+                        $this->twig->display('/homepage.html.twig', ['session' => $session]);
+                        break;
+                    default:
+                        $this->twig->display('/admin/connection.html.twig');
+                }
             }
         }
     }
@@ -80,7 +83,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        //TO DO vérifier que l'utilisateur est admin avec la session
         $posts = new PostRepository();
         $posts = $posts->index();
         foreach ($posts as $post) {

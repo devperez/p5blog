@@ -14,7 +14,7 @@ class PostRepository extends AbstractRepository
         return $posts;
     }
 
-    public function show($id): Post
+    public function show(int $id): Post
     {
         $post = new Post($this->db);
         $post = $post->findById($id);
@@ -22,19 +22,19 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    public function create($title, $subtitle, $article, $userId)
+    public function create(string $title, string $subtitle, string $article, int $userId): void
     {
         $post = new Post($this->db);
         $post = $post->storePost($title, $subtitle, $article, $userId);
     }
 
-    public function update($id, $title, $subtitle, $content)
+    public function update(int $id, string $title, string $subtitle, string $content): void
     {
         $post = new Post($this->db);
         $post = $post->updatePost($id, $title, $subtitle, $content);
     }
 
-    public function deletePost($id)
+    public function deletePost(int $id): void
     {
         $post = new Post($this->db);
         $post = $post->deletePost($id);

@@ -19,7 +19,7 @@ class User extends Model
         return $user;
     }
 
-    public function getOne($email, $password): array
+    public function getOne($email, $password): array|bool
     {
         $user = $this->db->getPdo()->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
         $user->execute([$email, $password]);
@@ -27,12 +27,13 @@ class User extends Model
         if (!$user) {
             $session = new Session();
             $session = $session->start('errors', ['errors' => 'Votre adresse email  ou votre mot de passe n\'est pas valide']);
+            return false;
         } else {
             return $user;
         }
     }
 
-    public function getById($id)
+    public function getById($id): array
     {
         $user = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
         $user->execute([$id]);

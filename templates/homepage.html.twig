@@ -31,12 +31,12 @@
 						</form>
 					</div>
 					{% if success %}
-					<div>
+					<div class="flash">
 						<p class="alert alert-success">{{ success }}</p>
 					</div>
 					{% endif %}
 					{% if error %}
-					<div>
+					<div class="flash">
 						<p class="alert alert-danger">{{ error }}</p>
 					</div>
 					{% endif %}
@@ -44,6 +44,4 @@
 			</div>
 		</div>
 	</main>
-
-
 {% endblock %}

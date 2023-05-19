@@ -9,8 +9,14 @@
 		<div class="card-body">
 			<h5 class="card-title">L'utilisateur {{ user.username }} a écrit</h5>
 			<p class="card-text">{{ comment.comment }}</p>
+			{% if comment.published is same as 0 %}
 			<a href="/?url=publishComment/{{ comment.id }}" class="btn btn-primary">Valider le commentaire</a>
+						<a href="/?url=deleteComment/{{ comment.id }}" class="btn btn-danger">Supprimer le commentaire</a>
+			{% endif %}
+			{% if comment.published is same as 1 %}
+			<p>Ce commentaire est déjà validé et donc publié. Souhaitez-vous le supprimer ?</p>
 			<a href="/?url=deleteComment/{{ comment.id }}" class="btn btn-danger">Supprimer le commentaire</a>
+			{% endif %}
 		</div>
 	</div>
 </div>

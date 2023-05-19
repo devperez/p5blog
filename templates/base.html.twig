@@ -83,7 +83,11 @@
                     </ul>
                     {% if isUserLogged() is same as false %}
                     <div class="small text-center text-muted fst-italic">Copyright &copy; David Perez 2023 || <a href="/?url=admin">Connexion</a></div>
-                    {% else %}
+                    {% endif %}
+                    {% if isUserLogged() is same as true and isUserAdmin() is same as false %}
+                    <div class="small text-center text-muted fst-italic">Copyright &copy; David Perez 2023 || <a href="/?url=logout">Déconnexion</a></div>
+                    {% endif %}
+                    {% if isUserAdmin() is same as true and isUserLogged() is same as true %}
                     <div class="small text-center text-muted fst-italic">Copyright &copy; David Perez 2023 || <a href="/?url=logout">Déconnexion</a> | <a href="/?url=indexAdmin">Dashboard</a></div>
                     {% endif %}
                 </div>

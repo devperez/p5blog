@@ -13,7 +13,8 @@ class TwigSessionExtension extends AbstractExtension
         return [new TwigFunction('getUsername', [$this, 'getUsername']),
                 new TwigFunction('getUserId', [$this, 'getUserId']),
                 new TwigFunction('getErrors', [$this, 'getErrors']),
-                new TwigFunction('isUserLogged', [$this, 'isUserLogged'])
+                new TwigFunction('isUserLogged', [$this, 'isUserLogged']),
+                new TwigFunction('isUserAdmin', [$this, 'isUserAdmin'])
             ];
     }
 
@@ -49,6 +50,18 @@ class TwigSessionExtension extends AbstractExtension
             return false;
         } else {
             return true;
+        }
+    }
+
+    public function isUserAdmin(): bool
+    {
+        $session = new Session();
+        $user = $session->get('user');
+        //var_dump($user);
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        } else {
+            return false;
         }
     }
 }
