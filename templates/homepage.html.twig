@@ -8,6 +8,7 @@
 			<div class="row gx-4 gx-lg-5 justify-content-center">
 				<div class="col-md-10 col-lg-8 col-xl-7">
 					<p>Vous souhaitez me contacter ? Remplissez et envoyez le formulaire ci-dessous et je vous contacterai dans les meilleurs délais !</p>
+					<p>Vous pouvez également télécharger mon CV en cliquant <a href="/assets/CV.pdf" download="CV.pdf">ici</a>.</p>
 					<div class="my-5">
 						<form action="/?url=sendMail" method="post"> 
 							<div class="form-floating">
@@ -18,13 +19,10 @@
 							<div class="form-floating">
 								<input class="form-control" type="email" name="email" placeholder="Enter your email..." />
 								<label for="email">Adresse email</label>
-								<div class="invalid-feedback" data-sb-feedback="email:required">Vous devez fournir une adresse email.</div>
-								<div class="invalid-feedback" data-sb-feedback="email:email">Cette adresse email n'est pas valide.</div>
 							</div>
 							<div class="form-floating">
 								<textarea class="form-control" name="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
 								<label for="message">Message</label>
-								<div class="invalid-feedback" data-sb-feedback="message:required">Merci d'indiquer pourquoi vous souhaitez me contacter.</div>
 							</div>
 							<br/>
 							<input class="btn btn-primary text-uppercase" type="submit" value="Envoyer"/>

@@ -21,7 +21,7 @@ class Comment extends Model
 
     public function getAll()
     {
-        $req = $this->db->getPdo()->query("SELECT * FROM comment ORDER BY created_at DESC");
+        $req = $this->db->getPdo()->query("SELECT * FROM comment ORDER BY published");
         return $req->fetchAll();
     }
 

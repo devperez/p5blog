@@ -162,7 +162,7 @@ class AdminController extends Controller
     {
         $session = new Session();
         $session = session_destroy();
-        $this->twig->display('homepage.html.twig');
+        header('Location: /?url=');
     }
 
     public function comment()

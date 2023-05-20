@@ -19,11 +19,6 @@ class UserRepository extends AbstractRepository
             $user = $user->create($username, $email, $password);
             return $user;
         }
-        //var_dump($mails);
-        
-        // $user = new User($this->db);
-        // $user = $user->create($username, $email, $password);
-        // return $user;
     }
 
     public function signin(string $email, string $password): array
