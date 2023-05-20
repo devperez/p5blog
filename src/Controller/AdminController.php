@@ -23,23 +23,33 @@ class AdminController extends Controller
                     if ($password === $passwordConfirm) {
                         $user = new UserRepository();
                         $user = $user->create($username, $email, $password);
+                    } else {
+                        $session = new Session();
+                        $session = $session->start('errors', ['errors' => 'La confirmation du mot de passe a échoué.']);
+                        $this->twig->display('/admin/connection.html.twig');
                     }
+                } else {
+                    $session = new Session();
+                    $session = $session->start('errors', ['errors' => 'Votre adresse email n\'est pas valide.']);
+                    $this->twig->display('/admin/connection.html.twig');
                 }
+            } else {
+                $session = new Session();
+                $session = $session->start('errors', ['errors' => 'Votre nom d\'utilisateur n\'est pas valide.']);
+                $this->twig->display('/admin/connection.html.twig');
             }
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        } else {
             $session = new Session();
-            $session = $session->start('errors', ['errors' => 'Votre adresse email n\'est pas valide']);
+            $session = $session->start('errors', ['errors' => 'Merci de bien vouloir compléter le formulaire en entier.']);
+            $this->twig->display('/admin/connection.html.twig');
+            exit();
         }
-        if ($usernameLength > 255) {
+
+        if ($user == false) {
             $session = new Session();
-            $session = $session->start('errors', ['errors' => 'Votre nom d\'utilisateur n\'est pas valide']);
+            $session = $session->start('errors', ['errors' => 'Cette adresse email est déjà utilisée.']);
+            $this->twig->display('/admin/connection.html.twig');
         }
-        if ($password != $passwordConfirm) {
-            $session = new Session();
-            $session = $session->start('errors', ['errors' => 'La confirmation du mot de passe a échoué']);
-        }
-        $this->twig->display('/admin/connection.html.twig');
     }
 
     public function signin()

@@ -12,6 +12,17 @@ class User extends Model
     {
     }
 
+    public function getAllEmails(): array
+    {
+        $req = $this->db->getPdo()->query("SELECT email FROM user");
+        $mails = $req->fetchAll();
+        $emails = [];
+        foreach ($mails as $mail) {
+            array_push($emails, $mail['email']);
+        }
+        return $emails;
+    }
+
     public function create($username, $email, $password): PDOStatement
     {
         $user = $this->db->getPdo()->prepare("INSERT INTO user(username, email, password) VALUES(?, ?, ?)");

@@ -7,11 +7,23 @@ use PDOStatement;
 
 class UserRepository extends AbstractRepository
 {
-    public function create(string $username, string $email, string $password): PDOStatement
+    public function create(string $username, string $email, string $password)
     {
-        $user = new User($this->db);
-        $user = $user->create($username, $email, $password);
-        return $user;
+        $mails = new User($this->db);
+        $mails = $mails->getAllEmails();
+        
+        if (in_array($email, $mails)) {
+            return false;
+        } else {
+            $user = new User($this->db);
+            $user = $user->create($username, $email, $password);
+            return $user;
+        }
+        //var_dump($mails);
+        
+        // $user = new User($this->db);
+        // $user = $user->create($username, $email, $password);
+        // return $user;
     }
 
     public function signin(string $email, string $password): array
