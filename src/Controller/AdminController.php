@@ -95,6 +95,7 @@ class AdminController extends Controller
             }
         } else {
             $session = new Session();
+            $session->destroy('message');
             $session->destroy('errors');
             $session = $session->start('errors', ['errors' => 'Merci de bien vouloir remplir tous les champs du formulaire.']);
             $this->twig->display('/admin/connection.html.twig');
