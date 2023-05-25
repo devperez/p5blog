@@ -86,12 +86,12 @@ class AdminController extends Controller
         }
     }
 
-    public function write()
+    public function write(): void
     {
         $this->twig->display('/admin/write.html.twig');
     }
 
-    public function index()
+    public function index(): void
     {
         $posts = new PostRepository();
         $posts = $posts->index();
@@ -102,7 +102,7 @@ class AdminController extends Controller
         $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
-    public function publish()
+    public function publish(): void
     {
         if ($_POST['title'] && $_POST['subtitle'] && $_POST['content'] && $_POST['userId']) {
             $title = $_POST['title'];
@@ -117,14 +117,14 @@ class AdminController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(int $id): void
     {
         $post = new PostRepository();
         $post = $post->show($id);
         $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
     }
 
-    public function editPost($id)
+    public function editPost(int $id): void
     {
         if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
             $title = $_POST['title'];
@@ -138,34 +138,32 @@ class AdminController extends Controller
         header('Location: /?url=indexAdmin');
     }
 
-    public function deletePost($id)
+    public function deletePost(int $id): void
     {
-        if ($id) {
-            $post = new PostRepository();
-            $post = $post->deletePost($id);
-        }
+        $post = new PostRepository();
+        $post = $post->deletePost($id);
+    
         header('Location: /?url=indexAdmin');
     }
 
-    public function readPost($id)
+    public function readPost(int $id): void
     {
-        if ($id) {
-            $post = new PostRepository();
-            $post = $post->show($id);
-            $userId = $post->user_id;
-            $user = $post->getAuthorName($userId);
-        }
-        return $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
+        $post = new PostRepository();
+        $post = $post->show($id);
+        $userId = $post->user_id;
+        $user = $post->getAuthorName($userId);
+        
+        $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
     }
 
-    public function logout()
+    public function logout(): void
     {
         $session = new Session();
         $session = session_destroy();
         header('Location: /?url=');
     }
 
-    public function comment()
+    public function comment(): void
     {
         $commentContent = htmlspecialchars($_POST['comment']);
         $userId = htmlspecialchars($_POST['userId']);
@@ -174,10 +172,10 @@ class AdminController extends Controller
             $comment = new CommentRepository();
             $comment = $comment->create($commentContent, $userId, $postId);
         }
-        return $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
+        $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
     }
 
-    public function commentIndex()
+    public function commentIndex(): void
     {
         $comments = new CommentRepository();
         $comments = $comments->index();
@@ -191,10 +189,10 @@ class AdminController extends Controller
             $user = $users->getOne($userId);
             array_push($commentsArray, ['post' => $post->title, 'user' => $user['username'], 'comment' => $comment]);
         }
-        return $this->twig->display('/admin/comments.html.twig', ['commentsArray' => $commentsArray, 'comments' => $comments, 'post' => $post, 'user' => $user]);
+        $this->twig->display('/admin/comments.html.twig', ['commentsArray' => $commentsArray, 'comments' => $comments, 'post' => $post, 'user' => $user]);
     }
 
-    public function readComment($id)
+    public function readComment(int $id): void
     {
         $comment = new CommentRepository();
         $comment = $comment->show($id);
@@ -203,10 +201,10 @@ class AdminController extends Controller
         $post = new PostRepository();
         $post = $post->show($comment['post_id']);
         
-        return $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
+        $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
     }
 
-    public function publishComment($id)
+    public function publishComment(int $id): void
     {
         $comment = new CommentRepository();
         $comment = $comment->show($id);
@@ -217,7 +215,7 @@ class AdminController extends Controller
         header('Location: /?url=commentIndex');
     }
 
-    public function deleteComment($id)
+    public function deleteComment(int $id): void
     {
         $comment = new CommentRepository();
         $comment = $comment->show($id);

@@ -3,13 +3,11 @@
 
 	<div class="container-fluid px-4">
 		<h1 class="mt-4">Bienvenue
-			{{ getUsername() }}
-			!</h1>
-		<div>
-			<h4>Liste des articles publiés sur le blog :</h4>
-		</div>
-		<div class="container-fluid px-4">
-			<table class="table">
+			{{ getUsername() }}!
+		</h1>
+		<div class="table-responsive">
+			<table class="table table-hover caption-top">
+				<caption>Liste des articles publiés sur le blog</caption>
 				<thead>
 					<tr>
 						<th scope="col">Titre</th>
@@ -42,4 +40,5 @@
 				</tbody>
 			</table>
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}
