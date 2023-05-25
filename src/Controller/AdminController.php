@@ -24,6 +24,7 @@ class AdminController extends Controller
                         $user = new UserRepository();
                         $user = $user->create($username, $email, $password);
                         $session = new Session();
+                        $session->destroy('message');
                         $session->destroy('errors');
                         $session = $session->start('message', ['message' => 'Votre compte a bien été créé, vous pouvez vous connecter.']);
                         header('Location: /?url=admin');
