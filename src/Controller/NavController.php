@@ -16,7 +16,7 @@ class NavController extends Controller
         $this->twig->display('/homepage.html.twig');
     }
 
-    public function index()
+    public function index(): void
     {
         $posts = new PostRepository();
         $posts = $posts->index();
@@ -28,7 +28,7 @@ class NavController extends Controller
         $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
-    public function show($id)
+    public function show($id): void
     {
         $post = new PostRepository();
         $post = $post->show($id);
@@ -49,12 +49,12 @@ class NavController extends Controller
         $this->twig->display('/posts/show.html.twig', ['post' => $post, 'user' => $user, 'commentsWithAuthors' => $commentsWithAuthors]);
     }
 
-    public function admin()
+    public function admin(): void
     {
         $this->twig->display('/admin/connection.html.twig');
     }
 
-    public function mail()
+    public function mail(): void
     {
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -68,7 +68,6 @@ class NavController extends Controller
             $message = wordwrap($message, 70);
             $success = 'Mail envoyé avec succès !';
             try {
-                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();
                 $mail->Host = 'localhost';
                 $mail->Port = 1025;

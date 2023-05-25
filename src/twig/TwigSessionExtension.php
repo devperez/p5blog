@@ -14,7 +14,8 @@ class TwigSessionExtension extends AbstractExtension
                 new TwigFunction('getUserId', [$this, 'getUserId']),
                 new TwigFunction('getErrors', [$this, 'getErrors']),
                 new TwigFunction('isUserLogged', [$this, 'isUserLogged']),
-                new TwigFunction('isUserAdmin', [$this, 'isUserAdmin'])
+                new TwigFunction('isUserAdmin', [$this, 'isUserAdmin']),
+                new TwigFunction('getMessage', [$this, 'getMessage'])
             ];
     }
 
@@ -41,6 +42,13 @@ class TwigSessionExtension extends AbstractExtension
         $session = new Session();
         $userErrors = $session->get('errors');
         return isset($userErrors['errors']) ? $userErrors['errors'] : null;
+    }
+
+    public function getMessage()
+    {
+        $session = new Session();
+        $userMessage = $session->get('message');
+        return isset($userMessage['message']) ? $userMessage['message'] : null;
     }
 
     public function isUserLogged(): bool
