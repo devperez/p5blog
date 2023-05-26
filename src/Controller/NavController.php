@@ -5,6 +5,7 @@ namespace David\Blogpro\Controller;
 use David\Blogpro\Models\Repository\CommentRepository;
 use David\Blogpro\Models\Repository\PostRepository;
 use David\Blogpro\Models\Repository\UserRepository;
+use David\Blogpro\Session\Session;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -50,6 +51,9 @@ class NavController extends Controller
 
     public function admin(): void
     {
+        $session = new Session();
+        $session->destroy('errors');
+        $session->destroy('message');
         $this->twig->display('/admin/connection.html.twig');
     }
 

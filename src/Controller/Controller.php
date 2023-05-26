@@ -10,6 +10,7 @@ abstract class Controller
 {
     private $loader;
     protected $twig;
+    protected $environment;
     
     
 

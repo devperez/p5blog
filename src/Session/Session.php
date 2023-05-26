@@ -4,7 +4,7 @@ namespace David\Blogpro\Session;
 
 class Session
 {
-    public function start($key, $value)
+    public function set(string $key, array $value): void
     {
         $_SESSION[$key] = $value;
     }
@@ -14,7 +14,7 @@ class Session
         return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
 
-    public function destroy(string $key)
+    public function destroy(string $key): void
     {
         unset($_SESSION[$key]);
     }

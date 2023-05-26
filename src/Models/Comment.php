@@ -19,13 +19,13 @@ class Comment extends Model
         return $comment;
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         $req = $this->db->getPdo()->query("SELECT * FROM comment ORDER BY published");
         return $req->fetchAll();
     }
 
-    public function getById($id)
+    public function getById(int $id): array
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM comment WHERE id = ?");
         $req->execute([$id]);
@@ -33,7 +33,7 @@ class Comment extends Model
         return $comment;
     }
 
-    public function updateComment(int $commentId)
+    public function updateComment(int $commentId): void
     {
         $value = true;
         $req = $this->db->getPdo()->prepare("UPDATE comment SET published = :value WHERE id = :id");
@@ -43,7 +43,7 @@ class Comment extends Model
         ]);
     }
 
-    public function findByPostId($postId)
+    public function findByPostId(int $postId): array
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM comment WHERE post_id = ?");
         $req->execute([$postId]);
@@ -51,7 +51,7 @@ class Comment extends Model
         return $comment;
     }
 
-    public function destroy($commentId)
+    public function destroy(int $commentId): void
     {
         $req = $this->db->getPdo()->prepare("DELETE FROM comment WHERE id = :commentId");
         $req->execute([

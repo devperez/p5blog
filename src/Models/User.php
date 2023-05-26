@@ -23,28 +23,28 @@ class User extends Model
         return $emails;
     }
 
-    public function create($username, $email, $password): PDOStatement
+    public function create(string $username, string $email, string $password): PDOStatement
     {
         $user = $this->db->getPdo()->prepare("INSERT INTO user(username, email, password) VALUES(?, ?, ?)");
         $user->execute([$username, $email, $password]);
         return $user;
     }
 
-    public function getOne($email, $password): array|bool
+    public function getOne(string $email, string $password): array|bool
     {
         $user = $this->db->getPdo()->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
         $user->execute([$email, $password]);
         $user = $user->fetch();
         if (!$user) {
             $session = new Session();
-            $session = $session->start('errors', ['errors' => 'Votre adresse email  ou votre mot de passe n\'est pas valide']);
+            $session = $session->set('errors', ['errors' => 'Votre adresse email  ou votre mot de passe n\'est pas valide']);
             return false;
         } else {
             return $user;
         }
     }
 
-    public function getById($id): array
+    public function getById(int $id): array
     {
         $user = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
         $user->execute([$id]);
@@ -52,7 +52,7 @@ class User extends Model
         return $user;
     }
 
-    public function getUsersByCommentId($usersId)
+    public function getUsersByCommentId(int $usersId): array
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
         $req->execute([$usersId]);

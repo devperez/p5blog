@@ -13,13 +13,13 @@ class Router
         $this->url = $url;
     }
 
-    public function get(string $path, string $callable)
+    public function get(string $path, string $callable): void
     {
         $route = new Route($path, $callable);
         $this->routes['GET'][] = $route;
     }
 
-    public function post(string $path, $callable)
+    public function post(string $path, $callable): void
     {
         $route = new Route($path, $callable);
         $this->routes['POST'][] = $route;

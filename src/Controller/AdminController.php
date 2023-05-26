@@ -26,49 +26,49 @@ class AdminController extends Controller
                         if (!$user) {
                             $session = new Session();
                             $session->destroy('errors');
-                            $session = $session->start('errors', ['errors' => 'Cette adresse email est déjà utilisée.']);
+                            $session = $session->set('errors', ['errors' => 'Cette adresse email est déjà utilisée.']);
                             $this->twig->display('/admin/connection.html.twig');
                             exit();
                         } else {
                             $session = new Session();
                             $session->destroy('message');
                             $session->destroy('errors');
-                            $session = $session->start('message', ['message' => 'Votre compte a bien été créé, vous pouvez vous connecter.']);
+                            $session = $session->set('message', ['message' => 'Votre compte a bien été créé, vous pouvez vous connecter.']);
                             $this->twig->display('/admin/connection.html.twig');
                             exit();
                         }
                     } else {
                         $session = new Session();
                         $session->destroy('errors');
-                        $session = $session->start('errors', ['errors' => 'La confirmation du mot de passe a échoué.']);
+                        $session = $session->set('errors', ['errors' => 'La confirmation du mot de passe a échoué.']);
                         $this->twig->display('/admin/connection.html.twig');
                         exit();
                     }
                 } else {
                     $session = new Session();
                     $session->destroy('errors');
-                    $session = $session->start('errors', ['errors' => 'Votre adresse email n\'est pas valide.']);
+                    $session = $session->set('errors', ['errors' => 'Votre adresse email n\'est pas valide.']);
                     $this->twig->display('/admin/connection.html.twig');
                     exit();
                 }
             } else {
                 $session = new Session();
                 $session->destroy('errors');
-                $session = $session->start('errors', ['errors' => 'Votre nom d\'utilisateur n\'est pas valide.']);
+                $session = $session->set('errors', ['errors' => 'Votre nom d\'utilisateur n\'est pas valide.']);
                 $this->twig->display('/admin/connection.html.twig');
                 exit();
             }
         } elseif (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['passwordConfirm'])) {
             $session = new Session();
             $session->destroy('errors');
-            $session = $session->start('errors', ['errors' => 'Merci de bien vouloir compléter le formulaire en entier.']);
+            $session = $session->set('errors', ['errors' => 'Merci de bien vouloir compléter le formulaire en entier.']);
             $this->twig->display('/admin/connection.html.twig');
             exit();
         }
         if (!isset($user) || is_null($user)) {
             $session = new Session();
             $session->destroy('errors');
-            $session = $session->start('errors', ['errors' => 'Un problème est survenu lors de la création de votre compte. Merci de bien vouloir recommencer.']);
+            $session = $session->set('errors', ['errors' => 'Un problème est survenu lors de la création de votre compte. Merci de bien vouloir recommencer.']);
             $this->twig->display('/admin/connection.html.twig');
         }
         $this->twig->display('/admin/connection.html.twig');
@@ -87,7 +87,7 @@ class AdminController extends Controller
                 switch ($user['role']) {
                     case 'admin':
                         $session = new Session();
-                        $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id'], 'role' => $user['role']]);
+                        $session = $session->set('user', ['username' => $user['username'], 'id' => $user['id'], 'role' => $user['role']]);
                         $posts = new PostRepository();
                         $posts = $posts->index();
                         foreach ($posts as $post) {
@@ -98,7 +98,7 @@ class AdminController extends Controller
                         break;
                     case 'registered':
                         $session = new Session();
-                        $session = $session->start('user', ['username' => $user['username'], 'id' => $user['id'], 'role' => $user['role']]);
+                        $session = $session->set('user', ['username' => $user['username'], 'id' => $user['id'], 'role' => $user['role']]);
                         $this->twig->display('/homepage.html.twig', ['session' => $session]);
                         break;
                     default:
@@ -109,7 +109,7 @@ class AdminController extends Controller
             $session = new Session();
             $session->destroy('message');
             $session->destroy('errors');
-            $session = $session->start('errors', ['errors' => 'Merci de bien vouloir remplir tous les champs du formulaire.']);
+            $session = $session->set('errors', ['errors' => 'Merci de bien vouloir remplir tous les champs du formulaire.']);
             $this->twig->display('/admin/connection.html.twig');
         }
     }
