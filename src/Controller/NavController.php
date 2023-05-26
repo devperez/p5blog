@@ -31,7 +31,7 @@ class NavController extends Controller
     public function show($id): void
     {
         $post = new PostRepository();
-        $post = $post->show($id);
+        $post = $post->getOneById($id);
         $userId = $post->user_id;
         $user = $post->getAuthorName($userId);
         $comments = new CommentRepository();

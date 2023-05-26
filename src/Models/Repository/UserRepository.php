@@ -43,7 +43,6 @@ class UserRepository extends AbstractRepository
     {
         $user = new User($this->db);
         $users = $user->getUsersByCommentId($usersId);
-        //var_dump($users);
         return $users;
     }
 }

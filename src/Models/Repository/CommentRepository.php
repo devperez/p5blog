@@ -22,7 +22,7 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-    public function show(int $id): array
+    public function getOneById(int $id): array
     {
         $comment = new Comment($this->db);
         $comment = $comment->getById($id);

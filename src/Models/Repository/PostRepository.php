@@ -14,7 +14,7 @@ class PostRepository extends AbstractRepository
         return $posts;
     }
 
-    public function show(int $id): Post
+    public function getOneById(int $id): Post
     {
         $post = new Post($this->db);
         $post = $post->findById($id);

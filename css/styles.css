@@ -94,6 +94,11 @@ body {
   font-weight: bold;
 }
 
+.pic {
+  height: 25%;
+  width: 25%;
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;

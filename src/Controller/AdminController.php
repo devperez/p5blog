@@ -70,6 +70,7 @@ class AdminController extends Controller
             $session->destroy('errors');
             $session = $session->set('errors', ['errors' => 'Un problème est survenu lors de la création de votre compte. Merci de bien vouloir recommencer.']);
             $this->twig->display('/admin/connection.html.twig');
+            exit();
         }
         $this->twig->display('/admin/connection.html.twig');
     }
@@ -213,7 +214,7 @@ class AdminController extends Controller
         foreach ($comments as $comment) {
             $userId = $comment['user_id'];
             $postId = $comment['post_id'];
-            $post = $posts->show($postId);
+            $post = $posts->getOneById($postId);
             $user = $users->getOne($userId);
             array_push($commentsArray, ['post' => $post->title, 'user' => $user['username'], 'comment' => $comment]);
         }
