@@ -13,6 +13,7 @@ class CommentRepository extends AbstractRepository
      * @param integer $postId
      * @return pdoStatement
      */
+    
     public function create(string $commentContent, int $userId, int $postId): PDOStatement
     {
         $comment = new Comment($this->db);
@@ -70,7 +71,7 @@ class CommentRepository extends AbstractRepository
      * @param integer $commentId
      * @return void
      */
-    
+
     public function delete(int $commentId): void
     {
         $comment = new Comment($this->db);

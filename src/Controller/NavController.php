@@ -63,7 +63,7 @@ class NavController extends Controller
         $email = $_POST['email'];
         $message = $_POST['message'];
         
-        if ($name == '' || $email == '' || $message == '') {
+        if ($name == '' || $email === '' || $message == '') {
             $error = 'Merci de bien vouloir remplir tous les champs du formulaire.';
             $this->twig->display('homepage.html.twig', ['error' => $error]);
         } else {
