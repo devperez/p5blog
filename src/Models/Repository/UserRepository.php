@@ -11,7 +11,7 @@ class UserRepository extends AbstractRepository
     {
         $mails = new User($this->db);
         $mails = $mails->getAllEmails();
-        
+
         if (in_array($email, $mails)) {
             return $user = false;
         } else {
