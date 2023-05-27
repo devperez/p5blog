@@ -4,6 +4,11 @@ namespace David\Blogpro\Session;
 
 class Session
 {
+    /***
+     * @param string $key
+     * @param array $value
+     * @return void
+     */
     public function set(string $key, array $value): void
     {
         $_SESSION[$key] = $value;

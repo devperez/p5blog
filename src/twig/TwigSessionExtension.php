@@ -19,7 +19,7 @@ class TwigSessionExtension extends AbstractExtension
             ];
     }
 
-    public function getUsername()
+    public function getUsername(): string|null
     {
         $session = new Session();
         $userSession = $session->get('user');
@@ -30,21 +30,21 @@ class TwigSessionExtension extends AbstractExtension
         }
     }
 
-    public function getUserId()
+    public function getUserId(): int
     {
         $session = new Session();
         $userSession = $session->get('user');
         return $userSession['id'];
     }
 
-    public function getErrors()
+    public function getErrors(): string|null
     {
         $session = new Session();
         $userErrors = $session->get('errors');
         return isset($userErrors['errors']) ? $userErrors['errors'] : null;
     }
 
-    public function getMessage()
+    public function getMessage(): string|null
     {
         $session = new Session();
         $userMessage = $session->get('message');

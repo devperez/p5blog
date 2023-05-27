@@ -23,6 +23,12 @@ class User extends Model
         return $emails;
     }
 
+    /***
+     * @param string $username
+     * @param string $email
+     * @param string $password
+     * @return pdostatement
+     */
     public function create(string $username, string $email, string $password): PDOStatement
     {
         $user = $this->db->getPdo()->prepare("INSERT INTO user(username, email, password) VALUES(?, ?, ?)");
@@ -30,6 +36,11 @@ class User extends Model
         return $user;
     }
 
+    /***
+     * @param string $email
+     * @param string $password
+     * @return array if user found or boolean
+     */
     public function getOne(string $email, string $password): array|bool
     {
         $user = $this->db->getPdo()->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
@@ -44,6 +55,10 @@ class User extends Model
         }
     }
 
+    /***
+     * @param integer $id
+     * @return array
+     */
     public function getById(int $id): array
     {
         $user = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
@@ -52,6 +67,10 @@ class User extends Model
         return $user;
     }
 
+    /***
+     * @param integer $usersId
+     * @return array
+     */
     public function getUsersByCommentId(int $usersId): array
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");

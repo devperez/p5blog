@@ -15,10 +15,6 @@ abstract class Model
     {
     }
 
-    /**
-     * @return T[]
-     *
-     */
     public function all(): array
     {
         $req = $this->db->getPdo()->query("SELECT * FROM {$this->getTableName() } ORDER BY created_at DESC");
@@ -40,6 +36,10 @@ abstract class Model
         return strtolower($shortName);
     }
 
+    /***
+     * @param integer $id
+     * return string the username
+     */
     public function getAuthorName(int $id): string
     {
         $sql = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
@@ -49,6 +49,13 @@ abstract class Model
         return $username;
     }
 
+    /***
+     * @param string $title
+     * @param string $subtitle
+     * @param string $article
+     * @param integer $userId
+     * @return void
+     */
     public function storePost(string $title, string $subtitle, string $article, int $userId): void
     {
         $sql = $this->db->getPdo()->prepare("INSERT INTO post (title, subtitle, content, user_id) VALUES (:title, :subtitle, :article, :userId)");
@@ -59,6 +66,13 @@ abstract class Model
         $sql->execute();
     }
 
+    /***
+     * @param integer $id
+     * @param string $title
+     * @param string $subtitle
+     * @param string $content
+     * @return void
+     */
     public function updatePost(int $id, string $title, string $subtitle, string $content): void
     {
         $sql = $this->db->getPdo()->prepare("UPDATE post SET title = :title, subtitle = :subtitle, content = :content WHERE id = :id");
@@ -70,6 +84,10 @@ abstract class Model
         ]);
     }
 
+    /***
+     * @param integer $id
+     * @return void
+     */
     public function deletePost(int $id): void
     {
         $sql = $this->db->getPdo()->prepare("DELETE FROM post WHERE id = :id");

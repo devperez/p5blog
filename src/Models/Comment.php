@@ -12,7 +12,13 @@ class Comment extends Model
     {
     }
 
-    public function create($commentContent, $userId, $postId): PDOStatement
+    /***
+     * @param string $commentContent
+     * @param integer $userId
+     * @param integer $postId
+     * @return pdostatement
+     */
+    public function create(string $commentContent, int $userId, int $postId): PDOStatement
     {
         $comment = $this->db->getPdo()->prepare("INSERT INTO comment(comment, user_id, post_id) VALUES(?, ?, ?)");
         $comment->execute([$commentContent, $userId, $postId]);
@@ -25,6 +31,10 @@ class Comment extends Model
         return $req->fetchAll();
     }
 
+    /***
+     * @param integer $id
+     * @return array
+     */
     public function getById(int $id): array
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM comment WHERE id = ?");
@@ -33,6 +43,10 @@ class Comment extends Model
         return $comment;
     }
 
+    /***
+     * @param integer $commentId
+     * @return void
+     */
     public function updateComment(int $commentId): void
     {
         $value = true;
@@ -43,6 +57,10 @@ class Comment extends Model
         ]);
     }
 
+    /***
+     * @param integer $postId
+     * @return array
+     */
     public function findByPostId(int $postId): array
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM comment WHERE post_id = ?");
@@ -51,6 +69,10 @@ class Comment extends Model
         return $comment;
     }
 
+    /***
+     * @param integer $commentId
+     * @return void
+     */
     public function destroy(int $commentId): void
     {
         $req = $this->db->getPdo()->prepare("DELETE FROM comment WHERE id = :commentId");

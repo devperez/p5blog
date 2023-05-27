@@ -11,12 +11,16 @@ class Route
     private $callable;
     private $matches;
 
-    public function __construct(string $path, $callable)
+    public function __construct(string $path, string $callable)
     {
         $this->path = trim($path, '/');
         $this->callable = $callable;
     }
 
+    /***
+     * @param string $url
+     * @return boolean
+     */
     public function match(string $url): bool
     {
         $url = trim($url, '/');

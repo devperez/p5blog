@@ -27,7 +27,7 @@ class NavController extends Controller
         $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
-    public function show($id): void
+    public function show(int $id): void
     {
         $post = new PostRepository();
         $post = $post->getOneById($id);
@@ -35,7 +35,6 @@ class NavController extends Controller
         $user = $post->getAuthorName($userId);
         $comments = new CommentRepository();
         $comments = $comments->getCommentFromPost($post->id);
-        //var_dump($comments);
         $commentsWithAuthors = [];
         foreach ($comments as $comment) {
             if ($comment['published'] == 1) {

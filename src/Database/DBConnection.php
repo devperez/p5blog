@@ -13,9 +13,8 @@ class DBConnection
     private $username;
     private $password;
 
-    public function __construct(
-        // #[SensitiveParameter] //thing to check
-    ) {
+    public function __construct()
+    {
         $this->dbname = $_ENV['DB_NAME'];
         $this->host = $_ENV['DB_HOST'];
         $this->username = $_ENV['DB_USER'];
