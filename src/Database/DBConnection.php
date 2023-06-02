@@ -8,11 +8,11 @@ use SensitiveParameter;
 class DBConnection
 {
     /***
-     * @param string $pdo The database connection
-     * @param string $dbname The name of the database
-     * @param string $host The host
-     * @param string $username The username to connect to the database
-     * @param string $password To access the database
+     * @property string $pdo The database connection
+     * @property string $dbname The name of the database
+     * @property string $host The host
+     * @property string $username The username to connect to the database
+     * @property string $password To access the database
      */
     private $pdo;
     private $dbname;
