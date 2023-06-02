@@ -8,8 +8,6 @@ use PDOStatement;
 
 class Comment extends Model
 {
-
-
     public function __construct(private readonly DBConnection $db)
     {
     }

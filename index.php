@@ -12,9 +12,10 @@ require 'vendor/autoload.php';
 session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
-$router = new Router($_GET['url']);
 
 if (isset($_GET['url'])) {
+    $router = new Router($_GET['url']);
+
     $router->get('/', "Nav::homepage");
 
     $router->get('/posts', "Nav::index");

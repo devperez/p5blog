@@ -50,7 +50,7 @@ class User extends Model
             $session = new Session();
             $session = $session->set('errors', ['errors' => 'Votre adresse email  ou votre mot de passe n\'est pas valide']);
             return false;
-        } 
+        }
         return $user;
     }
 

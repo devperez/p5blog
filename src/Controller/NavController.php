@@ -65,7 +65,7 @@ class NavController extends Controller
         if (trim($name) === '' || trim($email) === '' || trim($message) === '') {
             $error = 'Merci de bien vouloir remplir tous les champs du formulaire.';
             $this->twig->display('homepage.html.twig', ['error' => $error]);
-        } 
+        }
         $mail = new Mail();
         $mail = $mail->send($name, $email, $message);
         if ($mail) {
