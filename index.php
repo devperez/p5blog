@@ -13,7 +13,7 @@ session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
-if (isset($_GET['url'])) {
+if (isset($_GET['url']) === true) {
     $router = new Router($_GET['url']);
 
     $router->get('/', "Nav::homepage");

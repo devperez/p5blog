@@ -28,6 +28,12 @@ class Comment extends Model
         return $comment;
     }
 
+
+    /***
+     * This function fetches all the comments and sorts them out unpublished first
+     *
+     * @return array
+     */
     public function getAll(): array
     {
         $req = $this->db->getPdo()->query("SELECT * FROM comment ORDER BY published");

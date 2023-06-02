@@ -47,7 +47,7 @@ class UserRepository extends AbstractRepository
     /***
      * This function selects one user by taking its id as a parameter
      *
-     * @param integer $userId
+     * @param integer $userId the id of the user
      *
      * @return array
      */

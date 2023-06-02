@@ -19,6 +19,12 @@ abstract class Model
         return $req->fetchAll();
     }
 
+    /***
+     * This function is called when fetching a user, a post or a comment using its id
+     *
+     * @param integer $id can be either a post, user, or comment id
+     * @return model
+     */
     public function findById(int $id): Model
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM {$this->getTableName() } WHERE id = ?");
@@ -37,7 +43,7 @@ abstract class Model
      * This function gets the author of a post
      *
      * @param integer $userId the id of the user
-     * return string the username
+     * @return string the username
      */
     public function getAuthorName(int $userId): string
     {

@@ -10,11 +10,17 @@ use David\Blogpro\Session\Session;
 
 class NavController extends Controller
 {
+    /***
+     * This function is called to display the homepage
+     */
     public function homepage()
     {
         $this->twig->display('/homepage.html.twig');
     }
 
+    /***
+     * This function is called to display the page listing all the posts
+     */
     public function index(): void
     {
         $posts = new PostRepository();
@@ -26,10 +32,17 @@ class NavController extends Controller
         $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
-    public function show(int $post_id): void
+    /***
+     * This function is called when the user wants to read a post
+     *
+     * @param integer $postId the id of the post
+     * @return void
+     */
+
+    public function show(int $postId): void
     {
         $post = new PostRepository();
-        $post = $post->getOneById($post_id);
+        $post = $post->getOneById($postId);
         $userId = $post->user_id;
         $user = $post->getAuthorName($userId);
         $comments = new CommentRepository();
@@ -46,6 +59,9 @@ class NavController extends Controller
         $this->twig->display('/posts/show.html.twig', ['post' => $post, 'user' => $user, 'commentsWithAuthors' => $commentsWithAuthors]);
     }
 
+    /***
+     * This function is called when the user clicks on the connection link in the footer
+     */
     public function admin(): void
     {
         $session = new Session();
@@ -54,6 +70,9 @@ class NavController extends Controller
         $this->twig->display('/admin/connection.html.twig');
     }
 
+    /***
+     * This fonction is called when the user fills in the form to send an email
+     */
     public function mail(): void
     {
         if ($_POST['name'] !== null && $_POST['email'] !== null && $_POST['message'] !== null) {
@@ -68,7 +87,7 @@ class NavController extends Controller
         }
         $mail = new Mail();
         $mail = $mail->send($name, $email, $message);
-        if ($mail) {
+        if ($mail === true) {
             $success = 'Mail envoyé avec succès !';
             $this->twig->display('homepage.html.twig', ['success' => $success]);
         }

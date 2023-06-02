@@ -14,8 +14,8 @@ class Router
     }
 
     /***
-     * @param string $path
-     * @param string $callable
+     * @param string $path the url
+     * @param string $callable the controller's method
      * @return void
      */
     public function get(string $path, string $callable): void
@@ -25,8 +25,8 @@ class Router
     }
 
     /***
-     * @param string $path
-     * @param string $callable
+     * @param string $path the url
+     * @param string $callable the controller's method
      * @return void
      */
     public function post(string $path, string $callable): void
@@ -44,7 +44,7 @@ class Router
             throw new RouterException('REQUEST_METHOD does not exist');
         }
         foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
-            if ($route->match($this->url)) {
+            if ($route->match($this->url) === true) {
                 return $route->call();
             }
         }

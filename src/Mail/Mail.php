@@ -13,8 +13,6 @@ class Mail
      * @param string $message
      * @return boolean true if mail is sent
      */
-
-
     public function send(string $name, string $email, string $message): bool
     {
         $mail = new PHPMailer(true);

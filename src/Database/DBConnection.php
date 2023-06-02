@@ -7,11 +7,11 @@ use SensitiveParameter;
 
 class DBConnection
 {
-    private $pdo;
-    private $dbname;
-    private $host;
-    private $username;
-    private $password;
+    private $pdo; // database connection
+    private $dbname; // database name
+    private $host; // database host
+    private $username; // database username
+    private $password; // database password
 
     public function __construct()
     {
@@ -26,8 +26,8 @@ class DBConnection
      */
     public function getPdo(): PDO
     {
-        //first, check if a pdo instance already exists.
-        //If not, create a new instance with error mode on.
+        // first, check if a pdo instance already exists.
+        // If not, create a new instance with error mode on.
         if ($this->pdo === null) {
             $this->pdo = new PDO(
                 "mysql:dbname={$this->dbname};host={$this->host}",
