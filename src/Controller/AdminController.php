@@ -65,7 +65,7 @@ class AdminController extends Controller
             $this->twig->display('/admin/connection.html.twig');
             exit();
         }
-        if (!isset($user) || is_null($user)) {
+        if (!isset($user) || $user === null) {
             $session = new Session();
             $session->destroy('errors');
             $session = $session->set('errors', ['errors' => 'Un problème est survenu lors de la création de votre compte. Merci de bien vouloir recommencer.']);
@@ -77,7 +77,7 @@ class AdminController extends Controller
 
     public function signin()
     {
-        if (!empty($_POST['email']) && !empty($_POST['password'])) {
+        if ($_POST['email'] === false && $_POST['password'] === false) {
             $email = htmlspecialchars($_POST['email']);
             $password = sha1($_POST['password']);
             $user = new UserRepository();
@@ -120,6 +120,9 @@ class AdminController extends Controller
         $this->twig->display('/admin/write.html.twig');
     }
 
+    /***
+     * This function gets all the posts with the author's name
+     */
     public function index(): void
     {
         $posts = new PostRepository();

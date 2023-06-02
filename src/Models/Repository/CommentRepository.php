@@ -33,7 +33,10 @@ class CommentRepository extends AbstractRepository
     }
 
     /***
+     * This function get a specific comment taking its id as a parameter
+     *
      * @param integer $id
+     *
      * @return array
      */
 

@@ -35,6 +35,9 @@ class Route
         return true;
     }
 
+    /**
+     * This function takes the second part of the url and matches it with the right method
+     */
     public function call()
     {
         if (is_string($this->callable)) {

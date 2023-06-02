@@ -13,6 +13,8 @@ class UserRepository extends AbstractRepository
      * @param string $password
      * @return boolean or pdostatement
      */
+
+
     public function create(string $username, string $email, string $password): bool|PDOStatement
     {
         $mails = new User($this->db);
@@ -44,7 +46,10 @@ class UserRepository extends AbstractRepository
     }
 
     /***
+     * This function selects one user by taking its id as a parameter
+     *
      * @param integer $id
+     *
      * @return array
      */
     public function getOne(int $id): array

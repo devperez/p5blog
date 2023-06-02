@@ -21,6 +21,9 @@ class DBConnection
         $this->password = $_ENV['DB_PASS'];
     }
 
+    /**
+     * This function uses the database variables to establish a connection
+     */
     public function getPdo(): PDO
     {
         //first, check if a pdo instance already exists.

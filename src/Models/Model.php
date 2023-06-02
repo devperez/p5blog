@@ -6,9 +6,6 @@ use David\Blogpro\Database\DBConnection;
 use PDO;
 use ReflectionClass;
 
-/**
- * @template T
- */
 abstract class Model
 {
     public function __construct(private readonly DBConnection $db)

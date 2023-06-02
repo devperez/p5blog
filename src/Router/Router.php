@@ -35,6 +35,9 @@ class Router
         $this->routes['POST'][] = $route;
     }
 
+    /**
+     * This function checks if the route exists and if there is a match calls the call function
+     */
     public function run()
     {
         if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {

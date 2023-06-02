@@ -8,6 +8,9 @@ use Twig\TwigFunction;
 
 class TwigSessionExtension extends AbstractExtension
 {
+    /***
+     * This function makes the other functions accessible from the twig vue
+     */
     public function getFunctions()
     {
         return [new TwigFunction('getUsername', [$this, 'getUsername']),
@@ -15,7 +18,7 @@ class TwigSessionExtension extends AbstractExtension
                 new TwigFunction('getErrors', [$this, 'getErrors']),
                 new TwigFunction('isUserLogged', [$this, 'isUserLogged']),
                 new TwigFunction('isUserAdmin', [$this, 'isUserAdmin']),
-                new TwigFunction('getMessage', [$this, 'getMessage'])
+                new TwigFunction('getMessage', [$this, 'getMessage']),
             ];
     }
 
@@ -51,6 +54,11 @@ class TwigSessionExtension extends AbstractExtension
         return isset($userMessage['message']) ? $userMessage['message'] : null;
     }
 
+    /***
+     * This function checks if the user is logged
+     *
+     * @return boolean
+     */
     public function isUserLogged(): bool
     {
         $user = $this->getUsername();
