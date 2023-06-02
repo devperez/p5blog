@@ -11,13 +11,13 @@ class AdminController extends Controller
 {
     public function signup()
     {
-        $username = htmlspecialchars($_POST['username']);
-        $email = htmlspecialchars($_POST['email']);
-        $password = sha1($_POST['password']);
-        $passwordConfirm = sha1($_POST['passwordConfirm']);
-        $usernameLength = strlen($username);
-
         if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])) {
+            $username = htmlspecialchars($_POST['username']);
+            $email = htmlspecialchars($_POST['email']);
+            $password = sha1($_POST['password']);
+            $passwordConfirm = sha1($_POST['passwordConfirm']);
+            $usernameLength = strlen($username);
+
             if ($usernameLength <= 255) {
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if ($password === $passwordConfirm) {
@@ -25,6 +25,7 @@ class AdminController extends Controller
                         $user = $user->create($username, $email, $password);
                         if (!$user) {
                             $session = new Session();
+                            $session->destroy('message');
                             $session->destroy('errors');
                             $session = $session->set('errors', ['errors' => 'Cette adresse email est déjà utilisée.']);
                             $this->twig->display('/admin/connection.html.twig');
@@ -39,6 +40,7 @@ class AdminController extends Controller
                         }
                     } else {
                         $session = new Session();
+                        $session->destroy('message');
                         $session->destroy('errors');
                         $session = $session->set('errors', ['errors' => 'La confirmation du mot de passe a échoué.']);
                         $this->twig->display('/admin/connection.html.twig');
@@ -46,6 +48,7 @@ class AdminController extends Controller
                     }
                 } else {
                     $session = new Session();
+                    $session->destroy('message');
                     $session->destroy('errors');
                     $session = $session->set('errors', ['errors' => 'Votre adresse email n\'est pas valide.']);
                     $this->twig->display('/admin/connection.html.twig');
@@ -53,6 +56,7 @@ class AdminController extends Controller
                 }
             } else {
                 $session = new Session();
+                $session->destroy('message');
                 $session->destroy('errors');
                 $session = $session->set('errors', ['errors' => 'Votre nom d\'utilisateur n\'est pas valide.']);
                 $this->twig->display('/admin/connection.html.twig');
@@ -60,6 +64,7 @@ class AdminController extends Controller
             }
         } elseif (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['passwordConfirm'])) {
             $session = new Session();
+            $session->destroy('message');
             $session->destroy('errors');
             $session = $session->set('errors', ['errors' => 'Merci de bien vouloir compléter le formulaire en entier.']);
             $this->twig->display('/admin/connection.html.twig');
@@ -67,6 +72,7 @@ class AdminController extends Controller
         }
         if (!isset($user) || $user === null) {
             $session = new Session();
+            $session->destroy('message');
             $session->destroy('errors');
             $session = $session->set('errors', ['errors' => 'Un problème est survenu lors de la création de votre compte. Merci de bien vouloir recommencer.']);
             $this->twig->display('/admin/connection.html.twig');
