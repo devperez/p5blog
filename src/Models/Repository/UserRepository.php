@@ -22,11 +22,10 @@ class UserRepository extends AbstractRepository
 
         if (in_array($email, $mails)) {
             return $user = false;
-        } else {
-            $user = new User($this->db);
-            $user = $user->create($username, $email, $password);
-            return $user;
         }
+        $user = new User($this->db);
+        $user = $user->create($username, $email, $password);
+        return $user;
     }
 
     /***
@@ -48,14 +47,14 @@ class UserRepository extends AbstractRepository
     /***
      * This function selects one user by taking its id as a parameter
      *
-     * @param integer $id
+     * @param integer $userId
      *
      * @return array
      */
-    public function getOne(int $id): array
+    public function getOne(int $userId): array
     {
         $user = new User($this->db);
-        $user = $user->getById($id);
+        $user = $user->getById($userId);
         return $user;
     }
 

@@ -35,15 +35,15 @@ class CommentRepository extends AbstractRepository
     /***
      * This function get a specific comment taking its id as a parameter
      *
-     * @param integer $id
+     * @param integer $commentId
      *
      * @return array
      */
 
-    public function getOneById(int $id): array
+    public function getOneById(int $commentId): array
     {
         $comment = new Comment($this->db);
-        $comment = $comment->getById($id);
+        $comment = $comment->getById($commentId);
         return $comment;
     }
 

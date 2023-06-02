@@ -28,9 +28,8 @@ class TwigSessionExtension extends AbstractExtension
         $userSession = $session->get('user');
         if ($userSession) {
             return $userSession['username'];
-        } else {
-            return null;
         }
+        return null;
     }
 
     public function getUserId(): int

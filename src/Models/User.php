@@ -74,6 +74,6 @@ class User extends Model
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
         $req->execute([$usersId]);
-        return $users = $req->fetchAll();
+        return $req->fetchAll();
     }
 }

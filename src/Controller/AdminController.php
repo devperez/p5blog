@@ -220,8 +220,7 @@ class AdminController extends Controller
      */
     public function logout(): void
     {
-        $session = new Session();
-        $session = session_destroy();
+        session_destroy();
         header('Location: /?url=');
     }
 
