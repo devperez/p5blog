@@ -12,6 +12,8 @@ class NavController extends Controller
 {
     /***
      * This function is called to display the homepage
+     *
+     * @return homepage
      */
     public function homepage()
     {

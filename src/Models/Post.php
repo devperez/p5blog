@@ -8,6 +8,8 @@ class Post extends Model
 {
     /***
      * This function displays a european formated date for the posts
+     *
+     * @return string date
      */
     public function getCreatedAt(): string
     {

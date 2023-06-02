@@ -7,11 +7,18 @@ use SensitiveParameter;
 
 class DBConnection
 {
-    private $pdo; // database connection
-    private $dbname; // database name
-    private $host; // database host
-    private $username; // database username
-    private $password; // database password
+    /***
+     * @param string $pdo The database connection
+     * @param string $dbname The name of the database
+     * @param string $host The host
+     * @param string $username The username to connect to the database
+     * @param string $password To access the database
+     */
+    private $pdo;
+    private $dbname;
+    private $host;
+    private $username;
+    private $password;
 
     public function __construct()
     {
