@@ -12,9 +12,10 @@ session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
-$url = htmlspecialchars($_GET['url']);
 
 if (isset($url) === true) {
+    $url = htmlspecialchars($_GET['url']);
+
     $router = new Router($url);
 
     $router->get('/', "Nav::homepage");
