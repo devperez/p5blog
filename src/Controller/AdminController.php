@@ -77,7 +77,7 @@ class AdminController extends Controller
 
     public function signin()
     {
-        if ($_POST['email'] === false && $_POST['password'] === false) {
+        if ($_POST['email'] != false && $_POST['password'] != false) {
             $email = htmlspecialchars($_POST['email']);
             $password = sha1($_POST['password']);
             $user = new UserRepository();
@@ -152,7 +152,7 @@ class AdminController extends Controller
     public function edit(int $id): void
     {
         $post = new PostRepository();
-        $post = $post->show($id);
+        $post = $post->getOneById($id);
         $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
     }
 
@@ -181,7 +181,7 @@ class AdminController extends Controller
     public function readPost(int $id): void
     {
         $post = new PostRepository();
-        $post = $post->show($id);
+        $post = $post->getOneById($id);
         $userId = $post->user_id;
         $user = $post->getAuthorName($userId);
         
@@ -227,11 +227,11 @@ class AdminController extends Controller
     public function readComment(int $id): void
     {
         $comment = new CommentRepository();
-        $comment = $comment->show($id);
+        $comment = $comment->getOneById($id);
         $user = new UserRepository();
         $user = $user->getOne($comment['user_id']);
         $post = new PostRepository();
-        $post = $post->show($comment['post_id']);
+        $post = $post->getOneById($comment['post_id']);
         
         $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
     }
@@ -239,7 +239,7 @@ class AdminController extends Controller
     public function publishComment(int $id): void
     {
         $comment = new CommentRepository();
-        $comment = $comment->show($id);
+        $comment = $comment->getOneById($id);
         $commentId = $comment['id'];
         $comment = new CommentRepository();
         $comment = $comment->publish($commentId);
@@ -250,7 +250,7 @@ class AdminController extends Controller
     public function deleteComment(int $id): void
     {
         $comment = new CommentRepository();
-        $comment = $comment->show($id);
+        $comment = $comment->getOneById($id);
         $commentId = $comment['id'];
         $comment = new CommentRepository();
         $comment = $comment->delete($commentId);

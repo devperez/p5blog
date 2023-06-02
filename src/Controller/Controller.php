@@ -11,8 +11,7 @@ abstract class Controller
     private $loader;
     protected $twig;
     protected $environment;
-    
-    
+
 
     public function __construct()
     {

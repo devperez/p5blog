@@ -19,7 +19,6 @@ class NavController extends Controller
     {
         $posts = new PostRepository();
         $posts = $posts->index();
-        
         foreach ($posts as $post) {
             $userId = $post->user_id;
             $user = $post->getAuthorName($userId);
@@ -27,17 +26,17 @@ class NavController extends Controller
         $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
-    public function show(int $id): void
+    public function show(int $post_id): void
     {
         $post = new PostRepository();
-        $post = $post->getOneById($id);
+        $post = $post->getOneById($post_id);
         $userId = $post->user_id;
         $user = $post->getAuthorName($userId);
         $comments = new CommentRepository();
         $comments = $comments->getCommentFromPost($post->id);
         $commentsWithAuthors = [];
         foreach ($comments as $comment) {
-            if ($comment['published'] == 1) {
+            if ($comment['published'] === 1) {
                 $userId = $comment['user_id'];
                 $author = new UserRepository();
                 $authors = $author->getOne($userId);
@@ -57,20 +56,21 @@ class NavController extends Controller
 
     public function mail(): void
     {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $message = $_POST['message'];
+        if ($_POST['name'] !== null && $_POST['email'] !== null && $_POST['message'] !== null) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $message = $_POST['message'];
+        }
         
         if (trim($name) === '' || trim($email) === '' || trim($message) === '') {
             $error = 'Merci de bien vouloir remplir tous les champs du formulaire.';
             $this->twig->display('homepage.html.twig', ['error' => $error]);
-        } else {
-            $mail = new Mail();
-            $mail = $mail->send($name, $email, $message);
-            if ($mail) {
-                $success = 'Mail envoyé avec succès !';
-                $this->twig->display('homepage.html.twig', ['success' => $success]);
-            }
+        } 
+        $mail = new Mail();
+        $mail = $mail->send($name, $email, $message);
+        if ($mail) {
+            $success = 'Mail envoyé avec succès !';
+            $this->twig->display('homepage.html.twig', ['success' => $success]);
         }
     }
 }

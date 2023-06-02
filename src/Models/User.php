@@ -50,19 +50,18 @@ class User extends Model
             $session = new Session();
             $session = $session->set('errors', ['errors' => 'Votre adresse email  ou votre mot de passe n\'est pas valide']);
             return false;
-        } else {
-            return $user;
-        }
+        } 
+        return $user;
     }
 
     /***
-     * @param integer $id
+     * @param integer $userId
      * @return array
      */
-    public function getById(int $id): array
+    public function getById(int $userId): array
     {
         $user = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
-        $user->execute([$id]);
+        $user->execute([$userId]);
         $user = $user->fetch();
         return $user;
     }

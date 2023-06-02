@@ -14,13 +14,13 @@ class PostRepository extends AbstractRepository
     }
 
     /***
-     * @param integer $id
+     * @param integer $postId
      * @return Post
      */
-    public function getOneById(int $id): Post
+    public function getOneById(int $postId): Post
     {
         $post = new Post($this->db);
-        $post = $post->findById($id);
+        $post = $post->findById($postId);
         return $post;
     }
 
@@ -38,25 +38,25 @@ class PostRepository extends AbstractRepository
     }
 
     /***
-     * @param integer $id
+     * @param integer $postId
      * @param string $title
      * @param string $subtitle
      * @param string $content
      * @return void
      */
-    public function update(int $id, string $title, string $subtitle, string $content): void
+    public function update(int $postId, string $title, string $subtitle, string $content): void
     {
         $post = new Post($this->db);
-        $post = $post->updatePost($id, $title, $subtitle, $content);
+        $post = $post->updatePost($postId, $title, $subtitle, $content);
     }
 
     /***
-     * @param integer $id
+     * @param integer $postId
      * @return void
      */
-    public function deletePost(int $id): void
+    public function deletePost(int $postId): void
     {
         $post = new Post($this->db);
-        $post = $post->deletePost($id);
+        $post = $post->deletePost($postId);
     }
 }

@@ -8,9 +8,12 @@ use PDOStatement;
 
 class Comment extends Model
 {
+
+
     public function __construct(private readonly DBConnection $db)
     {
     }
+
 
     /***
      * @param string $commentContent
@@ -32,13 +35,13 @@ class Comment extends Model
     }
 
     /***
-     * @param integer $id
+     * @param integer $commentId
      * @return array
      */
-    public function getById(int $id): array
+    public function getById(int $commentId): array
     {
         $req = $this->db->getPdo()->prepare("SELECT * FROM comment WHERE id = ?");
-        $req->execute([$id]);
+        $req->execute([$commentId]);
         $comment = $req->fetch();
         return $comment;
     }
