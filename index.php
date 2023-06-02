@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-
 use David\Blogpro\Router\Router;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -15,8 +12,10 @@ session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
-if (isset($_GET['url']) === true) {
-    $router = new Router($_GET['url']);
+$url = htmlspecialchars($_GET['url']);
+
+if (isset($url) === true) {
+    $router = new Router($url);
 
     $router->get('/', "Nav::homepage");
 
