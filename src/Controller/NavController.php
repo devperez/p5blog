@@ -78,20 +78,22 @@ class NavController extends Controller
     public function mail(): void
     {
         if ($_POST['name'] !== null && $_POST['email'] !== null && $_POST['message'] !== null) {
-            $name = $_POST['name'];
-            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-            $message = $_POST['message'];
+            $name = htmlspecialchars($_POST['name']);
+            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+            $message = htmlspecialchars($_POST['message']);
         }
         
         if (trim($name) === '' || trim($email) === '' || trim($message) === '') {
-            $error = 'Merci de bien vouloir remplir tous les champs du formulaire.';
+            $error = 'Merci de bien vouloir remplir tous les champs du formulaire ou de fournir une adresse email valide.';
             $this->twig->display('homepage.html.twig', ['error' => $error]);
         }
-        $mail = new Mail();
-        $mail = $mail->send($name, $email, $message);
-        if ($mail === true) {
-            $success = 'Mail envoyé avec succès !';
-            $this->twig->display('homepage.html.twig', ['success' => $success]);
+        if ($email === true) {
+            $mail = new Mail();
+            $mail = $mail->send($name, $email, $message);
+            if ($mail === true) {
+                $success = 'Mail envoyé avec succès !';
+                $this->twig->display('homepage.html.twig', ['success' => $success]);
+            }
         }
     }
 }
