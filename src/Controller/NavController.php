@@ -58,7 +58,7 @@ class NavController extends Controller
     {
         if ($_POST['name'] !== null && $_POST['email'] !== null && $_POST['message'] !== null) {
             $name = $_POST['name'];
-            $email = $_POST['email'];
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $message = $_POST['message'];
         }
         
