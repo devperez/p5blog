@@ -121,7 +121,7 @@ class AdminController extends Controller
     }
 
     /***
-     * This function gets all the posts with the author's name
+     * This function displays all the posts with the author's name
      */
     public function index(): void
     {
@@ -134,6 +134,9 @@ class AdminController extends Controller
         $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
+    /***
+     * This function checks that the form is complete and then publishes the post
+     */
     public function publish(): void
     {
         if ($_POST['title'] && $_POST['subtitle'] && $_POST['content'] && $_POST['userId']) {
@@ -149,14 +152,26 @@ class AdminController extends Controller
         }
     }
 
-    public function edit(int $id): void
+    /***
+     * This function selects a post and displays it
+     *
+     * @param integer $postId the id of the post
+     * @return void
+     */
+    public function edit(int $postId): void
     {
         $post = new PostRepository();
-        $post = $post->getOneById($id);
+        $post = $post->getOneById($postId);
         $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
     }
 
-    public function editPost(int $id): void
+    /***
+     * This function is called when the admin finishes editing a post
+     *
+     * @param integer $postId the id of the post
+     * @return void
+     */
+    public function editPost(int $postId): void
     {
         if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
             $title = $_POST['title'];
@@ -164,30 +179,45 @@ class AdminController extends Controller
             $article = $_POST['content'];
             if (strlen($title) < 255) {
                 $post = new PostRepository();
-                $post = $post->update($id, $title, $subtitle, $article);
+                $post = $post->update($postId, $title, $subtitle, $article);
             }
         }
         header('Location: /?url=indexAdmin');
     }
 
-    public function deletePost(int $id): void
+    /***
+     * This function is used to delete a post
+     *
+     * @param integer $postId the id of the post
+     * @return void
+     */
+    public function deletePost(int $postId): void
     {
         $post = new PostRepository();
-        $post = $post->deletePost($id);
+        $post = $post->deletePost($postId);
     
         header('Location: /?url=indexAdmin');
     }
 
-    public function readPost(int $id): void
+    /***
+     * This function is called when the admin wants to display a post in the back office
+     *
+     * @param integer $postId the id of the post
+     * @return void
+     */
+    public function readPost(int $postId): void
     {
         $post = new PostRepository();
-        $post = $post->getOneById($id);
+        $post = $post->getOneById($postId);
         $userId = $post->user_id;
         $user = $post->getAuthorName($userId);
         
         $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
     }
 
+    /***
+     * This function is called when the admin logs out
+     */
     public function logout(): void
     {
         $session = new Session();
@@ -195,6 +225,9 @@ class AdminController extends Controller
         header('Location: /?url=');
     }
 
+    /***
+     * This function is called when a comment is created
+     */
     public function comment(): void
     {
         $commentContent = htmlspecialchars($_POST['comment']);
@@ -207,6 +240,9 @@ class AdminController extends Controller
         $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
     }
 
+    /***
+     * This function is called when the admin wants to display all the comments in the back office
+     */
     public function commentIndex(): void
     {
         $comments = new CommentRepository();
@@ -224,10 +260,16 @@ class AdminController extends Controller
         $this->twig->display('/admin/comments.html.twig', ['commentsArray' => $commentsArray, 'comments' => $comments, 'post' => $post, 'user' => $user]);
     }
 
-    public function readComment(int $id): void
+    /***
+     * This function is called when the admin selects a comment
+     *
+     * @param integer $commentId the id of the comment
+     * @return void
+     */
+    public function readComment(int $commentId): void
     {
         $comment = new CommentRepository();
-        $comment = $comment->getOneById($id);
+        $comment = $comment->getOneById($commentId);
         $user = new UserRepository();
         $user = $user->getOne($comment['user_id']);
         $post = new PostRepository();
@@ -236,10 +278,16 @@ class AdminController extends Controller
         $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
     }
 
-    public function publishComment(int $id): void
+    /***
+     * This function is called when the admin validates a comment
+     *
+     * @param integer $commentId the id of the comment
+     * @return void
+     */
+    public function publishComment(int $commentId): void
     {
         $comment = new CommentRepository();
-        $comment = $comment->getOneById($id);
+        $comment = $comment->getOneById($commentId);
         $commentId = $comment['id'];
         $comment = new CommentRepository();
         $comment = $comment->publish($commentId);
@@ -247,10 +295,16 @@ class AdminController extends Controller
         header('Location: /?url=commentIndex');
     }
 
-    public function deleteComment(int $id): void
+    /***
+     * This function is called when the admin deletes a comment
+     *
+     * @param integer $commentId the id of the comment
+     * @return void
+     */
+    public function deleteComment(int $commentId): void
     {
         $comment = new CommentRepository();
-        $comment = $comment->getOneById($id);
+        $comment = $comment->getOneById($commentId);
         $commentId = $comment['id'];
         $comment = new CommentRepository();
         $comment = $comment->delete($commentId);
