@@ -14,9 +14,11 @@ class Comment extends Model
 
 
     /***
-     * @param string $commentContent
-     * @param integer $userId
-     * @param integer $postId
+     * This function stores a new comment in the database
+     *
+     * @param string $commentContent the content of the comment
+     * @param integer $userId the id of the user
+     * @param integer $postId the id of the post
      * @return pdostatement
      */
     public function create(string $commentContent, int $userId, int $postId): PDOStatement
@@ -33,7 +35,9 @@ class Comment extends Model
     }
 
     /***
-     * @param integer $commentId
+     * This function fetches a comment using its id
+     *
+     * @param integer $commentId the id of the comment
      * @return array
      */
     public function getById(int $commentId): array
@@ -45,7 +49,9 @@ class Comment extends Model
     }
 
     /***
-     * @param integer $commentId
+     * This function updates a comment in the database using its id
+     *
+     * @param integer $commentId the id of the comment
      * @return void
      */
     public function updateComment(int $commentId): void
@@ -59,7 +65,9 @@ class Comment extends Model
     }
 
     /***
-     * @param integer $postId
+     * This function fetches all comments related to a post using the id of the post
+     *
+     * @param integer $postId the id of the post
      * @return array
      */
     public function findByPostId(int $postId): array
@@ -71,7 +79,9 @@ class Comment extends Model
     }
 
     /***
-     * @param integer $commentId
+     * This function deletes a comment in the database using its id
+     *
+     * @param integer $commentId the id of the commment
      * @return void
      */
     public function destroy(int $commentId): void

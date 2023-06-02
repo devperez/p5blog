@@ -35,7 +35,7 @@ class Mail
             $mail->send();
             return true;
         } catch (Exception $e) {
-            echo "Message non envoyé : {$mail->ErrorInfo}";
+            //echo "Message non envoyé : {$mail->ErrorInfo}";
         }
     }
 }

@@ -34,23 +34,27 @@ abstract class Model
     }
 
     /***
-     * @param integer $id
+     * This function gets the author of a post
+     *
+     * @param integer $userId the id of the user
      * return string the username
      */
-    public function getAuthorName(int $id): string
+    public function getAuthorName(int $userId): string
     {
         $sql = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
-        $sql->execute([$id]);
+        $sql->execute([$userId]);
         $user = $sql->fetch();
         $username = $user['username'];
         return $username;
     }
 
     /***
-     * @param string $title
-     * @param string $subtitle
-     * @param string $article
-     * @param integer $userId
+     * This function stores a post in the post table
+     *
+     * @param string $title the title of the post
+     * @param string $subtitle the subtitle of the post
+     * @param string $article the content of the post
+     * @param integer $userId the id of the user
      * @return void
      */
     public function storePost(string $title, string $subtitle, string $article, int $userId): void
@@ -64,32 +68,36 @@ abstract class Model
     }
 
     /***
-     * @param integer $id
-     * @param string $title
-     * @param string $subtitle
-     * @param string $content
+     * This function updates a post from the post table
+     *
+     * @param integer $postId the id of the post
+     * @param string $title the title of the post
+     * @param string $subtitle the subtitle of the post
+     * @param string $content the content of the post
      * @return void
      */
-    public function updatePost(int $id, string $title, string $subtitle, string $content): void
+    public function updatePost(int $postId, string $title, string $subtitle, string $content): void
     {
         $sql = $this->db->getPdo()->prepare("UPDATE post SET title = :title, subtitle = :subtitle, content = :content WHERE id = :id");
         $sql->execute([
             'title' => $title,
             'subtitle' => $subtitle,
             'content' => $content,
-            'id' => $id,
+            'id' => $postId,
         ]);
     }
 
     /***
-     * @param integer $id
+     * This function deletes a post from the post table
+     *
+     * @param integer $postId the id of the post
      * @return void
      */
-    public function deletePost(int $id): void
+    public function deletePost(int $postId): void
     {
         $sql = $this->db->getPdo()->prepare("DELETE FROM post WHERE id = :id");
         $sql->execute([
-            'id' => $id,
+            'id' => $postId,
         ]);
     }
 }
