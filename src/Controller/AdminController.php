@@ -65,7 +65,6 @@ class AdminController extends Controller
 
             if ($isValid === false) {
                 $this->twig->display('/admin/connection.html.twig');
-                exit();
             }
 
             if ($isValid) {
