@@ -4,12 +4,15 @@ namespace David\Blogpro\Models;
 
 use DateTime;
 
+/**
+ * The post model
+ */
 class Post extends Model
 {
-    /***
-     * This function displays a european formated date for the posts
+    /**
+     * Displays a european formated date for the posts
      *
-     * @return string date
+     * @return string date The date when the post was published
      */
     public function getCreatedAt(): string
     {
