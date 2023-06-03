@@ -9,12 +9,19 @@ use David\Blogpro\Session\Session;
 
 class AdminController extends Controller
 {
-    public function signup()
+    /**
+     * This function is called when the user creates an account
+     *
+     * @return void
+     */
+    public function signup(): void
     {
         /**
          * This function is called to refresh the messages displayed to the user
+         *
+         * @return void
          */
-        function destroyMessages()
+        function destroyMessages(): void
         {
             $session = new Session();
             $session->destroy('message');
@@ -23,8 +30,10 @@ class AdminController extends Controller
 
         /**
          * This function sets the error message to be displayed
+         *
+         * @return void
          */
-        function setError($message)
+        function setError($message): void
         {
             $session = new Session();
             $session = $session->set('errors', ['errors' => $message]);
@@ -32,8 +41,10 @@ class AdminController extends Controller
 
         /**
          * This function sets the success message to be displayed
+         *
+         * @return void
          */
-        function setSuccess($message)
+        function setSuccess($message): void
         {
             $session = new Session();
             $session = $session->set('message', ['message' => $message]);
@@ -91,8 +102,12 @@ class AdminController extends Controller
         }
     }
 
-
-    public function signin()
+    /**
+     * This function is called when the user wants to log in
+     *
+     * @return void
+     */
+    public function signin(): void
     {
         if ($_POST['email'] != false && $_POST['password'] != false) {
             $email = htmlspecialchars($_POST['email']);
@@ -132,13 +147,20 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * This function opens the page where the admin can write a post
+     *
+     * @return void
+     */
     public function write(): void
     {
         $this->twig->display('/admin/write.html.twig');
     }
 
-    /***
+    /**
      * This function displays all the posts with the author's name
+     *
+     * @return void
      */
     public function index(): void
     {
@@ -151,8 +173,10 @@ class AdminController extends Controller
         $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
-    /***
+    /**
      * This function checks that the form is complete and then publishes the post
+     *
+     * @return void
      */
     public function publish(): void
     {
@@ -169,10 +193,10 @@ class AdminController extends Controller
         }
     }
 
-    /***
+    /**
      * This function selects a post and displays it
      *
-     * @param integer $postId the id of the post
+     * @param integer $postId The id of the post
      * @return void
      */
     public function edit(int $postId): void
@@ -182,7 +206,7 @@ class AdminController extends Controller
         $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
     }
 
-    /***
+    /**
      * This function is called when the admin finishes editing a post
      *
      * @param integer $postId the id of the post
@@ -202,10 +226,10 @@ class AdminController extends Controller
         header('Location: /?url=indexAdmin');
     }
 
-    /***
+    /**
      * This function is used to delete a post
      *
-     * @param integer $postId the id of the post
+     * @param integer $postId The id of the post
      * @return void
      */
     public function deletePost(int $postId): void
@@ -216,10 +240,10 @@ class AdminController extends Controller
         header('Location: /?url=indexAdmin');
     }
 
-    /***
+    /**
      * This function is called when the admin wants to display a post in the back office
      *
-     * @param integer $postId the id of the post
+     * @param integer $postId The id of the post
      * @return void
      */
     public function readPost(int $postId): void
@@ -232,8 +256,10 @@ class AdminController extends Controller
         $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
     }
 
-    /***
+    /**
      * This function is called when the admin logs out
+     *
+     * @return void
      */
     public function logout(): void
     {
@@ -241,8 +267,10 @@ class AdminController extends Controller
         header('Location: /?url=home');
     }
 
-    /***
+    /**
      * This function is called when a comment is created
+     *
+     * @return void
      */
     public function comment(): void
     {
@@ -256,8 +284,10 @@ class AdminController extends Controller
         $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
     }
 
-    /***
+    /**
      * This function is called when the admin wants to display all the comments in the back office
+     *
+     * @return void
      */
     public function commentIndex(): void
     {
@@ -276,10 +306,10 @@ class AdminController extends Controller
         $this->twig->display('/admin/comments.html.twig', ['commentsArray' => $commentsArray, 'comments' => $comments, 'post' => $post, 'user' => $user]);
     }
 
-    /***
+    /**
      * This function is called when the admin selects a comment
      *
-     * @param integer $commentId the id of the comment
+     * @param integer $commentId The id of the comment
      * @return void
      */
     public function readComment(int $commentId): void
@@ -294,10 +324,10 @@ class AdminController extends Controller
         $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
     }
 
-    /***
+    /**
      * This function is called when the admin validates a comment
      *
-     * @param integer $commentId the id of the comment
+     * @param integer $commentId The id of the comment
      * @return void
      */
     public function publishComment(int $commentId): void
@@ -311,10 +341,10 @@ class AdminController extends Controller
         header('Location: /?url=commentIndex');
     }
 
-    /***
+    /**
      * This function is called when the admin deletes a comment
      *
-     * @param integer $commentId the id of the comment
+     * @param integer $commentId The id of the comment
      * @return void
      */
     public function deleteComment(int $commentId): void

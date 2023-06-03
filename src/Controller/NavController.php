@@ -10,7 +10,7 @@ use David\Blogpro\Session\Session;
 
 class NavController extends Controller
 {
-    /***
+    /**
      * This function is called to display the homepage
      *
      * @return homepage
@@ -20,7 +20,7 @@ class NavController extends Controller
         $this->twig->display('/homepage.html.twig');
     }
 
-    /***
+    /**
      * This function is called to display the page listing all the posts
      *
      * @return void
@@ -36,13 +36,12 @@ class NavController extends Controller
         $this->twig->display('/posts/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
-    /***
+    /**
      * This function is called when the user wants to read a post
      *
      * @param integer $postId the id of the post
      * @return void
      */
-
     public function show(int $postId): void
     {
         $post = new PostRepository();
@@ -63,8 +62,10 @@ class NavController extends Controller
         $this->twig->display('/posts/show.html.twig', ['post' => $post, 'user' => $user, 'commentsWithAuthors' => $commentsWithAuthors]);
     }
 
-    /***
+    /**
      * This function is called when the user clicks on the connection link in the footer
+     *
+     * @return void
      */
     public function admin(): void
     {
@@ -74,8 +75,10 @@ class NavController extends Controller
         $this->twig->display('/admin/connection.html.twig');
     }
 
-    /***
+    /**
      * This fonction is called when the user fills in the form to send an email
+     *
+     * @return void
      */
     public function mail(): void
     {

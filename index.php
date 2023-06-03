@@ -14,7 +14,7 @@ $dotenv->load(__DIR__.'/.env');
 if (isset($_GET['url']) === true ) {
     
     $url = htmlspecialchars($_GET['url'], ENT_QUOTES,'UTF-8');
-    var_dump($url);
+
     $url = urldecode($url);
 
     $router = new Router($url);
