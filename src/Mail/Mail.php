@@ -17,23 +17,19 @@ class Mail
     {
         $mail = new PHPMailer(true);
         $message = wordwrap($message, 70);
+        
+        $mail->isSMTP();
+        $mail->Host = $_ENV['HOST'];
+        $mail->Port = $_ENV['PORT'];
 
-        try {
-            $mail->isSMTP();
-            $mail->Host = $_ENV['HOST'];
-            $mail->Port = $_ENV['PORT'];
+        $mail->setFrom($email, $name);
+        $mail->addAddress($_ENV['ADDRESS']);
 
-            $mail->setFrom($email, $name);
-            $mail->addAddress($_ENV['ADDRESS']);
+        $mail->isHTML(true);
+        $mail->Subject = $_ENV['SUBJECT'];
+        $mail->Body = $message;
 
-            $mail->isHTML(true);
-            $mail->Subject = $_ENV['SUBJECT'];
-            $mail->Body = $message;
-
-            $mail->send();
-            return true;
-        } catch (Exception $e) {
-            // echo "Message non envoyé : {$mail->ErrorInfo}";
-        }
+        $mail->send();
+        return true;
     }
 }

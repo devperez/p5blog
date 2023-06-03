@@ -2,7 +2,6 @@
 
 use David\Blogpro\Router\Router;
 use Symfony\Component\Dotenv\Dotenv;
-
 // constant aiming to the project root folder
 define('ROOT', dirname(__DIR__));
 
@@ -12,7 +11,7 @@ session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
-if (isset($_GET['url'])) {
+if (isset($_GET['url']) === true) {
     $url = htmlspecialchars($_GET['url']);
 
     $router = new Router($url);

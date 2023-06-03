@@ -82,18 +82,16 @@ class NavController extends Controller
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
             $message = htmlspecialchars($_POST['message']);
         }
-        
-        if (trim($name) === '' || trim($email) === '' || trim($message) === '') {
+        if ($email === false || trim($name) === '' || trim($email) === '' || trim($message) === '') {
             $error = 'Merci de bien vouloir remplir tous les champs du formulaire ou de fournir une adresse email valide.';
             $this->twig->display('homepage.html.twig', ['error' => $error]);
         }
-        if ($email === true) {
-            $mail = new Mail();
-            $mail = $mail->send($name, $email, $message);
-            if ($mail === true) {
-                $success = 'Mail envoyé avec succès !';
-                $this->twig->display('homepage.html.twig', ['success' => $success]);
-            }
+        
+        $mail = new Mail();
+        $mail = $mail->send($name, $email, $message);
+        if ($mail === true) {
+            $success = 'Mail envoyé avec succès !';
+            $this->twig->display('homepage.html.twig', ['success' => $success]);
         }
     }
 }
