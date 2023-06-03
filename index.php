@@ -11,12 +11,12 @@ session_start();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
-if (isset($_GET['url']) === true) {
+if (isset($_GET['url']) === true && filter_input(INPUT_GET, 'url', FILTER_SANITIZE_URL)) {
     $url = htmlspecialchars($_GET['url']);
-
+    
     $router = new Router($url);
 
-    $router->get('/', "Nav::homepage");
+    $router->get('/home', "Nav::homepage");
 
     $router->get('/posts', "Nav::index");
 
