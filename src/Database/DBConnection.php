@@ -3,23 +3,50 @@
 namespace David\Blogpro\Database;
 
 use PDO;
-use SensitiveParameter;
 
+/**
+ * This class handles the connection to the database
+ */
 class DBConnection
 {
-    /***
-     * @var string $pdo The database connection
-     * @var string $dbname The name of the database
-     * @var string $host The host
-     * @var string $username The username to connect to the database
-     * @var string $password To access the database
+    /**
+     * PDO connection to the database
+     *
+     * @var PDO|null
      */
     private $pdo;
+
+    /**
+     * The name of the database
+     *
+     * @var string
+     */
     private $dbname;
+
+    /**
+     * The database host
+     *
+     * @var string
+     */
     private $host;
+
+    /**
+     * The user name to connect to the database
+     *
+     * @var string
+     */
     private $username;
+
+    /**
+     * The password to connect to the database
+     *
+     * @var string
+     */
     private $password;
 
+    /**
+     * DBConnection class constructor
+     */
     public function __construct()
     {
         /***
