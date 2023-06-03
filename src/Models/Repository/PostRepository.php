@@ -4,12 +4,15 @@ namespace David\Blogpro\Models\Repository;
 
 use David\Blogpro\Models\Post;
 
+/**
+ * This is the repository class for the posts
+ */
 class PostRepository extends AbstractRepository
 {
-    /***
-     * This function is called when the user wants to display all the posts
+    /**
+     * Fetches all the posts
      *
-     * @return array
+     * @return array An array of all the posts
      */
     public function index(): array
     {
@@ -18,11 +21,11 @@ class PostRepository extends AbstractRepository
         return $posts;
     }
 
-    /***
-     * This function is called when the user selects a post
+    /**
+     * Fetches a post using its id
      *
-     * @param integer $postId the post id
-     * @return Post
+     * @param integer $postId The post id
+     * @return Post The post object
      */
     public function getOneById(int $postId): Post
     {
@@ -31,13 +34,13 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    /***
-     * This function is called when the admin stores a new post in the database
+    /**
+     * Stores a new post in the database
      *
-     * @param string $title the title of the post
-     * @param string $subtitle the subtitle of the post
-     * @param string $article the post
-     * @param integer $userId the id of the user
+     * @param string $title The title of the post
+     * @param string $subtitle The subtitle of the post
+     * @param string $article The post
+     * @param integer $userId The id of the user
      * @return void
      */
     public function create(string $title, string $subtitle, string $article, int $userId): void
@@ -46,13 +49,13 @@ class PostRepository extends AbstractRepository
         $post = $post->storePost($title, $subtitle, $article, $userId);
     }
 
-    /***
-     * This function is called when the user wants to update a post
+    /**
+     * Updates a post
      *
-     * @param integer $postId the id of the post
-     * @param string $title the title of the post
-     * @param string $subtitle the subtitle of the post
-     * @param string $content the content of the post
+     * @param integer $postId The id of the post
+     * @param string $title The title of the post
+     * @param string $subtitle The subtitle of the post
+     * @param string $content The content of the post
      * @return void
      */
     public function update(int $postId, string $title, string $subtitle, string $content): void
@@ -61,10 +64,10 @@ class PostRepository extends AbstractRepository
         $post = $post->updatePost($postId, $title, $subtitle, $content);
     }
 
-    /***
-     * This function is called when the admin deletes a post
+    /**
+     * Deletes a post
      *
-     * @param integer $postId the id of the post
+     * @param integer $postId The id of the post
      * @return void
      */
     public function deletePost(int $postId): void
