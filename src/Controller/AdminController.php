@@ -11,6 +11,28 @@ class AdminController extends Controller
 {
     public function signup()
     {
+        $errorMsg = ['errors' => ''];
+        $successMsg = ['message' => ''];
+
+        function destroyMessages()
+        {
+            $session = new Session();
+            $session->destroy('message');
+            $session->destroy('errors');
+        }
+
+        function setError($message)
+        {
+            $session = new Session();
+            $session = $session->set('errors', ['errors' => $message]);
+        }
+
+        function setSuccess($message)
+        {
+            $session = new Session();
+            $session = $session->set('message', ['message' => $message]);
+        }
+
         if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordConfirm'])) {
             $username = htmlspecialchars($_POST['username']);
             $email = htmlspecialchars($_POST['email']);
@@ -18,68 +40,52 @@ class AdminController extends Controller
             $passwordConfirm = sha1($_POST['passwordConfirm']);
             $usernameLength = strlen($username);
 
-            if ($usernameLength <= 255) {
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    if ($password === $passwordConfirm) {
-                        $user = new UserRepository();
-                        $user = $user->create($username, $email, $password);
-                        if (!$user) {
-                            $session = new Session();
-                            $session->destroy('message');
-                            $session->destroy('errors');
-                            $session = $session->set('errors', ['errors' => 'Cette adresse email est déjà utilisée.']);
-                            $this->twig->display('/admin/connection.html.twig');
-                            exit();
-                        } else {
-                            $session = new Session();
-                            $session->destroy('message');
-                            $session->destroy('errors');
-                            $session = $session->set('message', ['message' => 'Votre compte a bien été créé, vous pouvez vous connecter.']);
-                            $this->twig->display('/admin/connection.html.twig');
-                            exit();
-                        }
-                    } else {
-                        $session = new Session();
-                        $session->destroy('message');
-                        $session->destroy('errors');
-                        $session = $session->set('errors', ['errors' => 'La confirmation du mot de passe a échoué.']);
-                        $this->twig->display('/admin/connection.html.twig');
-                        exit();
-                    }
-                } else {
-                    $session = new Session();
-                    $session->destroy('message');
-                    $session->destroy('errors');
-                    $session = $session->set('errors', ['errors' => 'Votre adresse email n\'est pas valide.']);
-                    $this->twig->display('/admin/connection.html.twig');
-                    exit();
-                }
-            } else {
-                $session = new Session();
-                $session->destroy('message');
-                $session->destroy('errors');
-                $session = $session->set('errors', ['errors' => 'Votre nom d\'utilisateur n\'est pas valide.']);
+            $isValid = true;
+
+            if ($usernameLength > 255) {
+                $isValid = false;
+                setError("Votre nom d'utilisateur n'est pas valide.");
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $isValid = false;
+                setError("Votre adresse email n'est pas valide.");
+            }
+
+            if ($password !== $passwordConfirm) {
+                $isValid = false;
+                setError("La confirmation du mot de passe a échoué.");
+            }
+
+            if ($isValid === false) {
                 $this->twig->display('/admin/connection.html.twig');
                 exit();
             }
-        } elseif (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['passwordConfirm'])) {
-            $session = new Session();
-            $session->destroy('message');
-            $session->destroy('errors');
-            $session = $session->set('errors', ['errors' => 'Merci de bien vouloir compléter le formulaire en entier.']);
-            $this->twig->display('/admin/connection.html.twig');
-            exit();
+
+            if ($isValid) {
+                $userRepository = new UserRepository();
+                $user = $userRepository->create($username, $email, $password);
+            }
+            if ($user) {
+                destroyMessages();
+                setSuccess("Votre compte a bien été créé, vous pouvez vous connecter.");
+                $this->twig->display('/admin/connection.html.twig');
+            }
         }
-        if (!isset($user) || $user === null) {
-            $session = new Session();
-            $session->destroy('message');
-            $session->destroy('errors');
-            $session = $session->set('errors', ['errors' => 'Un problème est survenu lors de la création de votre compte. Merci de bien vouloir recommencer.']);
+        
+        if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['passwordConfirm'])) {
+            destroyMessages();
+            setError('Merci de bien vouloir compléter le formulaire en entier.');
             $this->twig->display('/admin/connection.html.twig');
-            exit();
         }
-        $this->twig->display('/admin/connection.html.twig');
+
+        if ($user === false) {
+            destroyMessages();
+            setError("Cette adresse email est déjà utilisée. Merci de bien vouloir recommencer.");
+            $this->twig->display('/admin/connection.html.twig');
+        }
     }
+
 
     public function signin()
     {
@@ -227,7 +233,7 @@ class AdminController extends Controller
     public function logout(): void
     {
         session_destroy();
-        header('Location: /?url=');
+        header('Location: /?url=home');
     }
 
     /***
