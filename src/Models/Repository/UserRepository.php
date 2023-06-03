@@ -5,13 +5,18 @@ namespace David\Blogpro\Models\Repository;
 use David\Blogpro\Models\User;
 use PDOStatement;
 
+/**
+ * Repository class for the users
+ */
 class UserRepository extends AbstractRepository
 {
-    /***
-     * @param string $username the name of the user
-     * @param string $email the email of the user
-     * @param string $password the password of the user
-     * @return boolean or pdostatement
+    /**
+     * Creates a new user in the database
+     *
+     * @param string $username The name of the user
+     * @param string $email The email of the user
+     * @param string $password The password of the user
+     * @return boolean|pdostatement Returns false if the user is not created and a PDOStatement if he is
      */
     public function create(string $username, string $email, string $password): bool|PDOStatement
     {
@@ -26,10 +31,12 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
-    /***
-     * @param string $email
-     * @param string $password
-     * @return array or boolean if no user found
+    /**
+     * Checks the username and the password of a user before connecting him
+     *
+     * @param string $email The email of the user
+     * @param string $password The password of the user
+     * @return array|boolean Returns array if user is found of false if he is not found in the database
      */
     public function signin(string $email, string $password): array|bool
     {
@@ -41,12 +48,12 @@ class UserRepository extends AbstractRepository
         return false;
     }
 
-    /***
-     * This function selects one user by taking its id as a parameter
+    /**
+     * Selects one user by taking its id as a parameter
      *
-     * @param integer $userId the id of the user
+     * @param integer $userId The id of the user
      *
-     * @return array
+     * @return array Returns an array with the user's details
      */
     public function getOne(int $userId): array
     {
@@ -55,9 +62,11 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
-    /***
-     * @param integer $usersId the ids of the users
-     * @return array
+    /**
+     * Fetches the authors of the comments using the user's id
+     *
+     * @param integer $usersId The id of the user
+     * @return array Returns an array with the user's details
      */
     public function getCommentAuthors(int $usersId): array
     {
