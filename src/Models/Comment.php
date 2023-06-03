@@ -6,20 +6,28 @@ use David\Blogpro\Database\DBConnection;
 use PDO;
 use PDOStatement;
 
+/**
+ * Model for the comments
+ */
 class Comment extends Model
 {
+    /**
+     * Creates a new instance of Comment
+     *
+     * @param DBConnection $db The database connection
+     */
     public function __construct(private readonly DBConnection $db)
     {
     }
 
 
-    /***
-     * This function stores a new comment in the database
+    /**
+     * Stores a new comment in the database
      *
-     * @param string $commentContent the content of the comment
-     * @param integer $userId the id of the user
-     * @param integer $postId the id of the post
-     * @return pdostatement
+     * @param string $commentContent The content of the comment
+     * @param integer $userId The id of the user
+     * @param integer $postId The id of the post
+     * @return pdostatement Returns a pdostatement object
      */
     public function create(string $commentContent, int $userId, int $postId): PDOStatement
     {
@@ -29,10 +37,10 @@ class Comment extends Model
     }
 
 
-    /***
-     * This function fetches all the comments and sorts them out unpublished first
+    /**
+     * Fetches all the comments and sorts them out unpublished first
      *
-     * @return array
+     * @return array Returns an array of all the comments
      */
     public function getAll(): array
     {
@@ -40,11 +48,11 @@ class Comment extends Model
         return $req->fetchAll();
     }
 
-    /***
-     * This function fetches a comment using its id
+    /**
+     * Fetches a comment using its id
      *
-     * @param integer $commentId the id of the comment
-     * @return array
+     * @param integer $commentId The id of the comment
+     * @return array Returns an array of the comment with its details
      */
     public function getById(int $commentId): array
     {
@@ -54,10 +62,10 @@ class Comment extends Model
         return $comment;
     }
 
-    /***
-     * This function updates a comment in the database using its id
+    /**
+     * Updates a comment in the database using its id
      *
-     * @param integer $commentId the id of the comment
+     * @param integer $commentId The id of the comment
      * @return void
      */
     public function updateComment(int $commentId): void
@@ -70,11 +78,11 @@ class Comment extends Model
         ]);
     }
 
-    /***
-     * This function fetches all comments related to a post using the id of the post
+    /**
+     * Fetches all comments related to a post using the id of the post
      *
-     * @param integer $postId the id of the post
-     * @return array
+     * @param integer $postId The id of the post
+     * @return array Returns an array of all the comments linked to a post
      */
     public function findByPostId(int $postId): array
     {
@@ -84,10 +92,10 @@ class Comment extends Model
         return $comment;
     }
 
-    /***
-     * This function deletes a comment in the database using its id
+    /**
+     * Deletes a comment in the database using its id
      *
-     * @param integer $commentId the id of the commment
+     * @param integer $commentId The id of the commment
      * @return void
      */
     public function destroy(int $commentId): void
