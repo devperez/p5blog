@@ -5,9 +5,14 @@ namespace David\Blogpro\Mail;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
+/**
+ * This class handles mail sending
+ */
 class Mail
 {
-    /***
+    /**
+     * This class handles mail sending
+     *
      * @param string $name the name of the user
      * @param string $email the email of the user
      * @param string $message the message of the user
