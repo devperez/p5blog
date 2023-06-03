@@ -145,7 +145,7 @@ class AdminController extends Controller
      */
     public function publish(): void
     {
-        if ($_POST['title'] && $_POST['subtitle'] && $_POST['content'] && $_POST['userId']) {
+        if (!empty($_POST['title']) && !empty($_POST['subtitle']) && !empty($_POST['content']) && !empty($_POST['userId'])) {
             $title = $_POST['title'];
             $subtitle = $_POST['subtitle'];
             $article = $_POST['content'];
