@@ -11,9 +11,9 @@ class AdminController extends Controller
 {
     public function signup()
     {
-        $errorMsg = ['errors' => ''];
-        $successMsg = ['message' => ''];
-
+        /**
+         * This function is called to refresh the messages displayed to the user
+         */
         function destroyMessages()
         {
             $session = new Session();
@@ -21,12 +21,18 @@ class AdminController extends Controller
             $session->destroy('errors');
         }
 
+        /**
+         * This function sets the error message to be displayed
+         */
         function setError($message)
         {
             $session = new Session();
             $session = $session->set('errors', ['errors' => $message]);
         }
 
+        /**
+         * This function sets the success message to be displayed
+         */
         function setSuccess($message)
         {
             $session = new Session();

@@ -10,6 +10,8 @@ class TwigSessionExtension extends AbstractExtension
 {
     /***
      * This function makes the other functions accessible from the twig vue
+     *
+     * @return array
      */
     public function getFunctions()
     {
@@ -22,6 +24,11 @@ class TwigSessionExtension extends AbstractExtension
             ];
     }
 
+    /***
+     * This function gets the name of the user stored in the session
+     *
+     * @return null is user is not logged in or the username if he is
+     */
     public function getUsername(): string|null
     {
         $session = new Session();
@@ -32,13 +39,24 @@ class TwigSessionExtension extends AbstractExtension
         return null;
     }
 
+    /***
+     * This function returns the id of the user
+     *
+     * @return integer The id of the user
+     */
+
     public function getUserId(): int
     {
         $session = new Session();
         $userSession = $session->get('user');
         return $userSession['id'];
     }
-
+    
+    /***
+     * This function is used to display errors to the user when he sign up or sign in
+     *
+     * @return string The error to be displayed or null if there is none
+     */
     public function getErrors(): string|null
     {
         $session = new Session();
@@ -46,6 +64,11 @@ class TwigSessionExtension extends AbstractExtension
         return isset($userErrors['errors']) ? $userErrors['errors'] : null;
     }
 
+    /***
+     * This function is used to display messages to the user when he sign up or sign in
+     *
+     * @return string The message to be displayed or null if there is none
+     */
     public function getMessage(): string|null
     {
         $session = new Session();
@@ -73,7 +96,7 @@ class TwigSessionExtension extends AbstractExtension
         $session = new Session();
         $user = $session->get('user');
         //var_dump($user);
-        if (isset($user['role']) && $user['role'] === 'admin') {
+        if (isset($user['role']) === true && $user['role'] === 'admin') {
             return true;
         } else {
             return false;

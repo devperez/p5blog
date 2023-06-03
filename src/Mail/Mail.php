@@ -8,9 +8,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 class Mail
 {
     /***
-     * @param string $name
-     * @param string $email
-     * @param string $message
+     * @param string $name the name of the user
+     * @param string $email the email of the user
+     * @param string $message the message of the user
      * @return boolean true if mail is sent
      */
     public function send(string $name, string $email, string $message): bool

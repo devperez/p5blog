@@ -12,6 +12,11 @@ class User extends Model
     {
     }
 
+    /***
+     * This function is called by the create user function, it prevents two accounts from having the same email
+     *
+     * @return array
+     */
     public function getAllEmails(): array
     {
         $req = $this->db->getPdo()->query("SELECT email FROM user");
@@ -24,9 +29,9 @@ class User extends Model
     }
 
     /***
-     * @param string $username
-     * @param string $email
-     * @param string $password
+     * @param string $username the name of the user
+     * @param string $email the email of the user
+     * @param string $password the password of the user
      * @return pdostatement
      */
     public function create(string $username, string $email, string $password): PDOStatement
@@ -55,7 +60,7 @@ class User extends Model
     }
 
     /***
-     * @param integer $userId
+     * @param integer $userId the id of the user
      * @return array
      */
     public function getById(int $userId): array
@@ -67,7 +72,7 @@ class User extends Model
     }
 
     /***
-     * @param integer $usersId
+     * @param integer $usersId the id of the user
      * @return array
      */
     public function getUsersByCommentId(int $usersId): array

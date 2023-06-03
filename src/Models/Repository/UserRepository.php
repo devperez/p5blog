@@ -8,19 +8,17 @@ use PDOStatement;
 class UserRepository extends AbstractRepository
 {
     /***
-     * @param string $username
-     * @param string $email
-     * @param string $password
+     * @param string $username the name of the user
+     * @param string $email the email of the user
+     * @param string $password the password of the user
      * @return boolean or pdostatement
      */
-
-
     public function create(string $username, string $email, string $password): bool|PDOStatement
     {
         $mails = new User($this->db);
         $mails = $mails->getAllEmails();
 
-        if (in_array($email, $mails)) {
+        if (in_array($email, $mails) === true) {
             return $user = false;
         }
         $user = new User($this->db);
@@ -39,9 +37,8 @@ class UserRepository extends AbstractRepository
         $user = $user->getOne($email, $password);
         if ($user) {
             return $user;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /***
@@ -59,7 +56,7 @@ class UserRepository extends AbstractRepository
     }
 
     /***
-     * @param integer $usersId
+     * @param integer $usersId the ids of the users
      * @return array
      */
     public function getCommentAuthors(int $usersId): array

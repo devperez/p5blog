@@ -22,6 +22,8 @@ class NavController extends Controller
 
     /***
      * This function is called to display the page listing all the posts
+     *
+     * @return void
      */
     public function index(): void
     {
@@ -77,7 +79,7 @@ class NavController extends Controller
      */
     public function mail(): void
     {
-        if ($_POST['name'] !== null && $_POST['email'] !== null && $_POST['message'] !== null) {
+        if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message'])) {
             $name = htmlspecialchars($_POST['name']);
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
             $message = htmlspecialchars($_POST['message']);
@@ -86,7 +88,6 @@ class NavController extends Controller
             $error = 'Merci de bien vouloir remplir tous les champs du formulaire ou de fournir une adresse email valide.';
             $this->twig->display('homepage.html.twig', ['error' => $error]);
         }
-        
         $mail = new Mail();
         $mail = $mail->send($name, $email, $message);
         if ($mail === true) {

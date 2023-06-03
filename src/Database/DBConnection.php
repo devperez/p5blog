@@ -8,11 +8,11 @@ use SensitiveParameter;
 class DBConnection
 {
     /***
-     * @property string $pdo The database connection
-     * @property string $dbname The name of the database
-     * @property string $host The host
-     * @property string $username The username to connect to the database
-     * @property string $password To access the database
+     * @var string $pdo The database connection
+     * @var string $dbname The name of the database
+     * @var string $host The host
+     * @var string $username The username to connect to the database
+     * @var string $password To access the database
      */
     private $pdo;
     private $dbname;
@@ -22,14 +22,19 @@ class DBConnection
 
     public function __construct()
     {
+        /***
+         * Here the PDO variables are getting linked to the environment variables
+         */
         $this->dbname = $_ENV['DB_NAME'];
         $this->host = $_ENV['DB_HOST'];
         $this->username = $_ENV['DB_USER'];
         $this->password = $_ENV['DB_PASS'];
     }
 
-    /**
+    /***
      * This function uses the database variables to establish a connection
+     *
+     * @return PDO
      */
     public function getPdo(): PDO
     {

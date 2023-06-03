@@ -7,8 +7,8 @@ class Session
     /***
      * This function is called when the user logs in
      *
-     * @param string $key the array key
-     * @param array $value the value of the key
+     * @param string $key This is the array key
+     * @param array $value This is the value of the key
      * @return void
      */
     public function set(string $key, array $value): void

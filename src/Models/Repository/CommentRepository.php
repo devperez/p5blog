@@ -8,9 +8,11 @@ use PDOStatement;
 class CommentRepository extends AbstractRepository
 {
     /***
-     * @param string $commentContent
-     * @param integer $userId
-     * @param integer $postId
+     * This function is called when a new comment is getting created
+     *
+     * @param string $commentContent the comment itself
+     * @param integer $userId the if of the user
+     * @param integer $postId the if of the commented post
      * @return pdoStatement
      */
     public function create(string $commentContent, int $userId, int $postId): PDOStatement
@@ -32,7 +34,7 @@ class CommentRepository extends AbstractRepository
     }
 
     /***
-     * This function get a specific comment taking its id as a parameter
+     * This function gets a specific comment taking its id as a parameter
      *
      * @param integer $commentId
      *
