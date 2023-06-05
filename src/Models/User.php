@@ -79,17 +79,4 @@ class User extends Model
         $user = $user->fetch();
         return $user;
     }
-
-    /**
-     *
-     * @param integer $usersId the id of the user
-     * @return array
-     */
-    // public function getUsersByCommentId(int $usersId): array
-    // {
-    //     var_dump($usersId);
-    //     $req = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
-    //     $req->execute([$usersId]);
-    //     return $req->fetchAll();
-    // }
 }
