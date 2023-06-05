@@ -2,20 +2,38 @@
 
 namespace David\Blogpro\Router;
 
+/**
+ * Class Router
+ *
+ * Represents a router that handles routes and executes the corresponding route based on HTTP method.
+ */
 class Router
 {
+    /**
+     * @var string The current URL.
+     */
     private string $url;
 
+    /**
+     * @var array The registered routes.
+     */
     private array $routes = [];
 
+    /**
+     * Router constructor.
+     *
+     * @param string $url The current URL.
+     */
     public function __construct(string $url)
     {
         $this->url = $url;
     }
 
-    /***
-     * @param string $path the url
-     * @param string $callable the controller's method
+    /**
+     * Register a GET route.
+     *
+     * @param string $path The URL pattern for the route.
+     * @param string $callable The callable associated with the route.
      * @return void
      */
     public function get(string $path, string $callable): void
@@ -24,9 +42,11 @@ class Router
         $this->routes['GET'][] = $route;
     }
 
-    /***
-     * @param string $path the url
-     * @param string $callable the controller's method
+    /**
+     * Register a POST route.
+     *
+     * @param string $path The URL pattern for the route
+     * @param string $callable The callable associated with the route
      * @return void
      */
     public function post(string $path, string $callable): void
@@ -36,7 +56,10 @@ class Router
     }
 
     /**
-     * This function checks if the route exists and if there is a match calls the call function
+     * Run the router and execute the appropriate route.
+     *
+     * @return mixed The result of the route call.
+     * @throws RouterException If no matching routes are found.
      */
     public function run()
     {

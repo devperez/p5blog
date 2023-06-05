@@ -68,10 +68,11 @@ class UserRepository extends AbstractRepository
      * @param integer $usersId The id of the user
      * @return array Returns an array with the user's details
      */
-    public function getCommentAuthors(int $usersId): array
-    {
-        $user = new User($this->db);
-        $users = $user->getUsersByCommentId($usersId);
-        return $users;
-    }
+    // public function getCommentAuthors(int $usersId): array
+    // {
+    //     var_dump(($usersId));
+    //     $user = new User($this->db);
+    //     $users = $user->getUsersByCommentId($usersId);
+    //     return $users;
+    // }
 }

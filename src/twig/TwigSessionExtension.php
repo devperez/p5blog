@@ -6,12 +6,17 @@ use David\Blogpro\Session\Session;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+/**
+ * Class TwigSessionExtension
+ *
+ * Provides additional Twig functions to access session data.
+ */
 class TwigSessionExtension extends AbstractExtension
 {
-    /***
-     * This function makes the other functions accessible from the twig vue
+    /**
+     * Make the functions accessible from Twig views.
      *
-     * @return array
+     * @return array An array of Twig functions.
      */
     public function getFunctions()
     {
@@ -24,10 +29,10 @@ class TwigSessionExtension extends AbstractExtension
             ];
     }
 
-    /***
-     * This function gets the name of the user stored in the session
+    /**
+     * Get the username of the logged-in user in the session.
      *
-     * @return null is user is not logged in or the username if he is
+     * @return string|null The username if the user is logged in, otherwise null.
      */
     public function getUsername(): string|null
     {
@@ -39,10 +44,10 @@ class TwigSessionExtension extends AbstractExtension
         return null;
     }
 
-    /***
-     * This function returns the id of the user
+    /**
+     * Get the ID of the logged-in user
      *
-     * @return integer The id of the user
+     * @return int The id of the user
      */
 
     public function getUserId(): int
@@ -52,10 +57,10 @@ class TwigSessionExtension extends AbstractExtension
         return $userSession['id'];
     }
     
-    /***
-     * This function is used to display errors to the user when he sign up or sign in
+    /**
+     * Get the error message to be displayed to the user
      *
-     * @return string The error to be displayed or null if there is none
+     * @return string|null The error message if there is one, otherwise null.
      */
     public function getErrors(): string|null
     {
@@ -64,10 +69,10 @@ class TwigSessionExtension extends AbstractExtension
         return isset($userErrors['errors']) ? $userErrors['errors'] : null;
     }
 
-    /***
-     * This function is used to display messages to the user when he sign up or sign in
+    /**
+     * Get the message to be displayed to the user.
      *
-     * @return string The message to be displayed or null if there is none
+     * @return string The message if there is one, otherwise null.
      */
     public function getMessage(): string|null
     {
@@ -76,30 +81,32 @@ class TwigSessionExtension extends AbstractExtension
         return isset($userMessage['message']) ? $userMessage['message'] : null;
     }
 
-    /***
-     * This function checks if the user is logged
+    /**
+     * Checks if the user is logged in.
      *
-     * @return boolean
+     * @return bool True if the user is logged in, false otherwise.
      */
     public function isUserLogged(): bool
     {
         $user = $this->getUsername();
         if (!$user) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
+    /**
+     * Check if the user is an admin.
+     *
+     * @return bool True if the user is an admin, false otherwise.
+     */
     public function isUserAdmin(): bool
     {
         $session = new Session();
         $user = $session->get('user');
-        //var_dump($user);
         if (isset($user['role']) === true && $user['role'] === 'admin') {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }

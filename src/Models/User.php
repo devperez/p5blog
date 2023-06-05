@@ -6,14 +6,17 @@ use David\Blogpro\Database\DBConnection;
 use David\Blogpro\Session\Session;
 use PDOStatement;
 
+/**
+ * The user model
+ */
 class User extends Model
 {
     public function __construct(private readonly DBConnection $db)
     {
     }
 
-    /***
-     * This function is called by the create user function, it prevents two accounts from having the same email
+    /**
+     * Fetches all the emails from the user table
      *
      * @return array
      */
@@ -28,11 +31,13 @@ class User extends Model
         return $emails;
     }
 
-    /***
-     * @param string $username the name of the user
-     * @param string $email the email of the user
-     * @param string $password the password of the user
-     * @return pdostatement
+    /**
+     * Creates a new user in the database
+     *
+     * @param string $username The name of the user
+     * @param string $email The email of the user
+     * @param string $password The password of the user
+     * @return pdostatement The user newly created
      */
     public function create(string $username, string $email, string $password): PDOStatement
     {
@@ -41,10 +46,12 @@ class User extends Model
         return $user;
     }
 
-    /***
-     * @param string $email
-     * @param string $password
-     * @return array if user found or boolean
+    /**
+     * Selects a user in the user table
+     *
+     * @param string $email The email of the user
+     * @param string $password The password of the user
+     * @return array|bool Returns the user if found and false if not found
      */
     public function getOne(string $email, string $password): array|bool
     {
@@ -59,9 +66,11 @@ class User extends Model
         return $user;
     }
 
-    /***
-     * @param integer $userId the id of the user
-     * @return array
+    /**
+     * Fetches a user thanks to his id
+     *
+     * @param integer $userId The id of the user
+     * @return array Returns an array of the user with his details
      */
     public function getById(int $userId): array
     {
@@ -71,14 +80,16 @@ class User extends Model
         return $user;
     }
 
-    /***
+    /**
+     *
      * @param integer $usersId the id of the user
      * @return array
      */
-    public function getUsersByCommentId(int $usersId): array
-    {
-        $req = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
-        $req->execute([$usersId]);
-        return $req->fetchAll();
-    }
+    // public function getUsersByCommentId(int $usersId): array
+    // {
+    //     var_dump($usersId);
+    //     $req = $this->db->getPdo()->prepare("SELECT * FROM user WHERE id = ?");
+    //     $req->execute([$usersId]);
+    //     return $req->fetchAll();
+    // }
 }

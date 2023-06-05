@@ -2,13 +2,18 @@
 
 namespace David\Blogpro\Session;
 
+/**
+ * Class Session
+ *
+ * Represents a session handler.
+ */
 class Session
 {
-    /***
-     * This function is called when the user logs in
+    /**
+     * Sets a value in the session.
      *
-     * @param string $key This is the array key
-     * @param array $value This is the value of the key
+     * @param string $key The array key.
+     * @param array $value The value of the key
      * @return void
      */
     public function set(string $key, array $value): void
@@ -16,21 +21,21 @@ class Session
         $_SESSION[$key] = $value;
     }
 
-    /***
-     * This function is called when there is a need to check if the session has a certain key
+    /**
+     * Gets a value from the session.
      *
-     * @param string key the array key
-     * @return boolean true or null
+     * @param string $key the array key
+     * @return mixed|null The value of the key if it exists, otherwise null.
      */
     public function get(string $key)
     {
         return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
 
-    /***
-     * This function is called when logging out
+    /**
+     * Destroys a value in the session.
      *
-     * @param string key the array key
+     * @param string $key the array key.
      * @return void
      */
     public function destroy(string $key): void
