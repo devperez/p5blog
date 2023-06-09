@@ -275,7 +275,7 @@ class AdminController extends Controller
      *
      * @return void
      */
-    public function comment(): void
+    public function comment()
     {
         if (isset($_POST['comment']) && isset($_POST['userId']) && isset($_POST['postId'])) {
             $commentContent = htmlspecialchars($_POST['comment']);
@@ -284,10 +284,11 @@ class AdminController extends Controller
             if (!empty($commentContent) && strlen($commentContent) < 500) {
                 $comment = new CommentRepository();
                 $comment = $comment->create($commentContent, $userId, $postId);
+            } else {
+                return $this->twig->display('/posts/index.html.twig', ['comment' => 'Il y a eu une erreur. Merci de bien vouloir recommencer.']);
             }
-            $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
         }
-        //TODO:message d'erreur
+        $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
     }
 
     /**
