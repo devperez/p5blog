@@ -49,8 +49,8 @@ class DBConnection
      */
     public function __construct()
     {
-        /***
-         * Here the PDO variables are getting linked to the environment variables
+        /**
+         * Link PDO variables to the environment variables
          */
         $this->dbname = $_ENV['DB_NAME'];
         $this->host = $_ENV['DB_HOST'];
@@ -58,8 +58,8 @@ class DBConnection
         $this->password = $_ENV['DB_PASS'];
     }
 
-    /***
-     * This function uses the database variables to establish a connection
+    /**
+     * Using database variables to establish a connection
      *
      * @return PDO
      */
