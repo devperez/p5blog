@@ -114,12 +114,12 @@ class AdminController extends Controller
      */
     public function signin(): void
     {
-        if ($_POST['email'] != false && $_POST['password'] != false) {
+        if ($_POST['email'] !== false && $_POST['password'] !== false) {
             $email = htmlspecialchars($_POST['email']);
             $password = sha1($_POST['password']);
             $user = new UserRepository();
             $user = $user->signin($email, $password);
-            if ($user == false) {
+            if ($user === false) {
                 $this->twig->display('/admin/connection.html.twig');
             } else {
                 switch ($user['role']) {
