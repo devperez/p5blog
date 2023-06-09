@@ -8,10 +8,13 @@ use David\Blogpro\Models\Repository\PostRepository;
 use David\Blogpro\Models\Repository\UserRepository;
 use David\Blogpro\Session\Session;
 
+/**
+ * The NavController handles the public part of the site
+ */
 class NavController extends Controller
 {
     /**
-     * This function is called to display the homepage
+     * Displays the homepage
      *
      * @return homepage
      */
@@ -21,7 +24,7 @@ class NavController extends Controller
     }
 
     /**
-     * This function is called to display the page listing all the posts
+     * Displays all the posts
      *
      * @return void
      */
@@ -37,9 +40,9 @@ class NavController extends Controller
     }
 
     /**
-     * This function is called when the user wants to read a post
+     * Displays a post
      *
-     * @param integer $postId the id of the post
+     * @param integer $postId The id of the post
      * @return void
      */
     public function show(int $postId): void
@@ -63,7 +66,7 @@ class NavController extends Controller
     }
 
     /**
-     * This function is called when the user clicks on the connection link in the footer
+     * Displays the connection page
      *
      * @return void
      */
@@ -76,7 +79,7 @@ class NavController extends Controller
     }
 
     /**
-     * This fonction is called when the user fills in the form to send an email
+     * Sends an email
      *
      * @return void
      */

@@ -7,17 +7,20 @@ use David\Blogpro\Models\Repository\PostRepository;
 use David\Blogpro\Models\Repository\UserRepository;
 use David\Blogpro\Session\Session;
 
+/**
+ * The admin class controller
+ */
 class AdminController extends Controller
 {
     /**
-     * This function is called when the user creates an account
+     * Creates an account
      *
      * @return void
      */
     public function signup(): void
     {
         /**
-         * This function is called to refresh the messages displayed to the user
+         * Refresh the messages displayed to the user
          *
          * @return void
          */
@@ -29,7 +32,7 @@ class AdminController extends Controller
         }
 
         /**
-         * This function sets the error message to be displayed
+         * Sets the error message to be displayed
          *
          * @return void
          */
@@ -40,7 +43,7 @@ class AdminController extends Controller
         }
 
         /**
-         * This function sets the success message to be displayed
+         * Sets the success message to be displayed
          *
          * @return void
          */
@@ -103,7 +106,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when the user wants to log in
+     * Logs in the user
      *
      * @return void
      */
@@ -148,7 +151,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function opens the page where the admin can write a post
+     * Fetches the page where the admin can write a post
      *
      * @return void
      */
@@ -158,7 +161,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function displays all the posts with the author's name
+     * Displays all the posts with the author's name
      *
      * @return void
      */
@@ -174,7 +177,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function checks that the form is complete and then publishes the post
+     * Checks the form is complete and then publishes the post
      *
      * @return void
      */
@@ -194,7 +197,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function selects a post and displays it
+     * Displays a post
      *
      * @param integer $postId The id of the post
      * @return void
@@ -207,9 +210,9 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when the admin finishes editing a post
+     * Edits a post
      *
-     * @param integer $postId the id of the post
+     * @param integer $postId The id of the post
      * @return void
      */
     public function editPost(int $postId): void
@@ -227,7 +230,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is used to delete a post
+     * Deletes a post
      *
      * @param integer $postId The id of the post
      * @return void
@@ -241,7 +244,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when the admin wants to display a post in the back office
+     * Displays a post in the back office
      *
      * @param integer $postId The id of the post
      * @return void
@@ -257,7 +260,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when the admin logs out
+     * Logging out
      *
      * @return void
      */
@@ -268,24 +271,27 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when a comment is created
+     * Comment creation
      *
      * @return void
      */
     public function comment(): void
     {
-        $commentContent = htmlspecialchars($_POST['comment']);
-        $userId = htmlspecialchars($_POST['userId']);
-        $postId = htmlspecialchars($_POST['postId']);
-        if (!empty($commentContent) && strlen($commentContent) < 500) {
-            $comment = new CommentRepository();
-            $comment = $comment->create($commentContent, $userId, $postId);
+        if (isset($_POST['comment']) && isset($_POST['userId']) && isset($_POST['postId'])) {
+            $commentContent = htmlspecialchars($_POST['comment']);
+            $userId = htmlspecialchars($_POST['userId']);
+            $postId = htmlspecialchars($_POST['postId']);
+            if (!empty($commentContent) && strlen($commentContent) < 500) {
+                $comment = new CommentRepository();
+                $comment = $comment->create($commentContent, $userId, $postId);
+            }
+            $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
         }
-        $this->twig->display('/posts/index.html.twig', ['comment' => 'Votre commentaire a bien été enregistré. Il sera publié après modération.']);
+        //TODO:message d'erreur
     }
 
     /**
-     * This function is called when the admin wants to display all the comments in the back office
+     * Display all the comments in the back office
      *
      * @return void
      */
@@ -307,7 +313,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when the admin selects a comment
+     * Diplays one comment
      *
      * @param integer $commentId The id of the comment
      * @return void
@@ -325,7 +331,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when the admin validates a comment
+     * Comment validation
      *
      * @param integer $commentId The id of the comment
      * @return void
@@ -342,7 +348,7 @@ class AdminController extends Controller
     }
 
     /**
-     * This function is called when the admin deletes a comment
+     * Deletes a comment
      *
      * @param integer $commentId The id of the comment
      * @return void
