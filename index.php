@@ -5,7 +5,7 @@ use Symfony\Component\Dotenv\Dotenv;
 // constant aiming to the project root folder
 define('ROOT', dirname(__DIR__));
 
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 session_start();
 $dotenv = new Dotenv();
