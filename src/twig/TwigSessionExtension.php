@@ -20,13 +20,14 @@ class TwigSessionExtension extends AbstractExtension
      */
     public function getFunctions()
     {
-        return [new TwigFunction('getUsername', [$this, 'getUsername']),
-                new TwigFunction('getUserId', [$this, 'getUserId']),
-                new TwigFunction('getErrors', [$this, 'getErrors']),
-                new TwigFunction('isUserLogged', [$this, 'isUserLogged']),
-                new TwigFunction('isUserAdmin', [$this, 'isUserAdmin']),
-                new TwigFunction('getMessage', [$this, 'getMessage']),
-            ];
+        return [
+            new TwigFunction('getUsername', [$this, 'getUsername']),
+            new TwigFunction('getUserId', [$this, 'getUserId']),
+            new TwigFunction('getErrors', [$this, 'getErrors']),
+            new TwigFunction('isUserLogged', [$this, 'isUserLogged']),
+            new TwigFunction('isUserAdmin', [$this, 'isUserAdmin']),
+            new TwigFunction('getMessage', [$this, 'getMessage']),
+        ];
     }
 
     /**
@@ -56,7 +57,7 @@ class TwigSessionExtension extends AbstractExtension
         $userSession = $session->get('user');
         return $userSession['id'];
     }
-    
+
     /**
      * Get the error message to be displayed to the user
      *

@@ -72,7 +72,8 @@ class DBConnection
                 "mysql:dbname={$this->dbname};host={$this->host}",
                 $this->username,
                 $this->password,
-                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 ]
             );
         }

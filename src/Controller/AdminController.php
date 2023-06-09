@@ -34,6 +34,7 @@ class AdminController extends Controller
         /**
          * Sets the error message to be displayed
          *
+         * @param string $message The message to be displayed
          * @return void
          */
         function setError($message): void
@@ -45,6 +46,7 @@ class AdminController extends Controller
         /**
          * Sets the success message to be displayed
          *
+         * @param string $message The message to be displayed
          * @return void
          */
         function setSuccess($message): void
@@ -91,7 +93,7 @@ class AdminController extends Controller
                 $this->twig->display('/admin/connection.html.twig');
             }
         }
-        
+
         if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['passwordConfirm'])) {
             destroyMessages();
             setError('Merci de bien vouloir compléter le formulaire en entier.');
@@ -239,7 +241,7 @@ class AdminController extends Controller
     {
         $post = new PostRepository();
         $post = $post->deletePost($postId);
-    
+
         header('Location: /?url=indexAdmin');
     }
 
@@ -255,7 +257,7 @@ class AdminController extends Controller
         $post = $post->getOneById($postId);
         $userId = $post->user_id;
         $user = $post->getAuthorName($userId);
-        
+
         $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
     }
 
@@ -327,7 +329,7 @@ class AdminController extends Controller
         $user = $user->getOne($comment['user_id']);
         $post = new PostRepository();
         $post = $post->getOneById($comment['post_id']);
-        
+
         $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
     }
 

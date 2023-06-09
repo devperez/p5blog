@@ -9,11 +9,11 @@ require 'vendor/autoload.php';
 
 session_start();
 $dotenv = new Dotenv();
-$dotenv->load(__DIR__.'/.env');
+$dotenv->load(__DIR__ . '/.env');
 
-if (isset($_GET['url']) === true ) {
-    
-    $url = htmlspecialchars($_GET['url'], ENT_QUOTES,'UTF-8');
+if (isset($_GET['url']) === true) {
+
+    $url = htmlspecialchars($_GET['url'], ENT_QUOTES, 'UTF-8');
 
     $url = urldecode($url);
 

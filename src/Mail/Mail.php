@@ -22,7 +22,7 @@ class Mail
     {
         $mail = new PHPMailer(true);
         $message = wordwrap($message, 70);
-        
+
         $mail->isSMTP();
         $mail->Host = $_ENV['HOST'];
         $mail->Port = $_ENV['PORT'];

@@ -27,7 +27,7 @@ abstract class Model
      */
     public function all(): array
     {
-        $req = $this->db->getPdo()->query("SELECT * FROM {$this->getTableName() } ORDER BY created_at DESC");
+        $req = $this->db->getPdo()->query("SELECT * FROM {$this->getTableName()} ORDER BY created_at DESC");
         $req->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
         return $req->fetchAll();
     }
@@ -40,7 +40,7 @@ abstract class Model
      */
     public function findById(int $id): Model
     {
-        $req = $this->db->getPdo()->prepare("SELECT * FROM {$this->getTableName() } WHERE id = ?");
+        $req = $this->db->getPdo()->prepare("SELECT * FROM {$this->getTableName()} WHERE id = ?");
         $req->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
         $req->execute([$id]);
         return $req->fetch();
