@@ -71,6 +71,8 @@ class Router
                 return $route->call();
             }
         }
-        throw new RouterException('No matching routes');
+        $exception = new RouterException('No matching routes');
+        $exception->render404();
+        throw $exception;
     }
 }

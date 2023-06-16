@@ -12202,3 +12202,14 @@ header.masthead .post-heading .meta a {
     font-size: 2.25rem;
   }
 }
+
+.custom-image-wrapper {
+  display:flex;
+  justify-content:center;
+}
+
+.text_container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
