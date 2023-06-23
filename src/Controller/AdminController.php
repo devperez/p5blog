@@ -282,7 +282,7 @@ class AdminController extends Controller
         $session = new Session();
         $user = $session->get('user');
         $role = $user['role'];
-        
+
         if ($role === 'admin') {
             $post = new PostRepository();
             $post = $post->deletePost($postId);
