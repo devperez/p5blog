@@ -2,6 +2,7 @@
 
 Blogpro is my professional blog dedicated to web development. This project is part of my OpenClassRooms training to become a fully fledged web developer. This is my 5th project.
 - Technologies :
+  
   ![PHP Badge](https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=fff&style=plastic) (mainly)
 
   ![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=plastic) (a bit)
