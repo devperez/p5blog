@@ -159,7 +159,15 @@ class AdminController extends Controller
      */
     public function write(): void
     {
-        $this->twig->display('/admin/write.html.twig');
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+
+        if ($role === 'admin') {
+            $this->twig->display('/admin/write.html.twig');
+        } else {
+            $this->twig->display('/homepage.html.twig');
+        }
     }
 
     /**
@@ -169,13 +177,21 @@ class AdminController extends Controller
      */
     public function index(): void
     {
-        $posts = new PostRepository();
-        $posts = $posts->index();
-        foreach ($posts as $post) {
-            $userId = $post->user_id;
-            $user = $post->getAuthorName($userId);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+
+        if ($role === 'admin') {
+            $posts = new PostRepository();
+            $posts = $posts->index();
+            foreach ($posts as $post) {
+                $userId = $post->user_id;
+                $user = $post->getAuthorName($userId);
+            }
+            $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user]);
+        } else {
+            $this->twig->display('/homepage.html.twig');
         }
-        $this->twig->display('/admin/index.html.twig', ['posts' => $posts, 'user' => $user]);
     }
 
     /**
@@ -185,16 +201,24 @@ class AdminController extends Controller
      */
     public function publish(): void
     {
-        if (!empty($_POST['title']) && !empty($_POST['subtitle']) && !empty($_POST['content']) && !empty($_POST['userId'])) {
-            $title = $_POST['title'];
-            $subtitle = $_POST['subtitle'];
-            $article = $_POST['content'];
-            $userId = $_POST['userId'];
-            if (strlen($title) < 255) {
-                $post = new PostRepository();
-                $post = $post->create($title, $subtitle, $article, $userId);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+
+        if ($role === 'admin') {
+            if (!empty($_POST['title']) && !empty($_POST['subtitle']) && !empty($_POST['content']) && !empty($_POST['userId'])) {
+                $title = $_POST['title'];
+                $subtitle = $_POST['subtitle'];
+                $article = $_POST['content'];
+                $userId = $_POST['userId'];
+                if (strlen($title) < 255) {
+                    $post = new PostRepository();
+                    $post = $post->create($title, $subtitle, $article, $userId);
+                }
+                header('Location: /?url=indexAdmin');
             }
-            header('Location: /?url=indexAdmin');
+        } else {
+            $this->twig->display('/homepage.html.twig');
         }
     }
 
@@ -206,9 +230,17 @@ class AdminController extends Controller
      */
     public function edit(int $postId): void
     {
-        $post = new PostRepository();
-        $post = $post->getOneById($postId);
-        $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+
+        if ($role === 'admin') {
+            $post = new PostRepository();
+            $post = $post->getOneById($postId);
+            $this->twig->display('/admin/edit.html.twig', ['post' => $post]);
+        } else {
+            $this->twig->display('/homepage.html.twig');
+        }
     }
 
     /**
@@ -219,16 +251,24 @@ class AdminController extends Controller
      */
     public function editPost(int $postId): void
     {
-        if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
-            $title = $_POST['title'];
-            $subtitle = $_POST['subtitle'];
-            $article = $_POST['content'];
-            if (strlen($title) < 255) {
-                $post = new PostRepository();
-                $post = $post->update($postId, $title, $subtitle, $article);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+
+        if ($role === 'admin') {
+            if ($_POST['title'] && $_POST['subtitle'] && $_POST['content']) {
+                $title = $_POST['title'];
+                $subtitle = $_POST['subtitle'];
+                $article = $_POST['content'];
+                if (strlen($title) < 255) {
+                    $post = new PostRepository();
+                    $post = $post->update($postId, $title, $subtitle, $article);
+                }
             }
+            header('Location: /?url=indexAdmin');
+        } else {
+            $this->twig->display('/homepage.html.twig');
         }
-        header('Location: /?url=indexAdmin');
     }
 
     /**
@@ -239,10 +279,18 @@ class AdminController extends Controller
      */
     public function deletePost(int $postId): void
     {
-        $post = new PostRepository();
-        $post = $post->deletePost($postId);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+        
+        if ($role === 'admin') {
+            $post = new PostRepository();
+            $post = $post->deletePost($postId);
 
-        header('Location: /?url=indexAdmin');
+            header('Location: /?url=indexAdmin');
+        } else {
+            $this->twig->display('/homepage.html.twig');
+        }
     }
 
     /**
@@ -253,12 +301,20 @@ class AdminController extends Controller
      */
     public function readPost(int $postId): void
     {
-        $post = new PostRepository();
-        $post = $post->getOneById($postId);
-        $userId = $post->user_id;
-        $user = $post->getAuthorName($userId);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
 
-        $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
+        if ($role === 'admin') {
+            $post = new PostRepository();
+            $post = $post->getOneById($postId);
+            $userId = $post->user_id;
+            $user = $post->getAuthorName($userId);
+
+            $this->twig->display('/admin/read.html.twig', ['post' => $post, 'user' => $user]);
+        } else {
+            $this->twig->display('/homepage.html.twig');
+        }
     }
 
     /**
@@ -300,37 +356,53 @@ class AdminController extends Controller
      */
     public function commentIndex(): void
     {
-        $comments = new CommentRepository();
-        $comments = $comments->index();
-        $users = new UserRepository();
-        $posts = new PostRepository();
-        $commentsArray = [];
-        foreach ($comments as $comment) {
-            $userId = $comment['user_id'];
-            $postId = $comment['post_id'];
-            $post = $posts->getOneById($postId);
-            $user = $users->getOne($userId);
-            array_push($commentsArray, ['post' => $post->title, 'user' => $user['username'], 'comment' => $comment]);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+
+        if ($role === 'admin') {
+            $comments = new CommentRepository();
+            $comments = $comments->index();
+            $users = new UserRepository();
+            $posts = new PostRepository();
+            $commentsArray = [];
+            foreach ($comments as $comment) {
+                $userId = $comment['user_id'];
+                $postId = $comment['post_id'];
+                $post = $posts->getOneById($postId);
+                $user = $users->getOne($userId);
+                array_push($commentsArray, ['post' => $post->title, 'user' => $user['username'], 'comment' => $comment]);
+            }
+            $this->twig->display('/admin/comments.html.twig', ['commentsArray' => $commentsArray, 'comments' => $comments, 'post' => $post, 'user' => $user]);
+        } else {
+            $this->twig->display('/homepage.html.twig');
         }
-        $this->twig->display('/admin/comments.html.twig', ['commentsArray' => $commentsArray, 'comments' => $comments, 'post' => $post, 'user' => $user]);
     }
 
     /**
-     * Diplays one comment
+     * Displays one comment
      *
      * @param integer $commentId The id of the comment
      * @return void
      */
     public function readComment(int $commentId): void
     {
-        $comment = new CommentRepository();
-        $comment = $comment->getOneById($commentId);
-        $user = new UserRepository();
-        $user = $user->getOne($comment['user_id']);
-        $post = new PostRepository();
-        $post = $post->getOneById($comment['post_id']);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
 
-        $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
+        if ($role === 'admin') {
+            $comment = new CommentRepository();
+            $comment = $comment->getOneById($commentId);
+            $user = new UserRepository();
+            $user = $user->getOne($comment['user_id']);
+            $post = new PostRepository();
+            $post = $post->getOneById($comment['post_id']);
+
+            $this->twig->display('/admin/commentShow.html.twig', ['comment' => $comment, 'user' => $user, 'post' => $post]);
+        } else {
+            $this->twig->display('/homepage.html.twig');
+        }
     }
 
     /**
@@ -341,13 +413,21 @@ class AdminController extends Controller
      */
     public function publishComment(int $commentId): void
     {
-        $comment = new CommentRepository();
-        $comment = $comment->getOneById($commentId);
-        $commentId = $comment['id'];
-        $comment = new CommentRepository();
-        $comment = $comment->publish($commentId);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
 
-        header('Location: /?url=commentIndex');
+        if ($role === 'admin') {
+            $comment = new CommentRepository();
+            $comment = $comment->getOneById($commentId);
+            $commentId = $comment['id'];
+            $comment = new CommentRepository();
+            $comment = $comment->publish($commentId);
+
+            header('Location: /?url=commentIndex');
+        } else {
+            $this->twig->display('/homepage.html.twig');
+        }
     }
 
     /**
@@ -358,12 +438,20 @@ class AdminController extends Controller
      */
     public function deleteComment(int $commentId): void
     {
-        $comment = new CommentRepository();
-        $comment = $comment->getOneById($commentId);
-        $commentId = $comment['id'];
-        $comment = new CommentRepository();
-        $comment = $comment->delete($commentId);
+        $session = new Session();
+        $user = $session->get('user');
+        $role = $user['role'];
+
+        if ($role === 'admin') {
+            $comment = new CommentRepository();
+            $comment = $comment->getOneById($commentId);
+            $commentId = $comment['id'];
+            $comment = new CommentRepository();
+            $comment = $comment->delete($commentId);
 
         header('Location: /?url=commentIndex');
+        } else {
+            $this->twig->display('/homepage.html.twig');
+        }
     }
 }

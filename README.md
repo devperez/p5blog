@@ -46,7 +46,8 @@ NOTES :
 - Only the admin can have access to the back office. All the user accounts have the same password which is 123456.
 
 ## Usage
-Make sure Apache is running. Open your favourite browser and go to this address : http://blogpro/?url=home.
+Make sure Apache is running. Open your favourite browser and if you have configured a virtualhost named blogpro, you can go to this address : http://blogpro/?url=home. Otherwise, use instead of blogpro the name of your virtualhost.
+
 You can browse the blog freely. With MailHog running, you can complete the form and send an email.
 If you want to leave a comment, you can pick a registered account or create a new one.
 Registered accounts :
