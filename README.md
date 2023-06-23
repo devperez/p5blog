@@ -39,6 +39,7 @@ You can then reach your inbox following the address given by the script. Usually
 
 ### Database
 Open your PhpMyAdmin and import the .sql file which is in the root folder of the project. This should install the database with some articles, comments and users.
+There is a .envExample file given with the project. You should rename it .env and complete the details according to your configuration.
 
 NOTES :
 - The articles have been AI generated in order not to waste time and to provide something else than Lorem Ipsum texts.

@@ -1,0 +1,11 @@
+#Database config
+DB_USER=
+DB_PASS=
+DB_HOST=127.0.0.1:3306
+DB_NAME=blogpro
+
+#PHPMailer config
+HOST=localhost
+PORT=1025
+ADDRESS=contact@blogpro.fr
+SUBJECT='Demande de renseignement'
