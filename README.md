@@ -1,4 +1,4 @@
-# Blogpro
+# Blogpro [![Codacy Badge](https://app.codacy.com/project/badge/Grade/39c55fed98ba40408cc400b33056bde4)](https://app.codacy.com/gh/devperez/p5blog/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 Blogpro is my professional blog dedicated to web development. This project is part of my OpenClassRooms training to become a fully fledged web developer. This is my 5th project.
 - Technologies :
