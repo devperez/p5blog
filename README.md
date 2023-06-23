@@ -48,7 +48,7 @@ NOTES :
 ## Usage
 Make sure Apache is running. Open your favourite browser and go to this address : http://blogpro/?url=home.
 You can browse the blog freely. With MailHog running, you can complete the form and send an email.
-If you want want to leave a comment, you can pick a registered account or create a new one.
+If you want to leave a comment, you can pick a registered account or create a new one.
 Registered accounts :
 
  Login             | password 
