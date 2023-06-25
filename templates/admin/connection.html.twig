@@ -1,0 +1,54 @@
+<html>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link href="/css/connexionForm.css" rel="stylesheet"/>
+
+	<body>
+		<section>
+			<div class="container">
+				<div class="user signinBx">
+					<div class="imgBx">
+						<img src="/assets/47dz53.jpg" alt="pic1">
+					</div>
+					<div class="formBx">
+						<form method="POST" action="/?url=signin">
+							<h2>Connectez-vous</h2>
+							<input type="email" name="email" placeholder="Email">
+							<input type="password" name="password" placeholder="Mot de passe">
+							<input type="submit" value="Envoyer">
+							<p class="signup">Vous n'avez pas de compte ?
+								<a href="#" onclick="toggleForm()">Créer un compte.</a>
+							</p>
+						</form>
+					</div>
+				</div>
+
+
+				<div class="user signupBx">
+					<div class="formBx">
+						<form method="POST" action="/?url=signup">
+							<h2>Créez un compte</h2>
+							<input type="text" name="username" placeholder="Nom d'utilisateur">
+							<input type="email" name="email" placeholder="Email">
+							<input type="password" name="password" placeholder="Mot de passe">
+							<input type="password" name="passwordConfirm" placeholder="Confirmez le mot de passe">
+							<input type="submit" value="Envoyer" class="btn2">
+
+							<p class="signin">Vous avez déjà un compte ?
+								<a href="#" onclick="toggleForm()">Connectez-vous.</a>
+							</p>
+						</form>
+					</div>
+					<div class="imgBx">
+						<img src="/assets/dumbo-5212670_1920.jpg" alt="pic1">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<p class="error">{{ getErrors() }}</p>
+		<p class="message">{{ getMessage() }}</p>
+
+		<a class="homeLink" href="/?url=home">Revenir sur le blog</a>
+	</body>
+</html>
+<script src="/js/connexionForm.js"></script>

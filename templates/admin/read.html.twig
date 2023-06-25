@@ -1,0 +1,24 @@
+{% extends "dashboard.html.twig" %}
+{% block body %}
+
+	<h1 class="m-4 text-center">Consulter l'article "{{ post.title }}"</h1>
+	<article class="mb-4">
+		<div class="container px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<h1 class="mb-4">{{ post.title }}</h1>
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<h3 class="mt-4 mb-4">{{ post.subtitle }}</h3>
+					{{ post.content|raw }}
+				</div>
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<hr>
+					<p>Publié par
+						{{ user }}
+						&middot; le
+						{{ post.getCreatedAt() }}</p>
+				</div>
+			</div>
+		</div>
+	</article>
+
+{% endblock %}

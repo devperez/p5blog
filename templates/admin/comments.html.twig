@@ -1,0 +1,40 @@
+{% extends "dashboard.html.twig" %}
+{% block body %}
+	<div class="container-fluid px-4">
+		<div class="table-responsive">
+			<table class="table table-hover caption-top">
+				<caption>Liste des commentaires</caption>
+				<thead>
+					<tr>
+						<th scope="col">Nom de l'utilisateur</th>
+						<th scope="col">Titre de l'article</th>
+						<th scope="col">Commentaire</th>
+						<th scope="col">Publié</th>
+						<th scope="col">Date</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for comments in commentsArray %}
+						<tr>
+							<td>{{ comments.user }}</td>
+							<td>{{ comments.post }}</td>
+							<td>{{ comments.comment.comment }}</td>
+							{% if comments.comment.published == 1 %}
+								<td style="color:green">Oui</td>
+							{% else %}
+								<td style="color:red">Non</td>
+							{% endif %}
+							<td>{{ comments.comment.created_at }}</td>
+							<td>
+								<a class="link" title="Consulter cet article" href="/?url=readComment/{{ comments.comment.id }}">
+									<i class="fa-solid fa-eye"></i>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

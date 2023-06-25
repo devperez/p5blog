@@ -1,0 +1,26 @@
+{
+    "name": "david/blogpro",
+    "autoload": {
+        "psr-4": {
+            "David\\Blogpro\\": "src/",
+            "Database\\": "database/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David",
+            "email": "david.perez@upmycard.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.5.1",
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "require-dev": {
+        "symplify/easy-coding-standard": "^11.2",
+        "symfony/dotenv": "^6.2"
+    },
+    "scripts" : {
+        "ecs" : "vendor/bin/ecs check src/ --fix"
+    }
+}

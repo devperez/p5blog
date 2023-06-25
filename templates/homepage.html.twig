@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<!-- Main Content-->
+	<main class="mb-4">
+		<div class="container px-4 px-lg-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-auto">
+						<img src="/assets/profil.png" alt="picture of David Perez">
+					</div>
+					<div class="col">
+						<p>Bienvenue sur mon blog professionnel dédié au développement web ! Je suis David Perez, développeur web. Vous trouverez sur ce site une mine d'informations, de conseils et de ressources pour vous guider dans le vaste monde du développement web. Que vous soyez un débutant curieux ou un développeur expérimenté à la recherche de nouvelles tendances et de meilleures pratiques, vous êtes au bon endroit.</p>
+						<p>Vous pouvez consulter tous les articles librement, toutefois il vous faudra créer gratuitement un compte pour pouvoir laisser des commentaires.</p>
+					</div>
+				</div>
+				<div class="row gx-4 gx-lg-5 justify-content-center">
+					<div class="col-md-10 col-lg-8 col-xl-7">
+						<p>Vous souhaitez me contacter ? Remplissez et envoyez le formulaire ci-dessous et je reviendrai vers vous dans les meilleurs délais !</p>
+						<p>Vous pouvez également télécharger mon CV en cliquant
+							<a href="/assets/CV.pdf" download="CV.pdf">ici</a>.</p>
+						<div class="my-5">
+							<form action="/?url=sendMail" method="post">
+								<div class="form-floating">
+									<input class="form-control" type="text" name="name" placeholder="Enter your name..."/>
+									<label for="name">Prénom et nom</label>
+									<div class="invalid-feedback" data-sb-feedback="name:required">Vous devez donner vos nom et prénom.</div>
+								</div>
+								<div class="form-floating">
+									<input class="form-control" type="email" name="email" placeholder="Enter your email..."/>
+									<label for="email">Adresse email</label>
+								</div>
+								<div class="form-floating">
+									<textarea class="form-control" name="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
+									<label for="message">Message</label>
+								</div>
+								<br/>
+								<input class="btn btn-primary text-uppercase" type="submit" value="Envoyer"/>
+							</form>
+						</div>
+						{% if success %}
+							<div class="flash">
+								<p class="alert alert-success">{{ success }}</p>
+							</div>
+						{% endif %}
+						{% if error %}
+							<div class="flash">
+								<p class="alert alert-danger">{{ error }}</p>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

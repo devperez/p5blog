@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<!-- Post Content-->
+	<div class="container">
+		<article class="mb-4">
+			<div class="container px-4 px-lg-5">
+				<div class="row gx-4 gx-lg-5 justify-content-center">
+					<h1 class="mb-4">{{ post.title }}</h1>
+					<div class="col-md-10 col-lg-8 col-xl-7">
+						<h3 class="mt-4 mb-4">{{ post.subtitle }}</h3>
+						{{ post.content|raw }}
+					</div>
+					<div class="col-md-10 col-lg-8 col-xl-7">
+						<hr>
+						<p>Publié par
+							{{ user }}
+							&middot; le
+							{{ post.getCreatedAt() }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+</div>
+
+{% if isUserLogged() is same as true %}
+	<hr>
+	<!-- Comment block -->
+	<div class="container mb-2">
+		<h3>Vous pouvez laisser un commentaire :</h3>
+		<form action="/?url=comment" method="post">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="Nom" id="name" value="{{ getUsername() }}" disabled>
+				<label for="name" class="form-label">Votre nom d'utilisateur</label>
+			</div>
+			<div class="mb-3">
+				<label for="formControlTextarea1" class="form-label">Votre commentaire</label>
+				<textarea class="form-control" name="comment" id="formControlTextarea1" rows="5"></textarea>
+			</div>
+			<input type="text" style="display:none" name="userId" value="{{ getUserId() }}">
+			<input type="text" style="display:none" name="postId" value="{{ post.id }}">
+
+			<input type='submit' class="btn btn-primary btn-lg" value="Envoyer">
+		</form>
+	</div>
+{% endif %}
+
+<div class="container mb-2">
+
+	{% for comments in commentsWithAuthors %}
+		<p class="authorName">Commentaire de l'utilisateur
+			{{ comments.author }}</p>
+		{% for comment in comments %}
+
+			<div class="container m-2">
+				<p>{{ comment.comment }}</p>
+				<p>{{ comment.created_at }}</p>
+
+			</div>
+
+		{% endfor %}
+
+	{% endfor %}
+</div>{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "dashboard.html.twig" %}
+{% block body %}
+	<div class="container">
+		<h2 class="m-4 text-center">Rédiger un nouvel article</h2>
+		<form method="post" action="/?url=publishPost">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="title" id="title" placeholder="Le titre de votre article">
+				<label for="title" class="form-label">Titre</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Le chapô de votre article">
+				<label for="subtitle" class="form-label">Chapô</label>
+			</div>
+			<div class="mb-3">
+				<label for="exampleFormControlTextarea1" class="form-label">Votre article</label>
+				<textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="15"></textarea>
+			</div>
+			<input type="text" style="display:none" name="userId" value="{{ getUserId() }}">
+			<input type='submit' class="btn btn-primary btn-lg" value="Envoyer">
+		</form>
+	</div>
+{% endblock %}

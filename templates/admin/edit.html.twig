@@ -1,0 +1,23 @@
+{% extends "dashboard.html.twig" %}
+{% block body %}
+
+	<div class="container">
+		<h2 class="m-4 text-center">Éditer un article:</h2>
+		<form method="post" action="/?url=editPost/{{ post.id }}">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="title" id="title" value="{{ post.title }}">
+				<label for="title" class="form-label">Titre</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="subtitle" id="subtitle" value="{{ post.subtitle }}">
+				<label for="subtitle" class="form-label">Chapô</label>
+			</div>
+			<div class="mb-3">
+				<label for="exampleFormControlTextarea1" class="form-label">Votre article</label>
+				<textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="15">{{ post.content }}</textarea>
+			</div>
+			<input type='submit' class="btn btn-primary btn-lg" value="Envoyer">
+		</form>
+	</div>
+
+{% endblock %}
