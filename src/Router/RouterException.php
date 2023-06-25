@@ -14,7 +14,7 @@ class RouterException extends \Exception
     public function render404()
     {
         header("HTTP/1.0 404 Not Found");
-        include('templates/404.html');
+        include 'templates/404.html';
         exit();
     }
 }
